@@ -9,16 +9,15 @@ class VerifyAccount extends React.Component{
     componentDidMount() {
         const token = this.props.match.params.token;
         console.log('VERIFY THIS', token);
-        window.location = '/logout';
         users.verifyAccount(token)
             .then(res => {
-                console.log(res);
-                alert('Your account has been confirmed!');
+                console.log('Result', res);
+                alert('Your account has been confirmed! Please log in.');
                 window.location = '/logout';
             })
             .catch(err => {
-                console.log(err);
-                alert('There was a problem verifying you account!');
+                if(err.response.data.msg) alert(err.response.data.msg);
+                else alert('There was a problem verifying this account!');
                 window.location = '/'
             });
     }
