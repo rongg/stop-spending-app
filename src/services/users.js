@@ -33,6 +33,13 @@ export function verifyAccount(token){
     });
 }
 
+export function resendVerificationToken(){
+    return http.request({
+        method: 'post',
+        url: apiUrl + '/resend/verification',
+    });
+}
+
 export const schema = {
     _id: Joi.string().max(25),
     name: Joi.string().min(3).max(50).required().label("Name"),
@@ -40,4 +47,4 @@ export const schema = {
     password: Joi.string().min(5).max(25).required().label("Password")
 };
 
-export default {register, update, schema, verifyAccount};
+export default {register, update, schema, verifyAccount, resendVerificationToken};

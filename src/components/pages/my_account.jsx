@@ -18,7 +18,7 @@ class MyAccount extends React.Component {
                     <p><span className='font-weight-bold'> Email:</span> {email}</p>
                     <p><span className='font-weight-bold'> Verified:</span> {isVerified &&
                     <span>yes</span>}{!isVerified && <span>No<br/>
-                    <a href={'/user/verify/resend'}>Resend Email</a></span>}</p>
+                    <a href={'/account/resend/verification'}>Resend Email</a></span>}</p>
                 </div>
                 <br/>
                 <a href='/account/edit'>Edit</a>

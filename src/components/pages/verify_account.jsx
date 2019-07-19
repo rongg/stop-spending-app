@@ -8,10 +8,8 @@ class VerifyAccount extends React.Component{
 
     componentDidMount() {
         const token = this.props.match.params.token;
-        console.log('VERIFY THIS', token);
         users.verifyAccount(token)
             .then(res => {
-                console.log('Result', res);
                 alert('Your account has been confirmed! Please log in.');
                 window.location = '/logout';
             })

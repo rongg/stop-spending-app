@@ -20,6 +20,7 @@ import DeleteExpense from "./components/pages/delete_expense";
 import Register from "./components/pages/create_account";
 import auth from './services/auth';
 import VerifyAccount from "./components/pages/verify_account";
+import ResendToken from "./components/pages/resend_token";
 
 
 class App extends React.Component {
@@ -112,6 +113,11 @@ class App extends React.Component {
 
                         <Route path="/account/verify/:token" exact render={props => {
                             return <VerifyAccount {...props}/>
+                        }}/>
+
+                        <Route path="/account/resend/verification" exact  render={props => {
+                            if (!user) return <Redirect to="/login"/>;
+                            return <ResendToken user={user} {...props} />;
                         }}/>
                     </Switch>
                 </div>
