@@ -1,20 +1,18 @@
 import React from 'react';
-import Joi from 'joi-browser';
+import users from '../../services/users';
 import Form from '../common/form';
-import auth from '../../services/auth';
+import Joi from "joi-browser";
 
-class LoginForm extends Form {
+class ResetPasswordRequest extends Form{
 
     constructor(props) {
         super(props);
         this.state = {
             data: {
-                email: '',
-                password: ''
+                email: ''
             },
             errors: {
-                email: null,
-                password: null
+                email: null
             },
             formHelp: this.state.formHelp
         };
@@ -24,23 +22,18 @@ class LoginForm extends Form {
     }
 
     schema = {
-        email: Joi.string().min(5).max(50).required().email().label("Email"),
-        password: Joi.string().min(5).max(25).required().label("Password")
+        email: Joi.string().min(5).max(50).required().email().label("Email")
     };
 
     render() {
 
         return <div className="form">
-            <h1>Login</h1>
+            <h1>Reset Password</h1>
             <form aria-describedby="formHelp">
                 <div className="form-fields">
                     {this.renderInput('email', 'Email', "text", 'email',true)}
-                    {this.renderInput('password', 'Password', "password")}
                 </div>
-                {this.renderButton('Login')}
-                <div>
-                    <a href='/account/reset/password'>Forgot Password?</a>
-                </div>
+                {this.renderButton('Submit')}
                 <div className={"form-group"}>
                     {this.renderHelp()}
                 </div>
@@ -49,16 +42,17 @@ class LoginForm extends Form {
     }
 
     postForm() {
-        const {email, password} = this.state.data;
-        auth.login(email, password).then(response => {
-            auth.loginWithJwt(response.data);
+        const {email} = this.state.data;
+        users.requestPasswordReset(email).then(response => {
+            console.log(response);
             this.setState({
                 errors: {
                     count: 0
                 },
                 formHelp: 'Success!'
             });
-            window.location = '/habits';
+            alert('A link to reset your password was sent to ' + email);
+            // window.location = '/login';
         }).catch(err => {
             let helpMessage = 'There was a problem with your submission!';
             if (err.response && err.response.status === 400) {
@@ -68,7 +62,7 @@ class LoginForm extends Form {
                     errors: {
                         count: errorDetails.length
                     },
-                    formHelp: 'Invalid username or password!'
+                    formHelp: 'Email is invalid or does not exist!'
                 });
             } else {
                 helpMessage = 'An unexpected problem occurred when submitting the request!';
@@ -85,4 +79,4 @@ class LoginForm extends Form {
     }
 }
 
-export default LoginForm;
+export default ResetPasswordRequest;

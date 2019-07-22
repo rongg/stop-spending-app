@@ -40,6 +40,28 @@ export function resendVerificationToken(){
     });
 }
 
+function requestPasswordReset(email){
+    return http.request({
+        method: 'post',
+        url: apiUrl + '/reset/password',
+        headers: {
+            'Content-Type': 'application/json'
+        },
+        data: {email}
+    });
+}
+
+function resetPassword(userId, password, token){
+    return http.request({
+        method: 'post',
+        url: apiUrl + '/reset/password/' + token,
+        headers: {
+            'Content-Type': 'application/json'
+        },
+        data: {userId, password}
+    });
+}
+
 export const schema = {
     _id: Joi.string().max(25),
     name: Joi.string().min(3).max(50).required().label("Name"),
@@ -47,4 +69,4 @@ export const schema = {
     password: Joi.string().min(5).max(25).required().label("Password")
 };
 
-export default {register, update, schema, verifyAccount, resendVerificationToken};
+export default {register, update, schema, verifyAccount, resendVerificationToken, requestPasswordReset, resetPassword};
