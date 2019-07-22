@@ -72,24 +72,36 @@ class ResetPassword extends Form{
             if (err.response && err.response.status === 400) {
                 // Expected errors
                 const errorDetails = err.response.data.details;
-                const error = errorDetails[0];
-                let errorType = error.type.split('.');
-                if (errorType[0] === "passwordComplexity") {
-                    this.setState({
-                        errors: {
-                            count: errorDetails.length,
-                            password: 'Passwords are case-sensitive, be at least 5 characters in length, and must contain at least one lowercase letter and one number.'
-                        },
-                        formHelp: helpMessage
-                    })
-                } else {
-                    this.setState({
-                        errors: {
-                            count: errorDetails.length,
-                            password: error.path[0] === 'password' ? error.message : null
-                        },
-                        formHelp: helpMessage
-                    })
+                if(errorDetails) {
+                    const error = errorDetails[0];
+                    let errorType = error.type.split('.');
+                    if (errorType[0] === "passwordComplexity") {
+                        this.setState({
+                            errors: {
+                                count: errorDetails.length,
+                                password: 'Passwords are case-sensitive, be at least 5 characters in length, and must contain at least one lowercase letter and one number.'
+                            },
+                            formHelp: helpMessage
+                        })
+                    } else {
+                        this.setState({
+                            errors: {
+                                count: errorDetails.length,
+                                password: error.path[0] === 'password' ? error.message : null
+                            },
+                            formHelp: helpMessage
+                        })
+                    }
+                }else{
+                    //  issue with token
+                    if(err.response.data.result && err.response.data.result === 'not-verified'){
+                        this.setState({
+                            errors: {
+                                count: 1
+                            },
+                            formHelp: 'You password has either been reset already or the link has expired!'
+                        });
+                    }
                 }
             } else {
                 helpMessage = 'An unexpected problem occurred when submitting the request!';
