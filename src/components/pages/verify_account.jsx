@@ -14,7 +14,7 @@ class VerifyAccount extends React.Component{
                 window.location = '/logout';
             })
             .catch(err => {
-                if(err.response.data.msg) alert(err.response.data.msg);
+                if(err.response.data.msg) alert(`You're account has either already been verified or the link has expired!`);
                 else alert('There was a problem verifying this account!');
                 window.location = '/'
             });

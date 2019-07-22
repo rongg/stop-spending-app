@@ -95,12 +95,8 @@ class ResetPassword extends Form{
                 }else{
                     //  issue with token
                     if(err.response.data.result && err.response.data.result === 'not-verified'){
-                        this.setState({
-                            errors: {
-                                count: 1
-                            },
-                            formHelp: 'You password has either been reset already or the link has expired!'
-                        });
+                        alert('You\'re password has either been reset already or the link has expired!');
+                        window.location = '/login';
                     }
                 }
             } else {
