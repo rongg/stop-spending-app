@@ -52,7 +52,7 @@ class ResetPasswordRequest extends Form{
                 formHelp: 'Success!'
             });
             alert('A link to reset your password was sent to ' + email);
-            // window.location = '/login';
+            window.location = '/login';
         }).catch(err => {
             let helpMessage = 'There was a problem with your submission!';
             if (err.response && err.response.status === 400) {
