@@ -1,6 +1,7 @@
 import {apiEndpoint} from '../api';
 import http from './httpService';
 import Joi from "joi-browser";
+import moment from "moment";
 
 const apiUrl = apiEndpoint + '/expenses';
 
@@ -36,10 +37,10 @@ export function deleteExpense(id){
     });
 }
 
-export function get(){
+export function get(start, end){
     return http.request({
         method: 'get',
-        url: apiUrl
+        url: apiUrl + '?start=' + moment(start).utc() + '&end=' + moment(end).utc()
     });
 }
 
@@ -50,10 +51,10 @@ export function getForId(id){
     });
 }
 
-export function getForHabit(habitId){
+export function getForHabit(habitId, start, end){
     return http.request({
         method: 'get',
-        url: apiUrl + "?habitId=" + habitId
+        url: apiUrl + "?habitId=" + habitId + "&start=" + start + "&end=" + end
     });
 }
 

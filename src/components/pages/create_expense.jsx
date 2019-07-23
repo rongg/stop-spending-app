@@ -95,8 +95,9 @@ class CreateExpense extends Form {
             });
             window.location = expense.habitId ? '/habit/' + expense.habitId : '/expenses';
         }).catch(err => {
+            console.log(err.response);
             let helpMessage = 'There was a problem with your submission!';
-            if (err.response && err.response.status === 400) {
+            if (err.response && err.response.status === 400 && err.response.data.details) {
                 const errorDetails = err.response.data.details;
                 const error = errorDetails[0];
                 this.setState({
