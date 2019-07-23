@@ -32,7 +32,7 @@ class MyHabit extends React.Component {
                 <a href={'/habit/' + _id + '/expense/new'}>Log an Expense</a>
                 <br/>
                 <br/>
-                <Week habit={this.state.habit}/>
+                <Week habitId={this.props.match.params.id}/>
             </div>
         </div>
     }

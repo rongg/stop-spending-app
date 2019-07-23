@@ -11,7 +11,6 @@ class Week extends React.Component {
     state = {
         start: moment().startOf('isoWeek'),
         end: moment().endOf('isoWeek'),
-        habit: this.props.habit,
         expenses: [],
         habits: [],
         week: [[], [], [], [], [], [], []]    //  [monday: [], tuesday: [], ..., sunday: []]
@@ -25,17 +24,19 @@ class Week extends React.Component {
     }
 
     componentDidMount() {
-        if (this.state.habit) this.getExpensesForHabit();
+        if (this.props.habitId) this.getExpensesForHabit();
         else this.getExpenses();
     }
 
     // Get expenses for a user's habit
     getExpensesForHabit() {
-        const {start, end, week, habit} = this.state;
+        const {start, end, week} = this.state;
+        const habitId = this.props.habitId;
 
-        expenses.getForHabit(habit._id, start, end)
+        axios.all([expenses.getForHabit(habitId, start, end), habits.getForId(habitId)])
             .then(res => {
-                let expenses = res.data;
+                let expenses = res[0].data;
+                const habit = res[1].data;
                 expenses = expenses.map(expense => {
                     expense.habit = habit;
                     return expense;
@@ -85,8 +86,6 @@ class Week extends React.Component {
             let mDate = moment(expenses[i].date);
             week[mDate.get('day') - 1].push(expenses[i]);   //  - 1 is for converting back from iso day value
         }
-
-        console.log(week);
     }
 
     incrementWeek(num) {
@@ -145,14 +144,6 @@ class Week extends React.Component {
                 <div className="col day-column">
                     <div className="day-title">Sunday</div>
                 </div>
-                {/*{this.state.expenses.map((expense, index) => (*/}
-                {/*<div className="col-lg-4 col-md-6 col-sm-12" style={{margin: '15px 0'}} key={'habit-card-' + index}>*/}
-                {/*<ExpenseCard expense={expense}*/}
-                {/*link={expense.habitId ? '/habit/' + expense.habitId + '/expense/' + expense._id : '/expense/' + expense._id}*/}
-                {/*icon={expense.habit && expense.habit.icon ? expense.habit.icon : expenses.getDefaultIcon()}*/}
-                {/*height='124px'/>*/}
-                {/*</div>*/}
-                {/*))}*/}
             </div>
         </div>
     }
