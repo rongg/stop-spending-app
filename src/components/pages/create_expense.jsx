@@ -73,6 +73,7 @@ class CreateExpense extends Form {
                         {this.renderInput('amount', 'I Spent', "number", 'amount', true)}
                         {this.renderInput('name', '...on', "text", 'description')}
                         {this.renderSelect(habitOptions, 'habitId', 'Spending Habit')}
+                        {this.renderDatePicker('date', 'Date')}
                     </div>
                     {this.renderButton('Log It!')}
                     <div className={"form-group"}>

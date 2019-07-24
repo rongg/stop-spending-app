@@ -4,6 +4,7 @@ import expenses from "../../services/expenses";
 import habits from "../../services/habits";
 import HabitCard from "../habit/habit_card";
 import axios from 'axios';
+import moment from 'moment';
 
 class EditExpense extends Form {
     constructor(props) {
@@ -15,6 +16,7 @@ class EditExpense extends Form {
                 name: '',
                 amount: '',
                 habitId: '',
+                date: moment()
             },
             habit: {
                 _id: '',
@@ -26,7 +28,8 @@ class EditExpense extends Form {
             errors: {
                 userId: null,
                 name: null,
-                amount: null
+                amount: null,
+                date: null
             },
             formHelp: this.state.formHelp
         };
@@ -77,6 +80,7 @@ class EditExpense extends Form {
                         {this.renderInput('amount', 'I Spent', 'number', 'amount', true)}
                         {this.renderInput('name', '...on', 'text', 'description')}
                         {this.renderSelect(habitOptions, 'habitId', 'Spending Habit')}
+                        {this.renderDatePicker('date', 'Date')}
                     </div>
                     {this.renderButton('Save')}
                     <div className={"form-group"}>

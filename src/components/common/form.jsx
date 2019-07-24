@@ -1,7 +1,10 @@
 import React from 'react';
-import Joi from 'joi-browser'
+import Joi from 'joi-browser';
+import DatePicker from 'react-datepicker';
+import "react-datepicker/dist/react-datepicker.css";
 import InputGroup from "../common/input_group";
 import SelectGroup from "../common/select_group";
+import moment from 'moment';
 
 class Form extends React.Component {
     state = {
@@ -14,6 +17,7 @@ class Form extends React.Component {
         super(props);
         this.handleCreate = this.handleCreate.bind(this);
         this.handleChange = this.handleChange.bind(this);
+        this.handleDateChange = this.handleDateChange.bind(this);
     }
 
     render() {
@@ -32,7 +36,21 @@ class Form extends React.Component {
     renderSelect(options, name, label) {
         const {data} = this.state;
 
-        return <SelectGroup options={options || []} name={name} label={label} value={data[name]} onChange={this.handleChange}/>
+        return <SelectGroup options={options || []} name={name} label={label} value={data[name]}
+                            onChange={this.handleChange}/>
+    }
+
+    renderDatePicker(name, label) {
+        const {data, errors} = this.state;
+        return <div className="form-group">
+            <label htmlFor={name}>{label}</label><br/>
+            <DatePicker
+                selected={moment(data[name]).toDate()}
+                onChange={this.handleDateChange}
+            />
+            <small id={name + 'help'} className={errors[name] ? 'red error-message' : 'hidden'}>{errors[name]}
+            </small>
+        </div>
     }
 
     renderHelp() {
@@ -81,6 +99,15 @@ class Form extends React.Component {
             data: formData,
             errors: {...this.state.errors}
         });
+    }
+
+    handleDateChange(date){
+        const formData = this.state.data;
+        formData.date = date;
+        this.setState({
+            data: formData,
+            errors: {...this.state.errors}
+        })
     }
 }
 
