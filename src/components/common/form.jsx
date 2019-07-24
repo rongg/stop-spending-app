@@ -45,6 +45,9 @@ class Form extends React.Component {
         return <div className="form-group">
             <label htmlFor={name}>{label}</label><br/>
             <DatePicker
+                showTimeSelect
+                maxDate={new Date()}
+                dateFormat="MMMM d, yyyy h:mm aa"
                 selected={moment(data[name]).toDate()}
                 onChange={this.handleDateChange}
             />
