@@ -9,11 +9,11 @@ import Moment from 'react-moment';
 
 class Week extends React.Component {
     state = {
-        start: moment().startOf('isoWeek'),
-        end: moment().endOf('isoWeek'),
+        start: moment().startOf('week'),
+        end: moment().endOf('week'),
         expenses: [],
         habits: [],
-        week: [[], [], [], [], [], [], []]    //  [monday: [], tuesday: [], ..., sunday: []]
+        week: [[], [], [], [], [], [], []]    //  [sunday: [], monday: [], ..., saturday: []]
     };
 
     constructor(props) {
@@ -30,7 +30,7 @@ class Week extends React.Component {
 
     // Get expenses for a user's habit
     getExpensesForHabit() {
-        const {start, end, week} = this.state;
+        let {start, end, week} = this.state;
         const habitId = this.props.habitId;
 
         axios.all([expenses.getForHabit(habitId, start, end), habits.getForId(habitId)])
@@ -39,10 +39,11 @@ class Week extends React.Component {
                 const habit = res[1].data;
                 expenses = expenses.map(expense => {
                     expense.habit = habit;
+                    expense.date = moment(expense.date).local().toDate();
                     return expense;
                 });
 
-                Week.assignExpensesToDays(expenses, week);
+                week = Week.assignExpensesToDays(expenses);
 
                 this.setState({
                     expenses,
@@ -53,7 +54,7 @@ class Week extends React.Component {
 
     //  Gets all expenses for user
     getExpenses() {
-        const {start, end, week} = this.state;
+        let {start, end, week} = this.state;
 
         axios.all([expenses.get(start, end), habits.get()])
             .then(res => {
@@ -64,10 +65,12 @@ class Week extends React.Component {
                         return habit._id === expense.habitId;
                     })[0];
 
+                    expense.date = moment(expense.date).local().toDate();
+
                     return expense;
                 });
 
-                Week.assignExpensesToDays(expenses, week);
+                week = Week.assignExpensesToDays(expenses);
 
                 this.setState({
                     expenses,
@@ -81,22 +84,24 @@ class Week extends React.Component {
     }
 
 
-    static assignExpensesToDays(expenses, week) {
+    static assignExpensesToDays(expenses) {
+        const currWeek = [[], [], [], [], [], []];
         for (let i = 0; i < expenses.length; i++) {
-            let mDate = moment(expenses[i].date);
-            week[mDate.get('day') - 1].push(expenses[i]);   //  - 1 is for converting back from iso day value
+            const mDate = moment(expenses[i].date);
+            const dayIndex = mDate.get('day');
+            currWeek[dayIndex].push(expenses[i]);
         }
+        return currWeek;
     }
 
     incrementWeek(num) {
-        const {start, end} = this.state;
+        let {start, end} = this.state;
         if (num > 0 && end.isAfter(moment())) return;    // Don't go into the future
         this.setState({
             start: start.add(num, 'week'),
             end: end.add(num, 'week'),
             expenses: [],
-            habits: [],
-            week: [[], [], [], [], [], [], []]
+            habits: []
         });
         this.getExpenses();
     }
@@ -116,31 +121,31 @@ class Week extends React.Component {
             <br/>
             <div className='row'>
                 <div className="col day-column">
-                    <div className="day-title">Monday</div>
+                    <div className="day-title">Sunday</div>
                     {this.toDailyExpenses(week[0])}
                 </div>
                 <div className="col day-column">
-                    <div className="day-title">Tuesday</div>
+                    <div className="day-title">Monday</div>
                     {this.toDailyExpenses(week[1])}
                 </div>
                 <div className="col day-column">
-                    <div className="day-title">Wednesday</div>
+                    <div className="day-title">Tuesday</div>
                     {this.toDailyExpenses(week[2])}
                 </div>
                 <div className="col day-column">
-                    <div className="day-title">Thursday</div>
+                    <div className="day-title">Wednesday</div>
                     {this.toDailyExpenses(week[3])}
                 </div>
                 <div className="col day-column">
-                    <div className="day-title">Friday</div>
+                    <div className="day-title">Thursday</div>
                     {this.toDailyExpenses(week[4])}
                 </div>
                 <div className="col day-column">
-                    <div className="day-title">Saturday</div>
+                    <div className="day-title">Friday</div>
                     {this.toDailyExpenses(week[5])}
                 </div>
                 <div className="col day-column">
-                    <div className="day-title">Sunday</div>
+                    <div className="day-title">Saturday</div>
                     {this.toDailyExpenses(week[6])}
                 </div>
             </div>
@@ -148,6 +153,7 @@ class Week extends React.Component {
     }
 
     toDailyExpenses(day) {
+        if(!day) return [];
         return day.map((expense, index) => (
             <ExpenseCard key={'mon-expense-' + index} expense={expense}
                          link={expense.habitId ? '/habit/' + expense.habitId + '/expense/' + expense._id : '/expense/' + expense._id}

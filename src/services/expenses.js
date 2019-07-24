@@ -42,7 +42,7 @@ export function deleteExpense(id){
 export function get(start, end){
     return http.request({
         method: 'get',
-        url: apiUrl + '?start=' + moment(start).utc() + '&end=' + moment(end).utc()
+        url: apiUrl + '?start=' + moment(start).utc().toDate() + '&end=' + moment(end).utc().toDate()
     });
 }
 

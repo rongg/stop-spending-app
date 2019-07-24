@@ -3,6 +3,7 @@ import expenses from '../../services/expenses';
 import habits from '../../services/habits';
 import axios from 'axios';
 import HabitCard from "../habit/habit_card";
+import moment from "moment";
 
 class MyExpense extends React.Component {
     state = {
@@ -21,15 +22,19 @@ class MyExpense extends React.Component {
         if (this.props.match.params.habitId) {
             axios.all([expenses.getForId(this.props.match.params.id), habits.getForId(this.props.match.params.habitId)])
                 .then(axios.spread((expenseRes, habitRes) => {
+                    const expense = expenseRes.data;
+                    expense.date = moment(expense.date).local();
                     this.setState({
                         habit: habitRes.data,
-                        expense: expenseRes.data
+                        expense
                     })
                 }));
         } else {
             expenses.getForId(this.props.match.params.id).then(res => {
+                const expense = res.data;
+                expense.date = moment(expense.date).local();
                 this.setState({
-                    expense: res.data
+                    expense
                 })
             }).catch(err => {
                 console.error(err);

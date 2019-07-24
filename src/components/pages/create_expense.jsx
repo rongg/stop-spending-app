@@ -4,6 +4,7 @@ import expenses from "../../services/expenses";
 import habits from "../../services/habits";
 import HabitCard from "../habit/habit_card";
 import axios from 'axios';
+import moment from "moment";
 
 class CreateExpense extends Form {
     constructor(props) {
@@ -12,7 +13,9 @@ class CreateExpense extends Form {
             data: {
                 userId: props.user._id,
                 name: '',
-                amount: ''
+                amount: '',
+                habitId: '',
+                date: moment().toDate()
             },
             habit: {
                 _id: '',
@@ -24,7 +27,8 @@ class CreateExpense extends Form {
             errors: {
                 userId: null,
                 name: null,
-                amount: null
+                amount: null,
+                date: null
             },
             formHelp: this.state.formHelp
         };
@@ -106,6 +110,7 @@ class CreateExpense extends Form {
                         count: errorDetails.length,
                         name: error.path[0] === 'name' ? error.message : null,
                         amount: error.path[0] === 'amount' ? error.message : null,
+                        date: error.path[0] === 'date' ? error.message : null
                     },
                     formHelp: helpMessage
                 })

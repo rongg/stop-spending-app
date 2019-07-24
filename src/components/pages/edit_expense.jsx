@@ -16,7 +16,7 @@ class EditExpense extends Form {
                 name: '',
                 amount: '',
                 habitId: '',
-                date: moment()
+                date: moment().toDate()
             },
             habit: {
                 _id: '',
@@ -39,19 +39,24 @@ class EditExpense extends Form {
         if(this.props.match.params.habitId) {
             axios.all([expenses.getForId(this.props.match.params.id), habits.getForId(this.props.match.params.habitId), habits.get()])
                 .then(axios.spread((expenseRes, habitRes, allHabitsRes) => {
-                    delete expenseRes.data.__v;
+                    const expense = expenseRes.data;
+                    expense.date = moment(expense.date).local().toDate();
+                    delete expense.__v;
+
                     this.setState({
                         habit: habitRes.data,
-                        data: expenseRes.data,
+                        data: expense,
                         habits: allHabitsRes.data
                     })
                 }));
         }else{
             axios.all([expenses.getForId(this.props.match.params.id), habits.get()]).then(res => {
-                const expenseRes = res[0];
-                delete expenseRes.data.__v;
+                const expense = res[0].data;
+                expense.date = moment(expense.date).local().toDate();
+                delete expense.__v;
+
                 this.setState({
-                    data: expenseRes.data,
+                    data: expense,
                     habits: res[1].data
                 })
             }).catch(err => {
@@ -59,7 +64,6 @@ class EditExpense extends Form {
             });
         }
     }
-
 
     schema = expenses.schema;
 
@@ -104,7 +108,8 @@ class EditExpense extends Form {
                 },
                 formHelp: 'Success!'
             });
-            window.location = '/habit/' + expense.habitId;
+            if(expense.habitId) window.location = '/habit/' + expense.habitId;
+            else window.location = '/expenses';
         }).catch(err => {
             let helpMessage = 'There was a problem with your submission!';
             if (err.response && err.response.status === 400) {
@@ -115,6 +120,7 @@ class EditExpense extends Form {
                         count: errorDetails.length,
                         name: error.path[0] === 'name' ? error.message : null,
                         amount: error.path[0] === 'amount' ? error.message : null,
+                        date: error.path[0] === 'date' ? error.message : null
                     },
                     formHelp: helpMessage
                 })
