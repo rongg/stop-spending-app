@@ -6,6 +6,7 @@ import moment from "moment";
 const apiUrl = apiEndpoint + '/expenses';
 
 export function create(expense){
+    expense.date = moment(expense.date).utc().toDate();
     return http.request({
         method: 'post',
         url: apiUrl,
@@ -17,6 +18,7 @@ export function create(expense){
 }
 
 export function update(expense){
+    expense.date = moment(expense.date).utc().toDate();
     return http.request({
         method: 'put',
         url: apiUrl + '/' + expense._id,
@@ -68,7 +70,7 @@ const schema = {
     name: Joi.string().min(5).max(50).required(),
     amount: Joi.number().integer().min(1).max(1000000000).required(),
     date: Joi.date(),
-    habitId: Joi.string().max(25)
+    habitId: Joi.string().max(25).allow('')
 };
 
 export default {
