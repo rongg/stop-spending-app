@@ -102,50 +102,58 @@ class Week extends React.Component {
     }
 
     render() {
-        const {week} = this.state;
-
+        const {week, expenses} = this.state;
         return <div>
-            <div className='text-center'>
+            <div className='text-center week-nav'>
                 <button onClick={() => this.incrementWeek(-1)} style={{marginRight: '24px'}}>Prev</button>
-                Week of <Moment format='MMMM Do'>{this.state.start}</Moment>
+                <span className="week-title">Week of <Moment format='MMMM Do'>{this.state.start}</Moment></span>
                 <button onClick={() => this.incrementWeek(1)} style={{marginLeft: '24px'}}>Next</button>
             </div>
+            <div className="text-center spent-summary">
+                <h4>${expenses.reduce((acc, curr) => acc + curr.amount, 0)} spent</h4>
+                <a href='/expense/new' className='link'>Log an Expense</a>
+            </div>
+            <br/>
             <div className='row'>
                 <div className="col day-column">
                     <div className="day-title">Monday</div>
-                    {week[0].map((expense, index) => (
-                        <ExpenseCard key={'mon-expense-' + index} expense={expense}
-                                     link={expense.habitId ? '/habit/' + expense.habitId + '/expense/' + expense._id : '/expense/' + expense._id}
-                                     icon={expense.habit && expense.habit.icon ? expense.habit.icon : expenses.getDefaultIcon()}
-                                     height='124px'/>
-                    ))}
+                    {this.toDailyExpenses(week[0])}
                 </div>
                 <div className="col day-column">
                     <div className="day-title">Tuesday</div>
-                    {week[1].map((expense, index) => (
-                        <ExpenseCard key={'mon-expense-' + index} expense={expense}
-                                     link={expense.habitId ? '/habit/' + expense.habitId + '/expense/' + expense._id : '/expense/' + expense._id}
-                                     icon={expense.habit && expense.habit.icon ? expense.habit.icon : expenses.getDefaultIcon()}
-                                     height='124px'/>
-                    ))}
+                    {this.toDailyExpenses(week[1])}
                 </div>
                 <div className="col day-column">
                     <div className="day-title">Wednesday</div>
+                    {this.toDailyExpenses(week[2])}
                 </div>
                 <div className="col day-column">
                     <div className="day-title">Thursday</div>
+                    {this.toDailyExpenses(week[3])}
                 </div>
                 <div className="col day-column">
                     <div className="day-title">Friday</div>
+                    {this.toDailyExpenses(week[4])}
                 </div>
                 <div className="col day-column">
                     <div className="day-title">Saturday</div>
+                    {this.toDailyExpenses(week[5])}
                 </div>
                 <div className="col day-column">
                     <div className="day-title">Sunday</div>
+                    {this.toDailyExpenses(week[6])}
                 </div>
             </div>
         </div>
+    }
+
+    toDailyExpenses(day) {
+        return day.map((expense, index) => (
+            <ExpenseCard key={'mon-expense-' + index} expense={expense}
+                         link={expense.habitId ? '/habit/' + expense.habitId + '/expense/' + expense._id : '/expense/' + expense._id}
+                         icon={expense.habit && expense.habit.icon ? expense.habit.icon : expenses.getDefaultIcon()}
+                         height='96px'/>
+        ));
     }
 }
 

@@ -21,8 +21,8 @@ class MyHabits extends React.Component {
     render() {
         return <div className="m-auto page">
             <div className="text-center">
-                <h1>My Spending Habits</h1>
-                <a href='/habit/new'>Create New</a>
+                <h2>My Spending Habits</h2>
+                <a className='link' href='/habit/new'>Create New</a>
             </div>
             <br/>
             <div className='row'>
