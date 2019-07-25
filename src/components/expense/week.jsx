@@ -107,7 +107,7 @@ class Week extends React.Component {
     }
 
     render() {
-        const {week, expenses} = this.state;
+        const {week, expenses, start} = this.state;
         return <div>
             <div className='text-center week-nav'>
                 <button onClick={() => this.incrementWeek(-1)} style={{marginRight: '24px'}}>Prev</button>
@@ -121,32 +121,32 @@ class Week extends React.Component {
             <br/>
             <div className='row'>
                 <div className="col day-column">
-                    <div className="day-title">Sunday</div>
-                    {this.toDailyExpenses(week[0])}
+                    <div className="day-title">Sunday <Moment className="day-date" format={'M/D'}>{moment(start).day(0)}</Moment></div>
+                    <div className="day-expense-list">{this.toDailyExpenses(week[0])}</div>
                 </div>
                 <div className="col day-column">
-                    <div className="day-title">Monday</div>
-                    {this.toDailyExpenses(week[1])}
+                    <div className="day-title">Monday <Moment className="day-date" format={'M/D'}>{moment(start).day(1)}</Moment></div>
+                    <div className="day-expense-list">{this.toDailyExpenses(week[1])}</div>
                 </div>
                 <div className="col day-column">
-                    <div className="day-title">Tuesday</div>
-                    {this.toDailyExpenses(week[2])}
+                    <div className="day-title">Tuesday <Moment className="day-date" format={'M/D'}>{moment(start).day(2)}</Moment></div>
+                    <div className="day-expense-list">{this.toDailyExpenses(week[2])}</div>
                 </div>
                 <div className="col day-column">
-                    <div className="day-title">Wednesday</div>
-                    {this.toDailyExpenses(week[3])}
+                    <div className="day-title">Wednesday <Moment className="day-date" format={'M/D'}>{moment(start).day(3)}</Moment></div>
+                    <div className="day-expense-list">{this.toDailyExpenses(week[3])}</div>
                 </div>
                 <div className="col day-column">
-                    <div className="day-title">Thursday</div>
-                    {this.toDailyExpenses(week[4])}
+                    <div className="day-title">Thursday <Moment className="day-date" format={'M/D'}>{moment(start).day(4)}</Moment></div>
+                    <div className="day-expense-list">{this.toDailyExpenses(week[4])}</div>
                 </div>
                 <div className="col day-column">
-                    <div className="day-title">Friday</div>
-                    {this.toDailyExpenses(week[5])}
+                    <div className="day-title">Friday <Moment className="day-date" format={'M/D'}>{moment(start).day(5)}</Moment></div>
+                    <div className="day-expense-list">{this.toDailyExpenses(week[5])}</div>
                 </div>
                 <div className="col day-column">
-                    <div className="day-title">Saturday</div>
-                    {this.toDailyExpenses(week[6])}
+                    <div className="day-title">Saturday <Moment className="day-date" format={'M/D'}>{moment(start).day(6)}</Moment></div>
+                    <div className="day-expense-list">{this.toDailyExpenses(week[6])}</div>
                 </div>
             </div>
         </div>
