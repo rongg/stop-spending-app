@@ -130,7 +130,7 @@ class Week extends React.Component {
                 {rightNav}
             </div>
             <div className="text-center spent-summary">
-                <h4>${expenses.reduce((acc, curr) => acc + curr.amount, 0)} spent</h4>
+                <h4><span className='money'>${expenses.reduce((acc, curr) => acc + curr.amount, 0)}</span> spent</h4>
                 {smallScreen && leftNav}<a href='/expense/new' className='link'>Log an
                 Expense</a>{smallScreen && rightNav}
             </div>
