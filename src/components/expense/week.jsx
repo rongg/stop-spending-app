@@ -13,7 +13,8 @@ class Week extends React.Component {
         end: moment().endOf('week'),
         expenses: [],
         habits: [],
-        week: [[], [], [], [], [], [], []]    //  [sunday: [], monday: [], ..., saturday: []]
+        week: [[], [], [], [], [], [], []],    //  [sunday: [], monday: [], ..., saturday: []]
+        smallScreen: Math.max(document.documentElement.clientWidth, window.innerWidth || 0) <= 576
     };
 
     constructor(props) {
@@ -89,7 +90,7 @@ class Week extends React.Component {
         for (let i = 0; i < expenses.length; i++) {
             const mDate = moment(expenses[i].date);
             const dayIndex = mDate.get('day');
-            if(!currWeek[dayIndex]) currWeek[dayIndex] = [];
+            if (!currWeek[dayIndex]) currWeek[dayIndex] = [];
             currWeek[dayIndex].push(expenses[i]);
         }
         return currWeek;
@@ -108,59 +109,89 @@ class Week extends React.Component {
     }
 
     render() {
-        const {week, expenses, start} = this.state;
+        const {week, expenses, start, smallScreen} = this.state;
+
+        const leftNav = <button onClick={() => this.incrementWeek(-1)} style={{marginRight: '24px'}}>Prev</button>;
+        const rightNav = <button onClick={() => this.incrementWeek(1)} style={{marginLeft: '24px'}}>Next</button>;
         return <div>
             <div className='text-center week-nav'>
-                <button onClick={() => this.incrementWeek(-1)} style={{marginRight: '24px'}}>Prev</button>
+                {leftNav}
                 <span className="week-title">Week of <Moment format='MMMM Do'>{this.state.start}</Moment></span>
-                <button onClick={() => this.incrementWeek(1)} style={{marginLeft: '24px'}}>Next</button>
+                {rightNav}
             </div>
             <div className="text-center spent-summary">
                 <h4>${expenses.reduce((acc, curr) => acc + curr.amount, 0)} spent</h4>
-                <a href='/expense/new' className='link'>Log an Expense</a>
+                {smallScreen && leftNav}<a href='/expense/new' className='link'>Log an
+                Expense</a>{smallScreen && rightNav}
             </div>
             <br/>
-            <div className='row'>
+            <div className='row week-expenses'>
                 <div className="col day-column">
-                    <div className="day-title">Sunday <Moment className="day-date" format={'M/D'}>{moment(start).day(0)}</Moment></div>
+                    <div className="day-title">Sun <br/><Moment className="day-date"
+                                                           format={'M/D'}>{moment(start).day(0)}</Moment>
+                    </div>
                     <div className="day-expense-list">{this.toDailyExpenses(week[0])}</div>
+                    <div className="day-total text-center">${Week.toDailyTotal(week[0])}</div>
                 </div>
                 <div className="col day-column">
-                    <div className="day-title">Monday <Moment className="day-date" format={'M/D'}>{moment(start).day(1)}</Moment></div>
+                    <div className="day-title">Mon <br/><Moment className="day-date"
+                                                           format={'M/D'}>{moment(start).day(1)}</Moment>
+                    </div>
                     <div className="day-expense-list">{this.toDailyExpenses(week[1])}</div>
+                    <div className="day-total text-center">${Week.toDailyTotal(week[1])}</div>
                 </div>
                 <div className="col day-column">
-                    <div className="day-title">Tuesday <Moment className="day-date" format={'M/D'}>{moment(start).day(2)}</Moment></div>
+                    <div className="day-title">Tue <br/><Moment className="day-date"
+                                                           format={'M/D'}>{moment(start).day(2)}</Moment>
+                    </div>
                     <div className="day-expense-list">{this.toDailyExpenses(week[2])}</div>
+                    <div className="day-total text-center">${Week.toDailyTotal(week[2])}</div>
                 </div>
                 <div className="col day-column">
-                    <div className="day-title">Wednesday <Moment className="day-date" format={'M/D'}>{moment(start).day(3)}</Moment></div>
+                    <div className="day-title">Wed <br/> <Moment className="day-date"
+                                                           format={'M/D'}>{moment(start).day(3)}</Moment>
+                    </div>
                     <div className="day-expense-list">{this.toDailyExpenses(week[3])}</div>
+                    <div className="day-total text-center">${Week.toDailyTotal(week[3])}</div>
                 </div>
                 <div className="col day-column">
-                    <div className="day-title">Thursday <Moment className="day-date" format={'M/D'}>{moment(start).day(4)}</Moment></div>
+                    <div className="day-title">Thu<br/><Moment className="day-date"
+                                                           format={'M/D'}>{moment(start).day(4)}</Moment>
+                    </div>
                     <div className="day-expense-list">{this.toDailyExpenses(week[4])}</div>
+                    <div className="day-total text-center">${Week.toDailyTotal(week[4])}</div>
                 </div>
                 <div className="col day-column">
-                    <div className="day-title">Friday <Moment className="day-date" format={'M/D'}>{moment(start).day(5)}</Moment></div>
+                    <div className="day-title">Fri <br/> <Moment className="day-date"
+                                                           format={'M/D'}>{moment(start).day(5)}</Moment>
+                    </div>
                     <div className="day-expense-list">{this.toDailyExpenses(week[5])}</div>
+                    <div className="day-total text-center">${Week.toDailyTotal(week[5])}</div>
                 </div>
                 <div className="col day-column">
-                    <div className="day-title">Saturday <Moment className="day-date" format={'M/D'}>{moment(start).day(6)}</Moment></div>
+                    <div className="day-title">Sat <br/> <Moment className="day-date"
+                                                           format={'M/D'}>{moment(start).day(6)}</Moment>
+                    </div>
                     <div className="day-expense-list">{this.toDailyExpenses(week[6])}</div>
+                    <div className="day-total text-center">${Week.toDailyTotal(week[6])}</div>
                 </div>
             </div>
         </div>
     }
 
     toDailyExpenses(day) {
-        if(!day) return [];
+        if (!day) return [];
         return day.map((expense, index) => (
             <ExpenseCard key={'mon-expense-' + index} expense={expense}
                          link={expense.habitId ? '/habit/' + expense.habitId + '/expense/' + expense._id : '/expense/' + expense._id}
                          icon={expense.habit && expense.habit.icon ? expense.habit.icon : expenses.getDefaultIcon()}
-                         height='96px'/>
+                         height={this.state.smallScreen ? '50px' : '80px'} hideName={this.state.smallScreen}/>
         ));
+    }
+
+    static toDailyTotal(day) {
+        if (!day) return 0;
+        return day.reduce((acc, curr) => acc + curr.amount, 0);
     }
 }
 
