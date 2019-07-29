@@ -14,7 +14,7 @@ class Week extends React.Component {
         expenses: [],
         habits: [],
         week: [[], [], [], [], [], [], []],    //  [sunday: [], monday: [], ..., saturday: []]
-        smallScreen: Math.max(document.documentElement.clientWidth, window.innerWidth || 0) <= 576
+        smallScreen: this.getScreenWidth() <= 576
     };
 
     constructor(props) {
@@ -22,11 +22,21 @@ class Week extends React.Component {
         this.incrementWeek = this.incrementWeek.bind(this);
         this.getExpenses = this.getExpenses.bind(this);
         this.getExpensesForHabit = this.getExpensesForHabit.bind(this);
+        this.getScreenWidth = this.getScreenWidth.bind(this);
     }
 
     componentDidMount() {
         if (this.props.habitId) this.getExpensesForHabit();
         else this.getExpenses();
+
+        window.addEventListener("resize", e => {
+            const screenWidth = this.getScreenWidth();
+            this.setState({smallScreen: screenWidth <= 576});
+        });
+    }
+
+    getScreenWidth() {
+        return Math.max(document.documentElement.clientWidth, window.innerWidth || 0);
     }
 
     // Get expenses for a user's habit
