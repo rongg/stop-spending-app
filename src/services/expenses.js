@@ -67,7 +67,7 @@ export function getDefaultIcon(){
 const schema = {
     _id: Joi.string().max(25),
         userId: Joi.string().max(25).required(),
-    name: Joi.string().min(5).max(50).required(),
+    name: Joi.string().min(3).max(50).required(),
     amount: Joi.number().integer().min(1).max(1000000000).required(),
     date: Joi.date(),
     habitId: Joi.string().max(25).allow('')
