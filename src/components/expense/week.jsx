@@ -89,6 +89,7 @@ class Week extends React.Component {
         for (let i = 0; i < expenses.length; i++) {
             const mDate = moment(expenses[i].date);
             const dayIndex = mDate.get('day');
+            if(!currWeek[dayIndex]) currWeek[dayIndex] = [];
             currWeek[dayIndex].push(expenses[i]);
         }
         return currWeek;
