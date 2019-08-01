@@ -1,0 +1,31 @@
+
+.month-container{
+  $border-style: 1px lightgray solid;
+  border-bottom: $border-style;
+  .row{
+    margin-right: 0;
+    margin-left: 0;
+    border-right: $border-style;
+  }
+  .col{
+    padding: 2px 10px;
+    border-left: $border-style;
+    border-top: $border-style;
+  }
+}
+
+.week{
+  width: 100%;
+}
+
+.day{
+  height: 96px;
+
+  .num{
+    text-align: right;
+  }
+}
+
+.header .col{
+  text-align: right;
+}

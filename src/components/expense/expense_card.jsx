@@ -9,7 +9,7 @@ class ExpenseCard extends React.Component {
                 <a href={this.props.link} style={{textDecoration: 'none'}}>
                     <div className="card-body" style={this.props.padding && {padding: this.props.padding}}>
                         {this.props.icon ? <img style={{height: '24px'}} src={this.props.icon} alt="$"/> : null}
-                        <p className="card-text" style={{marginBottom: 0, fontSize: '.8rem', color: 'darkgreen'}}>
+                        <p className="card-text" style={{marginBottom: 0, fontSize: '.8rem', color: 'green'}}>
                             ${amount}
                         </p>
                         {!this.props.hideName && <p className="card-text" style={{fontSize: '.7rem', marginBottom: '4px'}}>{name}</p>}
