@@ -1,0 +1,7 @@
+{
+"version": 3,
+"mappings": "AAAA,OAAO;EACL,UAAU,EAAE,OAAO;;AAGrB,SAAS;EACP,UAAU,EAAE,UAAU;;AAGxB,YAAa;EACX,OAAO,EAAE,IAAI",
+"sources": ["my_expenses.scss"],
+"names": [],
+"file": "my_expenses.css"
+}

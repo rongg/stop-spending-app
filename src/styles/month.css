@@ -1,0 +1,46 @@
+.month-container {
+  border-bottom: 1px #e0e0e0 solid; }
+  .month-container .header.row {
+    border: none;
+    padding: 4px;
+    border-bottom: 1px darkgrey solid; }
+    .month-container .header.row .col {
+      border: none; }
+  .month-container .weekend {
+    background: #fafafa; }
+  .month-container .row {
+    margin-right: 0;
+    margin-left: 0;
+    border-right: 1px #e0e0e0 solid; }
+  .month-container .col {
+    padding: 2px 10px;
+    border-left: 1px #e0e0e0 solid;
+    border-top: 1px #e0e0e0 solid; }
+  .month-container .today {
+    background: #f3fdf3; }
+    .month-container .today .date {
+      font-weight: bold;
+      color: #ff4c4c; }
+    .month-container .today .unfocus {
+      color: #ff4c4c; }
+  .month-container .unfocus {
+    color: darkgray; }
+
+.week {
+  width: 100%; }
+
+.day {
+  height: 96px;
+  color: #2a2a2a; }
+  .day .num {
+    text-align: right; }
+  .day .spent {
+    text-align: center;
+    padding: 12px;
+    font-size: .85rem;
+    color: green; }
+
+.header .col {
+  text-align: right; }
+
+/*# sourceMappingURL=month.css.map */

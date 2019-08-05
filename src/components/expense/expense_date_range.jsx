@@ -96,6 +96,12 @@ class ExpenseDateRange extends React.Component {
         return days;
     }
 
+    static sumExpenseAmounts(expenses){
+        if(!expenses || !expenses.length) return 0;
+
+        return expenses.reduce((acc, curr) => acc + curr.amount, 0);
+    }
+
     incrementPeriod(num, unit) {
         let {start, end} = this.state;
         if (num > 0 && end.isAfter(moment())) return;    // Don't go into the future

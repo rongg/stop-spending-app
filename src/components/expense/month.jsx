@@ -37,15 +37,20 @@ class Month extends ExpenseDateRange {
         const rightNav = <button onClick={() => this.incrementPeriod(1, 'month')}
                                  style={{marginLeft: '24px'}}>Next</button>;
 
+        // console.log(expenseDays);
+        // console.log(calendarDays);
+
         const calendarRows = week.map((w, index) => (
             <div className='week row' key={'week-' + (index + 1)}>
 
                 {w.map((day, index) => (
-                    <div className='col day' key={'day-' + (index + 1)}>
+                    <div className={`col day ${day.date.isSame(moment(), 'day') ? 'today' : ''} ${day.date.day() === 0 || day.date.day() === 6 ? 'weekend' : ''}`} key={'day-' + (index + 1)}>
                         <div className='num'>
-                            <span>{day.date.date()}</span>
-                            <br/>
-                            <span><Moment format={'MMM DD YYYY'}>{day.date}</Moment></span>
+                            <span
+                                className={`date ${day.date.isSame(start, 'month') ? '' : 'unfocus'}`}>{day.date.date()}</span>
+                        </div>
+                        <div className={'spent'}>
+                            {day.expenses && day.expenses.length > 0 && <span>${ExpenseDateRange.sumExpenseAmounts(day.expenses)}</span>}
                         </div>
                     </div>
                 ))}
@@ -60,7 +65,7 @@ class Month extends ExpenseDateRange {
                 </div>
                 <h4>
                     <span
-                        className='money'>${expenses.reduce((acc, curr) => acc + curr.amount, 0)}</span> spent {Month.getSpentStatementPredicate(start)}
+                        className='money'>${ExpenseDateRange.sumExpenseAmounts(expenses)}</span> spent {Month.getSpentStatementPredicate(start)}
                 </h4>
                 <a href='/expense/new' className='link'>Log an Expense</a>
             </div>
@@ -92,11 +97,10 @@ class Month extends ExpenseDateRange {
         if (noExpenses) {
             return Month.generateEmptyMonth(start);
         }
-        for (let i = 0; i < expenseDays.length; i++) {
-            const currMonth = moment({M: start.month(), y: start.year()});
+        for (let i = 0; i <= start.daysInMonth(); i++) {
             calendarDays.push({
-                date: currMonth.date(i),
-                expenses: expenseDays[i]
+                date: moment(start).date(i),
+                expenses: expenseDays[i] || []
             })
         }
 
@@ -108,11 +112,14 @@ class Month extends ExpenseDateRange {
         const prevMonth = [];
         let firstDay = calendarDays[0];
         if (firstDay) {
-            startIndex = firstDay.date.day() * -1;  //  previous month dates are negative indexes
-            for (let i = startIndex + 1; i <= 0; i++) {
+            let day = firstDay.date.day();
+            startIndex = day - 1;  //  previous month dates are negative indexes
+            for (let i = 0; i <= startIndex; i++) {
+                let amount = -1 * (startIndex - i);
+                let date1 = moment(firstDay.date).date(amount).month(firstDay.date.month());
                 prevMonth.push({
                     expenses: [],
-                    date: moment(firstDay.date).date(i)
+                    date: date1
                 });
             }
         }
@@ -134,7 +141,7 @@ class Month extends ExpenseDateRange {
         lastDay = calendarDays[endIndex];
 
         if (calendarDays.length < 42) {
-            for(let i = 1; i <= 7; i++){
+            for (let i = 1; i <= 7; i++) {
                 let date = lastDay.date.date();
                 calendarDays.push({
                     expenses: [],

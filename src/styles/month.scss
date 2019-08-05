@@ -1,7 +1,21 @@
 
 .month-container{
-  $border-style: 1px lightgray solid;
+  $border-style: 1px #e0e0e0 solid;
   border-bottom: $border-style;
+
+  .header.row{
+    border: none;
+    padding: 4px;
+    border-bottom: 1px darkgrey solid;
+    .col {
+      border: none;
+    }
+  }
+
+  .weekend{
+    background: #fafafa;
+  }
+
   .row{
     margin-right: 0;
     margin-left: 0;
@@ -12,6 +26,19 @@
     border-left: $border-style;
     border-top: $border-style;
   }
+  .today{
+    background: #f3fdf3;
+    .date{
+      font-weight: bold;
+      color: #ff4c4c;
+    }
+    .unfocus{
+      color: #ff4c4c;
+    }
+  }
+  .unfocus{
+    color: darkgray;
+  }
 }
 
 .week{
@@ -20,9 +47,16 @@
 
 .day{
   height: 96px;
-
+  color: #2a2a2a;
   .num{
     text-align: right;
+  }
+
+  .spent{
+    text-align: center;
+    padding: 12px;
+    font-size: .85rem;
+    color: green;
   }
 }
 

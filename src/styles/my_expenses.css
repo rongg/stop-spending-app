@@ -1,0 +1,10 @@
+.active {
+  background: #dedede; }
+
+.inactive {
+  background: whitesmoke; }
+
+button:focus {
+  outline: none; }
+
+/*# sourceMappingURL=my_expenses.css.map */
