@@ -109,7 +109,7 @@ class ExpenseDateRange extends React.Component {
             start: start.add(num, unit),
             end: end.add(num, unit)
         });
-        this.getExpenses();
+        this.props.habitId ? this.getExpensesForHabit() : this.getExpenses();
     }
 
     render() {
