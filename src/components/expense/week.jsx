@@ -28,10 +28,10 @@ class Week extends ExpenseDateRange {
                 <div className="piggy-container">
                     <PiggyBank budget={0} spent={0} width={300} height={200} animate={false}/>
                 </div>
-                <h4><span
-                    className='money'>${expenses.reduce((acc, curr) => acc + curr.amount, 0)}</span> spent {Week.getSpentStatementPredicate(start)}
+                <h4><span className='money'>${expenses.reduce((acc, curr) => acc + curr.amount, 0)}</span> spent {Week.getSpentStatementPredicate(start)}
                 </h4>
-                <a href='/expense/new' className='link'>Log an Expense</a>
+                <a href={this.props.habitId ? '/habit/' + this.props.habitId + '/expense/new' : '/expense/new'}
+                   className='link'>Log an Expense</a>
             </div>
             <br/>
             <div className='text-center week-nav'>

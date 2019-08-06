@@ -29,9 +29,6 @@ class MyHabit extends React.Component {
             </div>
             <br/>
             <div className='col-sm-12 text-center'>
-                <a href={'/habit/' + _id + '/expense/new'}>Log an Expense</a>
-                <br/>
-                <br/>
                 <Week habitId={this.props.match.params.id}/>
             </div>
         </div>
