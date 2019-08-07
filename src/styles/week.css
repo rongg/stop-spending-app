@@ -27,9 +27,6 @@
   font-size: .85rem;
   color: green; }
 
-.money {
-  color: green; }
-
 @media (max-width: 576px) {
   .card-body {
     padding: 2px; }

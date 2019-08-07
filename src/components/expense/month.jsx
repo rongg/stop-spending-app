@@ -17,7 +17,7 @@ class Month extends ExpenseDateRange {
 
     constructor(props) {
         super(props);
-        this.goToWeek = this.goToWeek.bind(this);
+        this.navigateTo = this.navigateTo.bind(this);
     }
 
     render() {
@@ -59,13 +59,14 @@ class Month extends ExpenseDateRange {
                         </div>
                         <div className={'spent'}>
                             {day.expenses && day.expenses.length > 0 &&
-                            <span>${ExpenseDateRange.sumExpenseAmounts(day.expenses)}</span>}
+                            <button type={'button'} onClick={() => this.navigateTo(day.date, 'day')}>
+                                <span>${ExpenseDateRange.sumExpenseAmounts(day.expenses)}</span>
+                            </button>}
                         </div>
                     </div>
                 ))}
                 <div className={'col day-totals'} key={'total-' + index}>
-                    {weekTotals[index] > 0 && <button type={'button'}
-                                                      onClick={() => this.goToWeek(w[0].date)}>
+                    {weekTotals[index] > 0 && <button type={'button'} onClick={() => this.navigateTo(w[0].date, 'week')}>
                         <span className={'money'}>${weekTotals[index]}</span>
                     </button>}
                 </div>
@@ -183,10 +184,10 @@ class Month extends ExpenseDateRange {
         if (start.month() === moment().add(-1, 'month').month()) return <span>last month</span>;
     }
 
-    goToWeek(date) {
-        const start = moment(date).startOf('week');
-        const end = moment(date).endOf('week');
-        if(this.props.navCallback) this.props.navCallback('week', start, end);
+    navigateTo(date, unit) {
+        const start = moment(date).startOf(unit);
+        const end = moment(date).endOf(unit);
+        if(this.props.navCallback) this.props.navCallback(unit, start, end);
     }
 }
 

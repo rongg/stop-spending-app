@@ -40,9 +40,13 @@
     text-align: right; }
   .day .spent {
     text-align: center;
-    padding: 12px;
-    font-size: .85rem;
-    color: green; }
+    font-size: .85rem; }
+    .day .spent button {
+      border: none;
+      color: darkgreen;
+      padding: 16px; }
+    .day .spent button:hover {
+      text-decoration: underline; }
 
 .header .col {
   text-align: right; }

@@ -63,10 +63,19 @@
 
   .spent{
     text-align: center;
-    padding: 12px;
     font-size: .85rem;
-    color: green;
+
+    button{
+      border: none;
+      color: darkgreen;
+      padding: 16px;
+    }
+    button:hover{
+      text-decoration: underline;
+    }
   }
+
+
 }
 
 .header .col{
