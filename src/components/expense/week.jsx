@@ -16,6 +16,9 @@ class Week extends ExpenseDateRange {
 
     render() {
         const {expenses, start, end, smallScreen} = this.state;
+
+        const {width: pWidth, height: pHeight} = this.piggyParams;
+
         const days = ExpenseDateRange.assignExpensesToDays(expenses, 'day');
 
         const dateFormat = smallScreen ? 'MMM D' : 'MMMM D';
@@ -26,7 +29,7 @@ class Week extends ExpenseDateRange {
 
             <div className="text-center spent-summary">
                 <div className="piggy-container">
-                    <PiggyBank budget={0} spent={0} width={300} height={200} animate={false}/>
+                    <PiggyBank budget={0} spent={0} width={pWidth} height={pHeight} animate={false}/>
                 </div>
                 <h4><span className='money'>${Week.sumExpenseAmounts(expenses)}</span> spent {Week.getSpentStatementPredicate(start)}
                 </h4>

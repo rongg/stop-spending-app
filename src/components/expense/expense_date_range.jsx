@@ -18,6 +18,10 @@ class ExpenseDateRange extends React.Component {
         super(props);
         this.getExpenses = this.getExpenses.bind(this);
         this.getExpensesForHabit = this.getExpensesForHabit.bind(this);
+        this.piggyParams = {
+            width: 225,
+            height: 150
+        }
     }
 
     componentDidMount() {

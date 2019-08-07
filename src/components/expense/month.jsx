@@ -23,6 +23,8 @@ class Month extends ExpenseDateRange {
     render() {
         const {expenses, start} = this.state;
 
+        const {width: pWidth, height: pHeight} = this.piggyParams;
+
         let expenseDays = ExpenseDateRange.assignExpensesToDays(expenses, 'date');
         const calendarDays = Month.getCalendarDays(expenseDays, start);
 
@@ -77,7 +79,7 @@ class Month extends ExpenseDateRange {
         return <div>
             <div className="text-center spent-summary">
                 <div className="piggy-container">
-                    <PiggyBank budget={0} spent={0} width={300} height={200} animate={false}/>
+                    <PiggyBank budget={0} spent={0} width={pWidth} height={pHeight} animate={false}/>
                 </div>
                 <h4>
                     <span
