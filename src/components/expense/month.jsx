@@ -11,7 +11,8 @@ class Month extends ExpenseDateRange {
         start: moment().startOf('month'),
         end: moment().endOf('month'),
         expenses: [],
-        habits: []
+        habits: [],
+        smallScreen: ExpenseDateRange.getScreenWidth() <= 576
     };
 
     constructor(props) {
