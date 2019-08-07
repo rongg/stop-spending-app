@@ -102,9 +102,15 @@ class ExpenseDateRange extends React.Component {
         return expenses.reduce((acc, curr) => acc + curr.amount, 0);
     }
 
+    static sumWeeklyExpenseAmounts(week){
+        if(!week || !week.length) return 0;
+
+        return week.reduce((acc, curr) => acc + ExpenseDateRange.sumExpenseAmounts(curr.expenses), 0);
+    }
+
     incrementPeriod(num, unit) {
         let {start, end} = this.state;
-        if (num > 0 && end.isAfter(moment())) return;    // Don't go into the future
+        // if (num > 0 && end.isAfter(moment())) return;    // Don't go into the future
         this.setState({
             start: start.add(num, unit),
             end: end.add(num, unit)

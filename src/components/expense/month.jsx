@@ -7,17 +7,22 @@ import ExpenseDateRange from './expense_date_range';
 
 class Month extends ExpenseDateRange {
     state = {
+        //  Month report is current month + and - 1 week
         start: moment().startOf('month'),
         end: moment().endOf('month'),
         expenses: [],
         habits: []
     };
 
+    constructor(props) {
+        super(props);
+        this.goToWeek = this.goToWeek.bind(this);
+    }
+
     render() {
         const {expenses, start} = this.state;
 
-
-        const expenseDays = ExpenseDateRange.assignExpensesToDays(expenses, 'date');
+        let expenseDays = ExpenseDateRange.assignExpensesToDays(expenses, 'date');
         const calendarDays = Month.getCalendarDays(expenseDays, start);
 
         let week = [];
@@ -37,23 +42,32 @@ class Month extends ExpenseDateRange {
         const rightNav = <button onClick={() => this.incrementPeriod(1, 'month')}
                                  style={{marginLeft: '24px'}}>Next</button>;
 
-        // console.log(expenseDays);
-        // console.log(calendarDays);
+        const weekTotals = [];
+        week.map((w, index) => weekTotals[index] = ExpenseDateRange.sumWeeklyExpenseAmounts(w));
 
         const calendarRows = week.map((w, index) => (
             <div className='week row' key={'week-' + (index + 1)}>
 
                 {w.map((day, index) => (
-                    <div className={`col day ${day.date.isSame(moment(), 'day') ? 'today' : ''} ${day.date.day() === 0 || day.date.day() === 6 ? 'weekend' : ''}`} key={'day-' + (index + 1)}>
+                    <div
+                        className={`col day ${day.date.isSame(moment(), 'day') ? 'today' : ''} ${day.date.day() === 0 || day.date.day() === 6 ? 'weekend' : ''}`}
+                        key={'day-' + (index + 1)}>
                         <div className='num'>
                             <span
                                 className={`date ${day.date.isSame(start, 'month') ? '' : 'unfocus'}`}>{day.date.date()}</span>
                         </div>
                         <div className={'spent'}>
-                            {day.expenses && day.expenses.length > 0 && <span>${ExpenseDateRange.sumExpenseAmounts(day.expenses)}</span>}
+                            {day.expenses && day.expenses.length > 0 &&
+                            <span>${ExpenseDateRange.sumExpenseAmounts(day.expenses)}</span>}
                         </div>
                     </div>
                 ))}
+                <div className={'col day-totals'} key={'total-' + index}>
+                    {weekTotals[index] > 0 && <button type={'button'}
+                                                      onClick={() => this.goToWeek(w[0].date)}>
+                        <span className={'money'}>${weekTotals[index]}</span>
+                    </button>}
+                </div>
             </div>
         ));
 
@@ -85,6 +99,7 @@ class Month extends ExpenseDateRange {
                     <div className='col'>Thu</div>
                     <div className='col'>Fri</div>
                     <div className='col'>Sat</div>
+                    <div className='col'/>
                 </div>
                 {calendarRows}
             </div>
@@ -108,15 +123,12 @@ class Month extends ExpenseDateRange {
     }
 
     static appendPreviousAndLastMonth(calendarDays) {
-        let startIndex = 0;
         const prevMonth = [];
         let firstDay = calendarDays[0];
         if (firstDay) {
-            let day = firstDay.date.day();
-            startIndex = day - 1;  //  previous month dates are negative indexes
-            for (let i = 0; i <= startIndex; i++) {
-                let amount = -1 * (startIndex - i);
-                let date1 = moment(firstDay.date).date(amount).month(firstDay.date.month());
+            let dayNum = moment(firstDay.date).day();
+            for (let i = dayNum * -1; i < 0; i++) {
+                let date1 = moment(firstDay.date).add(i, 'day');
                 prevMonth.push({
                     expenses: [],
                     date: date1
@@ -170,6 +182,11 @@ class Month extends ExpenseDateRange {
         if (start.month() === moment().add(-1, 'month').month()) return <span>last month</span>;
     }
 
+    goToWeek(date) {
+        const start = moment(date).startOf('week');
+        const end = moment(date).endOf('week');
+        if(this.props.navCallback) this.props.navCallback('week', start, end);
+    }
 }
 
 export default Month;

@@ -7,8 +7,8 @@ import ExpenseDateRange from "./expense_date_range";
 
 class Week extends ExpenseDateRange {
     state = {
-        start: moment().startOf('week'),
-        end: moment().endOf('week'),
+        start: this.props.start || moment().startOf('week'),
+        end: this.props.end || moment().endOf('week'),
         expenses: [],
         habits: []
     };
