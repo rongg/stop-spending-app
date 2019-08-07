@@ -44,7 +44,8 @@
     .day .spent button {
       border: none;
       color: darkgreen;
-      padding: 16px; }
+      padding: 16px;
+      background: none; }
     .day .spent button:hover {
       text-decoration: underline; }
 

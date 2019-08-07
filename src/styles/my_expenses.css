@@ -11,7 +11,19 @@
 .date-nav {
   margin-bottom: 16px; }
 
+.day-column {
+  background: #f6f7f8;
+  margin: 2px;
+  padding: 5px; }
+
+.piggy-container {
+  padding: 5px; }
+
 button:focus {
   outline: none; }
+
+@media (max-width: 576px) {
+  .piggy-container {
+    padding: 16px; } }
 
 /*# sourceMappingURL=my_expenses.css.map */
