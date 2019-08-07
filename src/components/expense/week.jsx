@@ -10,12 +10,12 @@ class Week extends ExpenseDateRange {
         start: this.props.start || moment().startOf('week'),
         end: this.props.end || moment().endOf('week'),
         expenses: [],
-        habits: []
+        habits: [],
+        smallScreen: ExpenseDateRange.getScreenWidth() <= 576
     };
 
     render() {
         const {expenses, start, end, smallScreen} = this.state;
-
         const days = ExpenseDateRange.assignExpensesToDays(expenses, 'day');
 
         const dateFormat = smallScreen ? 'MMM D' : 'MMMM D';
@@ -34,9 +34,9 @@ class Week extends ExpenseDateRange {
                    className='link'>Log an Expense</a>
             </div>
             <br/>
-            <div className='text-center week-nav'>
+            <div className='text-center date-nav'>
                 {leftNav}
-                <span className="week-title"><Moment format={dateFormat}>{start}</Moment> - <Moment format={dateFormat}>{end}</Moment></span>
+                <span className="nav-title"><Moment format={dateFormat}>{start}</Moment> - <Moment format={dateFormat}>{end}</Moment></span>
                 {rightNav}
             </div>
 

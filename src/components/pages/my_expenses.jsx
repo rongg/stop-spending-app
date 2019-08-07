@@ -1,6 +1,7 @@
 import React from 'react';
 import Week from '../expense/week';
 import Month from '../expense/month';
+import Day from '../expense/day';
 import '../../styles/my_expenses.css';
 
 class MyExpenses extends React.Component {
@@ -8,7 +9,7 @@ class MyExpenses extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
-            currentNav: this.props.view || 'month',
+            currentNav: this.props.view || 'day',
             start: null,
             end: null
         };
@@ -25,10 +26,14 @@ class MyExpenses extends React.Component {
                 <button onClick={() => this.setState({currentNav: 'week'})}
                         className={currentNav === 'week' ? 'active' : 'inactive'}>Week
                 </button>
+                <button onClick={() => this.setState({currentNav: 'day'})}
+                        className={currentNav === 'day' ? 'active' : 'inactive'}>Day
+                </button>
             </div>
             <div>
-                {currentNav === 'week' && <Week start={this.state.start} end={this.state.end}/>}
+                {currentNav === 'week' && <Week navCallback={this.setCurrentNav} start={this.state.start} end={this.state.end}/>}
                 {currentNav === 'month' && <Month navCallback={this.setCurrentNav}/>}
+                {currentNav === 'day' && <Day navCallback={this.setCurrentNav}/>}
             </div>
         </div>
 

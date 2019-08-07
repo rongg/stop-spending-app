@@ -85,9 +85,9 @@ class Month extends ExpenseDateRange {
                 <a href='/expense/new' className='link'>Log an Expense</a>
             </div>
             <br/>
-            <div className='text-center week-nav'>
+            <div className='text-center date-nav'>
                 {leftNav}
-                <span className="week-title"><Moment format={dateFormat}>{start}</Moment></span>
+                <span className="nav-title"><Moment format={dateFormat}>{start}</Moment></span>
                 {rightNav}
             </div>
 

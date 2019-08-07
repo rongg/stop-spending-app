@@ -4,6 +4,13 @@
 .inactive {
   background: whitesmoke; }
 
+.nav-title {
+  font-size: 20px;
+  font-weight: 500; }
+
+.date-nav {
+  margin-bottom: 16px; }
+
 button:focus {
   outline: none; }
 

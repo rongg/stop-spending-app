@@ -35,7 +35,7 @@ class Day extends ExpenseDateRange {
             <br/>
             <div className='text-center day-nav'>
                 {leftNav}
-                <span className="day-title"><Moment format={dateFormat}>{start}</Moment></span>
+                <span className="nav-title"><Moment format={dateFormat}>{start}</Moment></span>
                 {rightNav}
             </div>
 
@@ -49,7 +49,7 @@ class Day extends ExpenseDateRange {
 
     static getSpentStatementPredicate(start) {
         if (start.isSame(moment(), 'date')) return <span>today</span>;
-        if (start.isSame(moment().add(-1, 'day'))) return <span>yesterday</span>;
+        if (start.isSame(moment().add(-1, 'day'), 'date')) return <span>yesterday</span>;
     }
 
 }
