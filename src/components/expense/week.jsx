@@ -28,7 +28,7 @@ class Week extends ExpenseDateRange {
                 <div className="piggy-container">
                     <PiggyBank budget={0} spent={0} width={300} height={200} animate={false}/>
                 </div>
-                <h4><span className='money'>${expenses.reduce((acc, curr) => acc + curr.amount, 0)}</span> spent {Week.getSpentStatementPredicate(start)}
+                <h4><span className='money'>${Week.sumExpenseAmounts(expenses)}</span> spent {Week.getSpentStatementPredicate(start)}
                 </h4>
                 <a href={this.props.habitId ? '/habit/' + this.props.habitId + '/expense/new' : '/expense/new'}
                    className='link'>Log an Expense</a>
@@ -46,49 +46,49 @@ class Week extends ExpenseDateRange {
                                                                 format={'M/D'}>{moment(start).day(0)}</Moment>
                     </div>
                     <div className="day-expense-list">{this.toDailyExpenses(days[0])}</div>
-                    <div className="day-total text-center">${Week.toDailyTotal(days[0])}</div>
+                    <div className="day-total text-center">${Week.sumExpenseAmounts(days[0])}</div>
                 </div>
                 <div className="col day-column">
                     <div className="day-title">Mon <br/><Moment className="day-date"
                                                                 format={'M/D'}>{moment(start).day(1)}</Moment>
                     </div>
                     <div className="day-expense-list">{this.toDailyExpenses(days[1])}</div>
-                    <div className="day-total text-center">${Week.toDailyTotal(days[1])}</div>
+                    <div className="day-total text-center">${Week.sumExpenseAmounts(days[1])}</div>
                 </div>
                 <div className="col day-column">
                     <div className="day-title">Tue <br/><Moment className="day-date"
                                                                 format={'M/D'}>{moment(start).day(2)}</Moment>
                     </div>
                     <div className="day-expense-list">{this.toDailyExpenses(days[2])}</div>
-                    <div className="day-total text-center">${Week.toDailyTotal(days[2])}</div>
+                    <div className="day-total text-center">${Week.sumExpenseAmounts(days[2])}</div>
                 </div>
                 <div className="col day-column">
                     <div className="day-title">Wed <br/> <Moment className="day-date"
                                                                  format={'M/D'}>{moment(start).day(3)}</Moment>
                     </div>
                     <div className="day-expense-list">{this.toDailyExpenses(days[3])}</div>
-                    <div className="day-total text-center">${Week.toDailyTotal(days[3])}</div>
+                    <div className="day-total text-center">${Week.sumExpenseAmounts(days[3])}</div>
                 </div>
                 <div className="col day-column">
                     <div className="day-title">Thu<br/><Moment className="day-date"
                                                                format={'M/D'}>{moment(start).day(4)}</Moment>
                     </div>
                     <div className="day-expense-list">{this.toDailyExpenses(days[4])}</div>
-                    <div className="day-total text-center">${Week.toDailyTotal(days[4])}</div>
+                    <div className="day-total text-center">${Week.sumExpenseAmounts(days[4])}</div>
                 </div>
                 <div className="col day-column">
                     <div className="day-title">Fri <br/> <Moment className="day-date"
                                                                  format={'M/D'}>{moment(start).day(5)}</Moment>
                     </div>
                     <div className="day-expense-list">{this.toDailyExpenses(days[5])}</div>
-                    <div className="day-total text-center">${Week.toDailyTotal(days[5])}</div>
+                    <div className="day-total text-center">${Week.sumExpenseAmounts(days[5])}</div>
                 </div>
                 <div className="col day-column">
                     <div className="day-title">Sat <br/> <Moment className="day-date"
                                                                  format={'M/D'}>{moment(start).day(6)}</Moment>
                     </div>
                     <div className="day-expense-list">{this.toDailyExpenses(days[6])}</div>
-                    <div className="day-total text-center">${Week.toDailyTotal(days[6])}</div>
+                    <div className="day-total text-center">${Week.sumExpenseAmounts(days[6])}</div>
                 </div>
             </div>
         </div>

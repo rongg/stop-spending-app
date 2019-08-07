@@ -132,11 +132,6 @@ class ExpenseDateRange extends React.Component {
                          height={this.state.smallScreen ? '50px' : '80px'} hideName={this.state.smallScreen}/>
         ));
     }
-
-    static toDailyTotal(day) {
-        if (!day) return 0;
-        return day.reduce((acc, curr) => acc + curr.amount, 0);
-    }
 }
 
 export default ExpenseDateRange;
