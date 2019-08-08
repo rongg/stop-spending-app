@@ -9,7 +9,7 @@ class MyExpenses extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
-            currentNav: this.props.view || 'day',
+            currentNav: this.props.view || 'month',
             start: null,
             end: null
         };

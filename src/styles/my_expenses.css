@@ -24,6 +24,9 @@ button:focus {
 
 @media (max-width: 576px) {
   .piggy-container {
-    padding: 16px; } }
+    padding: 16px; }
+
+  .page {
+    padding: 24px 0; } }
 
 /*# sourceMappingURL=my_expenses.css.map */

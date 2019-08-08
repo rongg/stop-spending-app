@@ -1,77 +1,87 @@
+$col-width-xs: 8%;
+$font-size-xs: .7rem;
 
-.month-container{
+.month-container {
   $border-style: 1px #e0e0e0 solid;
 
-  .header.row{
+  .header.row {
     border: none;
     padding: 4px;
     border-bottom: 1px darkgrey solid;
+
     .col {
       border: none;
     }
   }
 
-  .weekend{
+  .weekend {
     background: #fafafa;
   }
 
-  .row{
+  .row {
     margin-right: 0;
     margin-left: 0;
     border-bottom: $border-style;
   }
-  .col.day{
+
+  .col.day {
     padding: 2px 10px;
     border-left: $border-style;
   }
 
-  .col.day-totals{
+  .col.day-totals {
     text-align: center;
     border-bottom: none;
     font-size: .85rem;
     padding: 36px 20px;
-    a{
+
+    a {
       padding: 24px;
     }
   }
 
-  .today{
+  .today {
     background: #f3fdf3;
-    .date{
+
+    .date {
       font-weight: bold;
       color: #ff4c4c;
     }
-    .unfocus{
+
+    .unfocus {
       color: #ff4c4c;
     }
   }
-  .unfocus{
+
+  .unfocus {
     color: darkgray;
   }
 }
 
-.week{
+.week {
   width: 100%;
 }
 
-.day{
+.day {
   height: 96px;
   color: #2a2a2a;
-  .num{
+
+  .num {
     text-align: right;
   }
 
-  .spent{
+  .spent {
     text-align: center;
     font-size: .85rem;
 
-    button{
+    button {
       border: none;
       color: darkgreen;
       padding: 16px;
       background: none;
     }
-    button:hover{
+
+    button:hover {
       text-decoration: underline;
     }
   }
@@ -79,6 +89,51 @@
 
 }
 
-.header .col{
+.header .col {
   text-align: right;
+}
+
+@media (max-width: 576px) {
+  .header .col {
+    width: $col-width-xs;
+    padding: 0;
+    text-align: left;
+    font-size: .85rem;
+  }
+
+  .date{
+    padding: 2px;
+    font-size: .8rem;
+  }
+
+  .day {
+    height: 72px;
+  }
+
+  .day .spent button{
+    padding: 0;
+    font-size: $font-size-xs;
+  }
+
+  .month-container {
+    .col.day, .col.day-totals {
+      width: $col-width-xs;
+      padding: 0;
+      font-size: $font-size-xs;
+    }
+
+    .col.day-totals{
+      margin-top: 20px;
+    }
+  }
+
+  .day-column {
+    width: $col-width-xs;
+    padding: 4px;
+    margin: 1px;
+    height: 564px;
+  }
+  .month-container{
+    padding: 5px 0;
+  }
 }

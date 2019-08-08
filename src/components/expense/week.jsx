@@ -25,7 +25,7 @@ class Week extends ExpenseDateRange {
 
         const leftNav = <button onClick={() => this.incrementPeriod(-1, 'week')} style={{marginRight: '24px'}}>Prev</button>;
         const rightNav = <button onClick={() => this.incrementPeriod(1, 'week')} style={{marginLeft: '24px'}}>Next</button>;
-        return <div>
+        return <div className={'week-container'}>
 
             <div className="text-center spent-summary">
                 <div className="piggy-container">
