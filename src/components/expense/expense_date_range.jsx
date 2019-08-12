@@ -19,6 +19,7 @@ class ExpenseDateRange extends React.Component {
         this.getExpenses = this.getExpenses.bind(this);
         this.getExpensesForHabit = this.getExpensesForHabit.bind(this);
         this.navigateTo = this.navigateTo.bind(this);
+        this.sortBy = this.sortBy.bind(this);
         this.piggyParams = {
             width: 225,
             height: 150
@@ -142,6 +143,23 @@ class ExpenseDateRange extends React.Component {
         const start = moment(date).startOf(unit);
         const end = moment(date).endOf(unit);
         if(this.props.navCallback) this.props.navCallback(unit, start, end);
+    }
+
+    sortBy(direction){
+        if(!this.state.expenses || !this.state.expenses.length) return;
+
+        const compareFn = (a, b) => {
+            if(moment(a.date).isBefore(moment(b.date))) {
+                return direction === 'desc' ? -1 : 1;
+            }
+            if(moment(a.date).isAfter(moment(b.date))) {
+                return direction === 'desc' ? 1 : -1;
+            }
+            return 0;
+        };
+
+
+        this.state.expenses.sort(compareFn);
     }
 }
 

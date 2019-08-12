@@ -15,6 +15,8 @@ class Week extends ExpenseDateRange {
     };
 
     render() {
+        this.sortBy('desc');
+
         const {expenses, start, end, smallScreen} = this.state;
 
         const {width: pWidth, height: pHeight} = this.piggyParams;

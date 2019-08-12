@@ -17,6 +17,8 @@ class Day extends ExpenseDateRange {
     };
 
     render() {
+        this.sortBy('desc');
+
         const {expenses, start, smallScreen} = this.state;
 
         const {width: pWidth, height: pHeight} = this.piggyParams;
