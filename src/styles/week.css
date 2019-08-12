@@ -1,7 +1,6 @@
 .day-title {
   font-size: 14px;
   text-align: center;
-  margin-bottom: 10px;
   font-weight: 400; }
 
 .day-date {
@@ -22,14 +21,18 @@
   font-size: .85rem;
   color: green; }
 
+.week-expenses button {
+  width: 100%;
+  padding: 5px;
+  border: none; }
+
 @media (max-width: 576px) {
   .card-body {
     padding: 2px; }
 
   .day-title {
     font-size: 14px;
-    text-align: center;
-    margin-bottom: 10px; }
+    text-align: center; }
 
   .day-column {
     width: 12%;

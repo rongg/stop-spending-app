@@ -15,11 +15,6 @@ class Month extends ExpenseDateRange {
         smallScreen: ExpenseDateRange.getScreenWidth() <= 576
     };
 
-    constructor(props) {
-        super(props);
-        this.navigateTo = this.navigateTo.bind(this);
-    }
-
     render() {
         const {expenses, start} = this.state;
 
@@ -186,11 +181,6 @@ class Month extends ExpenseDateRange {
         if (start.month() === moment().add(-1, 'month').month()) return <span>last month</span>;
     }
 
-    navigateTo(date, unit) {
-        const start = moment(date).startOf(unit);
-        const end = moment(date).endOf(unit);
-        if(this.props.navCallback) this.props.navCallback(unit, start, end);
-    }
 }
 
 export default Month;

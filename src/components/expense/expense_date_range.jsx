@@ -18,6 +18,7 @@ class ExpenseDateRange extends React.Component {
         super(props);
         this.getExpenses = this.getExpenses.bind(this);
         this.getExpensesForHabit = this.getExpensesForHabit.bind(this);
+        this.navigateTo = this.navigateTo.bind(this);
         this.piggyParams = {
             width: 225,
             height: 150
@@ -135,6 +136,12 @@ class ExpenseDateRange extends React.Component {
                          icon={expense.habit && expense.habit.icon ? expense.habit.icon : expenses.getDefaultIcon()}
                          height={this.state.smallScreen ? '50px' : '80px'} hideName={this.state.smallScreen}/>
         ));
+    }
+
+    navigateTo(date, unit) {
+        const start = moment(date).startOf(unit);
+        const end = moment(date).endOf(unit);
+        if(this.props.navCallback) this.props.navCallback(unit, start, end);
     }
 }
 
