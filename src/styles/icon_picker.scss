@@ -1,0 +1,28 @@
+.picker-list{
+  height: 400px;
+  overflow-y: auto;
+
+  $iconSize: 56px;
+  img{
+    height: $iconSize;
+    width: $iconSize;
+    padding: 2px;
+  }
+
+  .items .selected{
+    background: #adffff !important;
+  }
+
+}
+
+
+form img{
+  $length: 40px;
+  height: $length;
+  width: $length;
+  cursor: pointer;
+}
+
+form img:hover{
+  background: lightcyan;
+}
