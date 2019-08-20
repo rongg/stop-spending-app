@@ -57,11 +57,25 @@ class Form extends React.Component {
         </div>
     }
 
-    renderIconSelect(name, label){
+    renderIconSelect(name, label) {
         const {data, errors} = this.state;
         return <div className="form-group">
             <label htmlFor={name}>{label}</label><br/>
-            <IconSelect selected={data[name]} onChange={this.handleDataChange} />
+            <IconSelect selected={data[name]} onChange={this.handleDataChange}/>
+            <small id={name + 'help'} className={errors[name] ? 'red error-message' : 'hidden'}>{errors[name]}
+            </small>
+        </div>
+    }
+
+    renderRadioGroup(name, choices, label) {
+        const {data, errors} = this.state;
+        return <div className="form-group">
+            {label && <label htmlFor={name}>{label}</label>}
+            {choices.map((item, index) =>
+                <div key={'radio-choice-' + index}>
+                    <input type='radio' checked={data[name] === item && 'checked'} name={name} value={item} onChange={this.handleInputChange}/><span> {item}</span>
+                </div>
+            )}
             <small id={name + 'help'} className={errors[name] ? 'red error-message' : 'hidden'}>{errors[name]}
             </small>
         </div>
@@ -115,7 +129,7 @@ class Form extends React.Component {
         });
     }
 
-    handleDataChange(name, data){
+    handleDataChange(name, data) {
         const formData = this.state.data;
         formData[name] = data;
         this.setState({

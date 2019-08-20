@@ -10,12 +10,14 @@ class CreateHabit extends Form {
                 userId: props.user._id,
                 name: '',
                 budget: '',
+                budgetType: 'week',
                 icon: ''
             },
             errors: {
                 userId: null,
                 name: null,
                 budget: null,
+                budgetType: null,
                 icon: null
             },
             formHelp: this.state.formHelp
@@ -33,6 +35,7 @@ class CreateHabit extends Form {
                     {this.renderInput('name', 'Name', "text", "name",true)}
                     {this.renderIconSelect('icon', 'Icon')}
                     {this.renderInput('budget', 'Budget', "number")}
+                    {this.renderRadioGroup('budgetType', ['week', 'month', 'day'], 'Per')}
                 </div>
                 <br/>
                 {this.renderButton('Create')}
