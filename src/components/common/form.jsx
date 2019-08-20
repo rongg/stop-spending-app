@@ -4,6 +4,7 @@ import DatePicker from 'react-datepicker';
 import "react-datepicker/dist/react-datepicker.css";
 import InputGroup from "../common/input_group";
 import SelectGroup from "../common/select_group";
+import IconSelect from "../common/icon_select";
 import moment from 'moment';
 
 class Form extends React.Component {
@@ -16,8 +17,8 @@ class Form extends React.Component {
     constructor(props) {
         super(props);
         this.handleCreate = this.handleCreate.bind(this);
-        this.handleChange = this.handleChange.bind(this);
-        this.handleDateChange = this.handleDateChange.bind(this);
+        this.handleInputChange = this.handleInputChange.bind(this);
+        this.handleDataChange = this.handleDataChange.bind(this);
     }
 
     render() {
@@ -29,7 +30,7 @@ class Form extends React.Component {
         return (
             <InputGroup autoFocus={autoFocus} name={name} label={label} value={data[name]} inputHelp={name + "Help"}
                         helpMessage={errors[name]} placeHolder={placeholder || name} error={errors[name]} type={type}
-                        onChange={this.handleChange}/>
+                        onChange={this.handleInputChange}/>
         );
     }
 
@@ -37,7 +38,7 @@ class Form extends React.Component {
         const {data} = this.state;
 
         return <SelectGroup options={options || []} name={name} label={label} value={data[name]}
-                            onChange={this.handleChange}/>
+                            onChange={this.handleInputChange}/>
     }
 
     renderDatePicker(name, label) {
@@ -49,8 +50,18 @@ class Form extends React.Component {
                 maxDate={new Date()}
                 dateFormat="MMMM d, yyyy h:mm aa"
                 selected={moment(data[name]).toDate()}
-                onChange={this.handleDateChange}
+                onChange={(data) => this.handleDataChange('date', data)}
             />
+            <small id={name + 'help'} className={errors[name] ? 'red error-message' : 'hidden'}>{errors[name]}
+            </small>
+        </div>
+    }
+
+    renderIconSelect(name, label){
+        const {data, errors} = this.state;
+        return <div className="form-group">
+            <label htmlFor={name}>{label}</label><br/>
+            <IconSelect selected={data[name]} onChange={this.handleDataChange} />
             <small id={name + 'help'} className={errors[name] ? 'red error-message' : 'hidden'}>{errors[name]}
             </small>
         </div>
@@ -95,7 +106,7 @@ class Form extends React.Component {
         this.postForm();
     }
 
-    handleChange({currentTarget: input}) {
+    handleInputChange({currentTarget: input}) {
         const formData = {...this.state.data};
         formData[input.name] = input.value;
         this.setState({
@@ -104,14 +115,15 @@ class Form extends React.Component {
         });
     }
 
-    handleDateChange(date){
+    handleDataChange(name, data){
         const formData = this.state.data;
-        formData.date = date;
+        formData[name] = data;
         this.setState({
             data: formData,
             errors: {...this.state.errors}
         })
     }
+
 }
 
 export default Form;

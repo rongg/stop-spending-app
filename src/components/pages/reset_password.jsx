@@ -20,7 +20,7 @@ class ResetPassword extends Form{
         };
 
         this.handleCreate = this.handleCreate.bind(this);
-        this.handleChange = this.handleChange.bind(this);
+        this.handleInputChange = this.handleInputChange.bind(this);
     }
 
     schema = {

@@ -9,12 +9,14 @@ class CreateHabit extends Form {
             data: {
                 userId: props.user._id,
                 name: '',
-                budget: ''
+                budget: '',
+                icon: ''
             },
             errors: {
                 userId: null,
                 name: null,
-                budget: null
+                budget: null,
+                icon: null
             },
             formHelp: this.state.formHelp
         };
@@ -30,7 +32,9 @@ class CreateHabit extends Form {
                 <div className="form-fields">
                     {this.renderInput('name', 'Name', "text", "name",true)}
                     {this.renderInput('budget', 'Budget', "number")}
+                    {this.renderIconSelect('icon', 'Icon')}
                 </div>
+                <br/>
                 {this.renderButton('Create')}
                 <div className={"form-group"}>
                     {this.renderHelp()}
@@ -42,7 +46,7 @@ class CreateHabit extends Form {
 
     postForm() {
         const habit = this.state.data;
-        habit.icon = 'https://cdn0.iconfinder.com/data/icons/smoking-1/512/Smoking-09-512.png';
+        console.log('POST', habit);
         habits.create(habit).then(response => {
             this.setState({
                 errors: {

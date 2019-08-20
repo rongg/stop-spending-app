@@ -48,7 +48,7 @@ export function getForId(id){
 }
 
 export function getDefaultIcon(){
-    return 'https://blacklabelagency.com/wp-content/uploads/2017/08/money-icon.png';
+    return '../../assets/icons/money_default.svg';
 }
 
 const schema = {
@@ -56,7 +56,7 @@ const schema = {
     userId: Joi.string().max(25).required(),
     name: Joi.string().min(3).max(50).required(),
     budget: Joi.number().integer().min(1).max(1000000000).required(),
-    icon: Joi.string().max(255)
+    icon: Joi.string().max(255).allow('')
 };
 
 export default {
