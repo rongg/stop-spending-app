@@ -5,14 +5,14 @@ import '../../styles/icon_picker.css';
 
 class IconSelect extends React.Component {
     state = {
-        selected: this.props.selected || '',
         pickerActive: false
     };
 
     schema = habits.schema;
 
     render() {
-        const {selected, pickerActive} = this.state;
+        const {pickerActive} = this.state;
+        const selected = this.props.selected;
         const iconGroups = IconSelect.getIcons();
         return <div>
             <div>
@@ -41,10 +41,10 @@ class IconSelect extends React.Component {
                             </div>
                             <div className='items'>
                                 {group.icons.map((icon, index) =>
-                                    <div className={`d-inline-block ${selected === icon && 'selected'}`}
+                                    <div className={`img-container d-inline-block ${selected === icon && 'selected'}`}
                                          key={'icon-' + gIndex + '-' + index}
                                          onClick={() => {
-                                             this.setState({selected: icon});
+                                             // this.setState({selected: icon});
                                              this.props.onChange('icon', icon);
                                          }}>
                                         <Icon on path={icon}/>

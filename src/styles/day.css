@@ -19,7 +19,7 @@
   color: green; }
 
 .card-body {
-  padding: 4px; }
+  padding: 5px; }
 
 @media (max-width: 576px) {
   .card-body {

@@ -48,7 +48,7 @@ export function getForId(id){
 }
 
 export function getDefaultIcon(){
-    return '../../assets/icons/money_default.svg';
+    return 'money_default.svg';
 }
 
 const schema = {

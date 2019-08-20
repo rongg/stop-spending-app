@@ -31,8 +31,8 @@ class CreateHabit extends Form {
             <form aria-describedby="formHelp">
                 <div className="form-fields">
                     {this.renderInput('name', 'Name', "text", "name",true)}
-                    {this.renderInput('budget', 'Budget', "number")}
                     {this.renderIconSelect('icon', 'Icon')}
+                    {this.renderInput('budget', 'Budget', "number")}
                 </div>
                 <br/>
                 {this.renderButton('Create')}
@@ -46,7 +46,6 @@ class CreateHabit extends Form {
 
     postForm() {
         const habit = this.state.data;
-        console.log('POST', habit);
         habits.create(habit).then(response => {
             this.setState({
                 errors: {

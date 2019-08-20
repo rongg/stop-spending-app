@@ -1,6 +1,7 @@
 import React from 'react';
 import habits from '../../services/habits';
 import HabitCard from '../habit/habit_card';
+import '../../styles/habit.css';
 
 class MyHabits extends React.Component {
     state = {

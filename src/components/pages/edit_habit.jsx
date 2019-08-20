@@ -10,12 +10,14 @@ class EditHabit extends Form {
                 _id: '',
                 userId: props.user._id,
                 name: '',
-                budget: ''
+                budget: '',
+                icon: ''
             },
             errors: {
                 userId: null,
                 name: null,
-                budget: null
+                budget: null,
+                icon: null
             },
             formHelp: this.state.formHelp
         };
@@ -40,6 +42,7 @@ class EditHabit extends Form {
             <form aria-describedby="formHelp">
                 <div className="form-fields">
                     {this.renderInput('name', 'Name', "text", "name",true)}
+                    {this.renderIconSelect('icon', 'Icon')}
                     {this.renderInput('budget', 'Budget', "number")}
                 </div>
                 {this.renderButton('Save')}
@@ -55,7 +58,6 @@ class EditHabit extends Form {
 
     postForm() {
         const habit = this.state.data;
-        habit.icon = 'https://cdn1.iconfinder.com/data/icons/audio-2/512/vinylrecord-512.png';
         habits.update(habit).then(response => {
             this.setState({
                 errors: {

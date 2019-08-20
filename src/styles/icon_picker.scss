@@ -2,15 +2,19 @@
   height: 400px;
   overflow-y: auto;
 
-  $iconSize: 56px;
+  $iconSize: 64px;
   img{
     height: $iconSize;
     width: $iconSize;
     padding: 2px;
   }
 
-  .items .selected{
+  .items .img-container.selected{
     background: #adffff !important;
+  }
+
+  .items .img-container:hover{
+    background: lightcyan;
   }
 
 }
@@ -21,8 +25,4 @@ form img{
   height: $length;
   width: $length;
   cursor: pointer;
-}
-
-form img:hover{
-  background: lightcyan;
 }
