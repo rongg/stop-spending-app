@@ -118,6 +118,10 @@ class IconSelect extends React.Component {
                 icons: ['guitar.svg', 'vinyl.svg', 'aquarium.svg', 'books.svg', 'fishing.svg', 'gardening.svg', 'gun.svg',
                     'hunting.svg', 'knitting.svg', 'music.svg', 'photography.svg', 'piano.svg',
                     'plant.svg', 'stamp.svg'].map(a => 'hobby/' + a)
+            },
+            {
+                category: 'Bills',
+                icons: ['bills.svg', 'credit_card.svg', 'debt.svg', 'home.svg'].map(a => 'bills/' + a)
             }
         ]
     }
