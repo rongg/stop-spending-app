@@ -16,6 +16,7 @@ class EditExpense extends Form {
                 name: '',
                 amount: '',
                 habitId: '',
+                needWant: '',
                 date: moment().toDate()
             },
             habit: {
@@ -29,6 +30,7 @@ class EditExpense extends Form {
                 userId: null,
                 name: null,
                 amount: null,
+                needWant: null,
                 date: null
             },
             formHelp: this.state.formHelp
@@ -83,6 +85,7 @@ class EditExpense extends Form {
                     <div className="form-fields">
                         {this.renderInput('amount', 'I Spent', 'number', 'amount', true)}
                         {this.renderInput('name', '...on', 'text', 'description')}
+                        {this.renderRadioGroup('needWant', ['Want', 'Need'], 'This was a...')}
                         {this.renderSelect(habitOptions, 'habitId', 'Spending Habit')}
                         {this.renderDatePicker('date', 'Date')}
                     </div>

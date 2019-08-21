@@ -14,10 +14,10 @@ const NavBar = ({user}) => {
                     <React.Fragment>
                         <ul className="navbar-nav mr-auto">
                             <li className="nav-item">
-                                <a className="nav-link" href="/habits">My Habits</a>
+                                <a className="nav-link" href="/habits">Habits</a>
                             </li>
                             <li className="nav-item">
-                                <a className="nav-link" href="/expenses">My Expenses</a>
+                                <a className="nav-link" href="/expenses">Expenses</a>
                             </li>
                         </ul>
                         <ul className="navbar-nav">

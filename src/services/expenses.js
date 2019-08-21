@@ -70,7 +70,8 @@ const schema = {
     name: Joi.string().min(3).max(50).required(),
     amount: Joi.number().integer().min(1).max(1000000000).required(),
     date: Joi.date(),
-    habitId: Joi.string().max(25).allow('')
+    habitId: Joi.string().max(25).allow(''),
+    needWant: Joi.string().min(1).max(25).required(),
 };
 
 export default {

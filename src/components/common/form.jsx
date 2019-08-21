@@ -70,11 +70,13 @@ class Form extends React.Component {
 
     renderRadioGroup(name, choices, label) {
         const {data, errors} = this.state;
+
         return <div className="form-group">
             {label && <label htmlFor={name}>{label}</label>}
             {choices.map((item, index) =>
                 <div key={'radio-choice-' + index}>
-                    <input type='radio' checked={data[name] === item && 'checked'} name={name} value={item} onChange={this.handleInputChange}/><span> {item}</span>
+                    <input type='radio' checked={(data[name] === item && 'checked')}
+                           name={name} value={item} onChange={this.handleInputChange}/><span> {item}</span>
                 </div>
             )}
             <small id={name + 'help'} className={errors[name] ? 'red error-message' : 'hidden'}>{errors[name]}
@@ -82,11 +84,11 @@ class Form extends React.Component {
         </div>
     }
 
-    renderDollarInput(name, label){
+    renderDollarInput(name, label, autofocus){
         const {data, errors} = this.state;
         return <div className="form-group">
             {label && <label htmlFor={name}>{label}</label>}
-            <DollarInput name={name} value={data[name]} onChange={this.handleInputChange} />
+            <DollarInput name={name} value={data[name]} onChange={this.handleInputChange} autoFocus={autofocus} />
             <small id={name + 'help'} className={errors[name] ? 'red error-message' : 'hidden'}>{errors[name]}
             </small>
         </div>

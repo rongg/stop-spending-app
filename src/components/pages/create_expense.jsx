@@ -15,6 +15,7 @@ class CreateExpense extends Form {
                 name: '',
                 amount: '',
                 habitId: '',
+                needWant: 'Want',
                 date: moment().toDate()
             },
             habit: {
@@ -28,6 +29,7 @@ class CreateExpense extends Form {
                 userId: null,
                 name: null,
                 amount: null,
+                needWant: null,
                 date: null
             },
             formHelp: this.state.formHelp
@@ -74,8 +76,9 @@ class CreateExpense extends Form {
                 <h2>Log an Expense</h2>
                 <form aria-describedby="formHelp">
                     <div className="form-fields">
-                        {this.renderInput('amount', 'I Spent', "number", 'amount', true)}
+                        {this.renderDollarInput('amount', 'I spent', true)}
                         {this.renderInput('name', '...on', "text", 'description')}
+                        {this.renderRadioGroup('needWant', ['Want', 'Need'], 'This was a...')}
                         {this.renderSelect(habitOptions, 'habitId', 'Spending Habit')}
                         {this.renderDatePicker('date', 'Date')}
                     </div>
@@ -100,7 +103,6 @@ class CreateExpense extends Form {
             });
             window.location = expense.habitId ? '/habit/' + expense.habitId : '/expenses';
         }).catch(err => {
-            console.log(err.response);
             let helpMessage = 'There was a problem with your submission!';
             if (err.response && err.response.status === 400 && err.response.data.details) {
                 const errorDetails = err.response.data.details;
