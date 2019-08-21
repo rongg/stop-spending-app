@@ -1,0 +1,35 @@
+.currency-input{
+  input{
+    border: none;
+    width: 72px;
+  }
+  input.cents{
+    width: 24px;
+  }
+  input:focus{
+    outline: none;
+    outline-offset: unset;
+  }
+
+  input[type=number]::-webkit-inner-spin-button,
+  input[type=number]::-webkit-outer-spin-button {
+    -webkit-appearance: none;
+    margin: 0;
+  }
+
+  .currency{
+    color: #63a074;
+    font-weight: 600;
+  }
+
+  .separator{
+    vertical-align: sub;
+  }
+
+  .input-container{
+    padding: 5px;
+    border-radius: 0.25rem;
+    border: 1px solid lightgray;
+    vertical-align: middle;
+  }
+}

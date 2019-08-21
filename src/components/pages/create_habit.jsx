@@ -34,7 +34,7 @@ class CreateHabit extends Form {
                 <div className="form-fields">
                     {this.renderInput('name', 'Name', "text", "name",true)}
                     {this.renderIconSelect('icon', 'Icon')}
-                    {this.renderInput('budget', 'Budget', "number")}
+                    {this.renderDollarInput('budget', 'Budget')}
                     {this.renderRadioGroup('budgetType', ['week', 'month', 'day'], 'Per')}
                 </div>
                 <br/>

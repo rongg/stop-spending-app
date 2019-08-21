@@ -6,6 +6,7 @@ import InputGroup from "../common/input_group";
 import SelectGroup from "../common/select_group";
 import IconSelect from "../common/icon_select";
 import moment from 'moment';
+import DollarInput from "./dollar_input";
 
 class Form extends React.Component {
     state = {
@@ -76,6 +77,16 @@ class Form extends React.Component {
                     <input type='radio' checked={data[name] === item && 'checked'} name={name} value={item} onChange={this.handleInputChange}/><span> {item}</span>
                 </div>
             )}
+            <small id={name + 'help'} className={errors[name] ? 'red error-message' : 'hidden'}>{errors[name]}
+            </small>
+        </div>
+    }
+
+    renderDollarInput(name, label){
+        const {data, errors} = this.state;
+        return <div className="form-group">
+            {label && <label htmlFor={name}>{label}</label>}
+            <DollarInput name={name} value={data[name]} onChange={this.handleInputChange} />
             <small id={name + 'help'} className={errors[name] ? 'red error-message' : 'hidden'}>{errors[name]}
             </small>
         </div>
