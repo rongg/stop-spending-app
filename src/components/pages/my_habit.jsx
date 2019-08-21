@@ -8,6 +8,7 @@ class MyHabit extends React.Component {
         habit: {
             name: '',
             budget: 0,
+            budgetType: ''
         }
     };
 
@@ -19,13 +20,14 @@ class MyHabit extends React.Component {
     }
 
     render() {
-        const {name, budget, icon, _id} = this.state.habit;
+        let {name, budget, icon, _id, budgetType} = this.state.habit;
+        if(!budgetType) budgetType = 'week';
         return <div className="m-auto page">
             <div className="col-sm-12" style={{margin: '0'}}>
                 <HabitCard text={name} iconUrl={icon || habits.getDefaultIcon()} link={'/habit/' + _id + '/edit'}
                            iconHeight='56px'
                            height='148px' class='col-sm-12'
-                           key={'habit-card-' + _id} footerText={'$' + budget + ' / week'}/>
+                           key={'habit-card-' + _id} footerText={'$' + budget + ' / ' + budgetType}/>
             </div>
             <br/>
             <div className='col-sm-12 text-center'>
