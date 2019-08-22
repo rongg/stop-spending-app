@@ -6,6 +6,17 @@
   background: whitesmoke;
 }
 
+.day-expense-list {
+  height: 464px;
+  overflow-y: auto;
+  overflow: -moz-scrollbars-none;
+  -ms-overflow-style: none;
+}
+
+.day-expense-list::-webkit-scrollbar {
+  display: none;
+}
+
 .nav-title{
   font-size: 20px;
   font-weight: 500;

@@ -4,10 +4,6 @@
 .day-date {
   font-size: 12px; }
 
-.day-expense-list {
-  overflow-y: auto;
-  height: 464px; }
-
 .day-container .day-column {
   background: none; }
 
@@ -19,7 +15,7 @@
   color: green; }
 
 .card-body {
-  padding: 5px; }
+  padding: 4px; }
 
 @media (max-width: 576px) {
   .card-body {

@@ -6,10 +6,6 @@
 .day-date {
   font-size: 12px; }
 
-.day-expense-list {
-  overflow-y: auto;
-  height: 464px; }
-
 .card-body {
   font-size: 8px;
   padding: 8px; }

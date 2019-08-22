@@ -61,7 +61,7 @@ export function getForHabit(habitId, start, end){
 }
 
 export function getDefaultIcon(){
-    return 'https://blacklabelagency.com/wp-content/uploads/2017/08/money-icon.png';
+    return 'money_default.svg';
 }
 
 const schema = {
@@ -71,7 +71,7 @@ const schema = {
     amount: Joi.number().integer().min(1).max(1000000000).required(),
     date: Joi.date(),
     habitId: Joi.string().max(25).allow(''),
-    needWant: Joi.string().min(1).max(25).required(),
+    needWant: Joi.string().min(1).max(25).required()
 };
 
 export default {
