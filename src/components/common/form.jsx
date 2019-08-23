@@ -2,6 +2,7 @@ import React from 'react';
 import Joi from 'joi-browser';
 import DatePicker from 'react-datepicker';
 import "react-datepicker/dist/react-datepicker.css";
+import "../../styles/form.css";
 import InputGroup from "../common/input_group";
 import SelectGroup from "../common/select_group";
 import IconSelect from "../common/icon_select";
@@ -48,8 +49,9 @@ class Form extends React.Component {
             <label htmlFor={name}>{label}</label><br/>
             <DatePicker
                 showTimeSelect
+                className="form-control"
                 maxDate={new Date()}
-                dateFormat="MMMM d, yyyy h:mm aa"
+                dateFormat="EE MMM d, yyyy h:mm aa"
                 selected={moment(data[name]).toDate()}
                 onChange={(data) => this.handleDataChange('date', data)}
             />

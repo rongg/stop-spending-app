@@ -5,7 +5,7 @@ const SelectGroup = ({options, name, label, value, inputHelp, helpMessage, place
         <div className="form-group">
             <label htmlFor={name}>{label}</label>
             <br/>
-            <select name={name} value={value} onChange={onChange} id={name}>
+            <select name={name} value={value} onChange={onChange} id={name} className='form-control'>
                 {options.map((item, index) => (
                     <option value={item._id} key={'option=' + index}>{item.name}</option>
                 ))}
