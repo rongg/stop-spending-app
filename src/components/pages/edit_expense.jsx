@@ -83,10 +83,10 @@ class EditExpense extends Form {
                 <h2>Edit Expense</h2>
                 <form aria-describedby="formHelp">
                     <div className="form-fields">
-                        {this.renderInput('amount', 'I Spent', 'number', 'amount', true)}
+                        {this.renderDollarInput('amount', 'I Spent', 'number', 'amount', true)}
                         {this.renderInput('name', '...on', 'text', 'description')}
-                        {this.renderRadioGroup('needWant', ['Want', 'Need'], 'This was a...')}
                         {this.renderSelect(habitOptions, 'habitId', 'Spending Habit')}
+                        {this.renderRadioGroup('needWant', ['Want', 'Need'], 'This was a...')}
                         {this.renderDatePicker('date', 'Date')}
                     </div>
                     {this.renderButton('Save')}

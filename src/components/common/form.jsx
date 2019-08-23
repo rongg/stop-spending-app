@@ -40,7 +40,7 @@ class Form extends React.Component {
         const {data} = this.state;
 
         return <SelectGroup options={options || []} name={name} label={label} value={data[name]}
-                            onChange={this.handleInputChange}/>
+                            onChange={this.handleDataChange} />
     }
 
     renderDatePicker(name, label) {

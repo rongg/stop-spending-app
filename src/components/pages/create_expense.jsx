@@ -78,8 +78,8 @@ class CreateExpense extends Form {
                     <div className="form-fields">
                         {this.renderDollarInput('amount', 'I spent', true)}
                         {this.renderInput('name', '...on', "text", 'description')}
-                        {this.renderRadioGroup('needWant', ['Want', 'Need'], 'This was a...')}
                         {this.renderSelect(habitOptions, 'habitId', 'Spending Habit')}
+                        {this.renderRadioGroup('needWant', ['Want', 'Need'], 'This was a...')}
                         {this.renderDatePicker('date', 'Date')}
                     </div>
                     {this.renderButton('Log It!')}
