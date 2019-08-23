@@ -1,0 +1,10 @@
+.expense-card{
+  .card-body img{
+    $length: 24px;
+    height: $length;
+    width: $length;
+  }
+  .card-body{
+    padding: 8px;
+  }
+}
