@@ -11,7 +11,7 @@ class CreateHabit extends Form {
                 name: '',
                 budget: '',
                 budgetType: 'week',
-                icon: ''
+                icon: habits.getDefaultIcon()
             },
             errors: {
                 userId: null,
@@ -49,6 +49,7 @@ class CreateHabit extends Form {
 
     postForm() {
         const habit = this.state.data;
+        if(!habit.icon) habit.icon = habits.getDefaultIcon();
         habits.create(habit).then(response => {
             this.setState({
                 errors: {

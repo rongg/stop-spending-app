@@ -3,5 +3,16 @@
   width: 24px; }
 .expense-card .card-body {
   padding: 8px; }
+.expense-card .card-text {
+  font-size: .7rem;
+  margin: 0; }
+.expense-card .card-text.small {
+  font-size: .6rem; }
+
+@media (max-width: 576px) {
+  .expense-card.card .card-body {
+    padding: 2px; }
+  .expense-card.card .card-body .card-text {
+    font-size: .7rem; } }
 
 /*# sourceMappingURL=expense_card.css.map */

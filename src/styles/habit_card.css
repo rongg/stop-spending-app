@@ -1,0 +1,22 @@
+.habit-card {
+  min-height: 96px; }
+  .habit-card .card-body img {
+    height: 32px;
+    width: 32px; }
+  .habit-card .card-body {
+    padding: 4px 10px;
+    position: relative;
+    top: 12px; }
+  .habit-card .card-text {
+    font-size: .7rem; }
+  .habit-card .card-text.small {
+    font-size: .6rem; }
+
+@media (max-width: 576px) {
+  .habit-card.card .card-body {
+    padding: 2px; }
+
+  .card-body .card-text {
+    font-size: .7rem; } }
+
+/*# sourceMappingURL=habit_card.css.map */

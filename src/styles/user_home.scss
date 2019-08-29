@@ -1,0 +1,31 @@
+.habits{
+  div[class^="col-"]{
+    padding: 4px;
+  }
+}
+
+.row{
+  margin: 0;
+}
+
+.piggy.card{
+  padding: 16px;
+}
+
+.devil, .angel{
+  .expense-card .card-body{
+    padding: 40px;
+    .card-text.money{
+      font-size: 1.5rem;
+    }
+    .card-text.expense-name{
+      font-size: 1.25rem;
+      font-weight: 500;
+    }
+  }
+  .expense-card .card-body img {
+    $length: 80px;
+    height: $length;
+    width: $length;
+  }
+}

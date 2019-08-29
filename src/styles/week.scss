@@ -1,52 +1,66 @@
-.day-title {
-  font-size: 14px;
-  text-align: center;
-  font-weight: 400;
-}
-
-
-.day-date {
-  font-size: 12px;
-}
-
-.card-body{
-  font-size: 8px;
-  padding: 8px;
-}
-
-.day-total{
-  border-top: 1px solid lightgray;
-  margin-top: 10px;
-  padding: 5px 0;
-  font-size: .85rem;
-  color: green;
-}
-
-.week-expenses button{
-  width: 100%;
-  padding: 5px;
-  border: none;
-}
-
-@media (max-width: 576px) {
-
-  .card-body{
-    padding: 2px;
-  }
+.week-container {
 
   .day-title {
     font-size: 14px;
     text-align: center;
+    font-weight: 400;
+  }
+  .day-expense-list{
+    margin-top: 5px;
   }
 
-  .day-column{
-    width: 12%;
-    padding: 4px;
-    margin: 1px;
-    height: 564px;
+  .day-date {
+    font-size: 12px;
   }
 
-  .week-container{
+  .card-body {
+    font-size: 8px;
+    padding: 8px;
+  }
+
+  .day-total {
+    border-top: 1px solid lightgray;
+    margin-top: 10px;
+    padding: 5px 0;
+    font-size: .85rem;
+    color: green;
+  }
+
+  .week-expenses button {
+    width: 100%;
+    padding: 5px;
+    border: none;
+  }
+
+  .week-expenses.row{
+    margin: 0;
+  }
+}
+
+@media (max-width: 576px) {
+
+  .week-container {
     padding: 24px 10px;
+
+    .card-body {
+      padding: 2px;
+    }
+
+    .day-title {
+      font-size: 14px;
+      text-align: center;
+    }
+
+    .day-column {
+      width: 12%;
+      padding: 2px;
+      margin: 1px;
+      height: 564px;
+    }
+
+    .day-total {
+      padding: 5px;
+      font-size: .75rem;
+    }
   }
 }

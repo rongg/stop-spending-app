@@ -1,10 +1,35 @@
-.expense-card{
-  .card-body img{
+.expense-card {
+  .card-body img {
     $length: 24px;
     height: $length;
     width: $length;
   }
-  .card-body{
+
+  .card-body {
     padding: 8px;
+  }
+
+  .card-text {
+    font-size: .7rem;
+    margin: 0;
+  }
+
+  .card-text.small{
+    font-size: .6rem;
+  }
+
+
+}
+
+@media (max-width: 576px) {
+
+  .expense-card.card {
+    .card-body {
+      padding: 2px;
+    }
+
+    .card-body .card-text {
+      font-size: .7rem;
+    }
   }
 }

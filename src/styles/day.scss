@@ -8,26 +8,31 @@
 
 .day-container .day-column {
   background: none;
+
+  .card-body {
+    padding: 4px;
+  }
 }
 
 
-.day-total{
+.day-total {
   border-top: 1px solid lightgray;
-  margin-top: 10px;
-  padding: 5px 0;
+  padding: 16px;
   font-size: .85rem;
   color: green;
 }
 
-.card-body {
-  padding: 4px;
-}
 
 
 @media (max-width: 576px) {
 
-  .card-body{
-    padding: 2px;
+  .day-container .expense-card.card {
+    .card-body {
+      padding: 5px;
+    }
+    .card-text{
+      font-size: .8rem;
+    }
   }
 
   .day-title {
@@ -36,12 +41,12 @@
     margin-bottom: 10px;
   }
 
-  .day-container .day-column{
+  .day-container .day-column {
     width: 12%;
-    padding: 4px;
     margin: 1px;
     height: 564px;
     background: none;
+    font-size: .75rem;
   }
 
 }

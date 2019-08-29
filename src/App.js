@@ -2,7 +2,7 @@ import React from 'react';
 import './styles/App.css';
 import NavBar from "./components/navbar";
 import {Route, Redirect, Switch} from "react-router-dom";
-import Home from "./components/pages/home";
+import UserHome from "./components/pages/user_home";
 import Login from "./components/pages/login";
 import Logout from "./components/pages/logout";
 import MyAccount from "./components/pages/my_account";
@@ -40,8 +40,10 @@ class App extends React.Component {
                 <NavBar user={user}/>
                 <div className="container">
                     <Switch>
-                        <Route path="/" exact component={Home}/>
-
+                        <Route path="/" exact  render={props => {
+                            if (!user) return <Redirect to="/login"/>;
+                            return <UserHome {...props} />;
+                        }}/>
                         <Route path="/register" exact component={Register}/>
 
                         <Route path="/login" render={props => {

@@ -3,7 +3,7 @@ import React from "react";
 const NavBar = ({user}) => {
     return (
         <nav className="navbar navbar-expand-lg navbar-light bg-light">
-            <a className="navbar-brand" href="/habits">Stop Spending</a>
+            <a className="navbar-brand" href="/">Stop Spending</a>
             <button className="navbar-toggler" type="button" data-toggle="collapse"
                     data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false"
                     aria-label="Toggle navigation">
@@ -16,9 +16,9 @@ const NavBar = ({user}) => {
                             <li className="nav-item">
                                 <a className="nav-link" href="/habits">Habits</a>
                             </li>
-                            <li className="nav-item">
-                                <a className="nav-link" href="/expenses">Expenses</a>
-                            </li>
+                            {/*<li className="nav-item">*/}
+                                {/*<a className="nav-link" href="/expenses">Expenses</a>*/}
+                            {/*</li>*/}
                         </ul>
                         <ul className="navbar-nav">
                             <li className="nav-item">

@@ -1,25 +1,13 @@
 import React from 'react';
 import '../../styles/month.css';
-import PiggyBank from '../habit/piggy_bank';
 import moment from 'moment';
 import Moment from 'react-moment';
 import ExpenseDateRange from './expense_date_range';
 
-class Month extends ExpenseDateRange {
-    state = {
-        //  Month report is current month + and - 1 week
-        start: moment().startOf('month'),
-        end: moment().endOf('month'),
-        expenses: [],
-        habits: [],
-        smallScreen: ExpenseDateRange.getScreenWidth() <= 576
-    };
+class Month extends React.Component {
 
     render() {
-        const {expenses, start} = this.state;
-
-        const {width: pWidth, height: pHeight} = this.piggyParams;
-
+        const {expenses, start, incrementPeriod, navCallback} = this.props;
         let expenseDays = ExpenseDateRange.assignExpensesToDays(expenses, 'date');
         const calendarDays = Month.getCalendarDays(expenseDays, start);
 
@@ -35,9 +23,9 @@ class Month extends ExpenseDateRange {
         const dateFormat = 'MMMM YYYY';
 
 
-        const leftNav = <button onClick={() => this.incrementPeriod(-1, 'month')}
+        const leftNav = <button onClick={() => incrementPeriod(-1, 'month')}
                                 style={{marginRight: '24px'}}>Prev</button>;
-        const rightNav = <button onClick={() => this.incrementPeriod(1, 'month')}
+        const rightNav = <button onClick={() => incrementPeriod(1, 'month')}
                                  style={{marginLeft: '24px'}}>Next</button>;
 
         const weekTotals = [];
@@ -56,14 +44,14 @@ class Month extends ExpenseDateRange {
                         </div>
                         <div className={'spent'}>
                             {day.expenses && day.expenses.length > 0 &&
-                            <button type={'button'} onClick={() => this.navigateTo(day.date, 'day')}>
+                            <button type={'button'} onClick={() => navCallback(day.date, 'day')}>
                                 <span>${ExpenseDateRange.sumExpenseAmounts(day.expenses)}</span>
                             </button>}
                         </div>
                     </div>
                 ))}
                 <div className={'col day-totals'} key={'total-' + index}>
-                    {weekTotals[index] > 0 && <button type={'button'} onClick={() => this.navigateTo(w[0].date, 'week')}>
+                    {weekTotals[index] > 0 && <button type={'button'} onClick={() => navCallback(w[0].date, 'week')}>
                         <span className={'money'}>${weekTotals[index]}</span>
                     </button>}
                 </div>
@@ -72,17 +60,6 @@ class Month extends ExpenseDateRange {
 
 
         return <div>
-            <div className="text-center spent-summary">
-                <div className="piggy-container">
-                    <PiggyBank budget={0} spent={0} width={pWidth} height={pHeight} animate={false}/>
-                </div>
-                <h4>
-                    <span
-                        className='money'>${ExpenseDateRange.sumExpenseAmounts(expenses)}</span> spent {Month.getSpentStatementPredicate(start)}
-                </h4>
-                <a href='/expense/new' className='link'>Log an Expense</a>
-            </div>
-            <br/>
             <div className='text-center date-nav'>
                 {leftNav}
                 <span className="nav-title"><Moment format={dateFormat}>{start}</Moment></span>
@@ -174,11 +151,6 @@ class Month extends ExpenseDateRange {
         }
 
         return Month.appendPreviousAndLastMonth(calendarDays);
-    }
-
-    static getSpentStatementPredicate(start) {
-        if (start.month() === moment().month()) return <span>this month</span>;
-        if (start.month() === moment().add(-1, 'month').month()) return <span>last month</span>;
     }
 
 }

@@ -1,6 +1,6 @@
 .currency-input input {
   border: none;
-  width: 40px; }
+  width: 60px; }
 .currency-input input.cents {
   width: 24px; }
 .currency-input input:focus {

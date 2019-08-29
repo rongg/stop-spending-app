@@ -1,5 +1,6 @@
 import React from 'react';
 import Icon from "../common/Icon";
+import "../../styles/habit_card.css";
 
 class HabitCard extends React.Component {
     constructor(props) {
@@ -15,14 +16,12 @@ class HabitCard extends React.Component {
     render() {
         let {text, iconUrl, link, footerText} = this.state;
         return (
-            <div className="card text-center" style={{minHeight: this.props.height || '180px', width: this.props.width}}>
+            <div className="habit-card card text-center">
                 <a href={link} style={{textDecoration: 'none'}}>
                     <div className="card-body">
                         <Icon path={iconUrl}/>
-                        <p className="card-text"
-                           style={{marginBottom: 0, fontSize: text.length < 15 ? '1.25rem' : '1.0rem'}}>{text}</p>
-                        {footerText ? <p className="card-text"
-                                         style={{fontSize: footerText.length < 15 ? '1.0rem' : '.75rem'}}>{footerText}</p> : null}
+                        <p className={`card-text ${text.length > 18 && 'small'}`}>{text}</p>
+                        {footerText ? <p className="card-text">{footerText}</p> : null}
                     </div>
                 </a>
             </div>)

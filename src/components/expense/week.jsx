@@ -1,47 +1,25 @@
 import React from 'react';
 import '../../styles/week.css';
-import PiggyBank from '../habit/piggy_bank';
 import moment from 'moment';
 import Moment from 'react-moment';
 import ExpenseDateRange from "./expense_date_range";
 
-class Week extends ExpenseDateRange {
-    state = {
-        start: this.props.start || moment().startOf('week'),
-        end: this.props.end || moment().endOf('week'),
-        expenses: [],
-        habits: [],
-        smallScreen: ExpenseDateRange.getScreenWidth() <= 576
-    };
+class Week extends React.Component{
+
 
     render() {
-        this.sortBy('desc');
 
-        const {expenses, start, end, smallScreen} = this.state;
-
-        const {width: pWidth, height: pHeight} = this.piggyParams;
+        const {smallScreen, expenses, start, end, incrementPeriod, navCallback} = this.props;
 
         const days = ExpenseDateRange.assignExpensesToDays(expenses, 'day');
 
-        const dateFormat = smallScreen ? 'MMM D' : 'MMMM D';
+        const dateFormat = smallScreen ? 'MMM D' : 'MMM D';
 
-        const leftNav = <button onClick={() => this.incrementPeriod(-1, 'week')}
+        const leftNav = <button onClick={() => incrementPeriod(-1, 'week')}
                                 style={{marginRight: '24px'}}>Prev</button>;
-        const rightNav = <button onClick={() => this.incrementPeriod(1, 'week')}
+        const rightNav = <button onClick={() => incrementPeriod(1, 'week')}
                                  style={{marginLeft: '24px'}}>Next</button>;
         return <div className={'week-container'}>
-
-            <div className="text-center spent-summary">
-                <div className="piggy-container">
-                    <PiggyBank budget={0} spent={0} width={pWidth} height={pHeight} animate={false}/>
-                </div>
-                <h4><span
-                    className='money'>${Week.sumExpenseAmounts(expenses)}</span> spent {Week.getSpentStatementPredicate(start)}
-                </h4>
-                <a href={this.props.habitId ? '/habit/' + this.props.habitId + '/expense/new' : '/expense/new'}
-                   className='link'>Log an Expense</a>
-            </div>
-            <br/>
             <div className='text-center date-nav'>
                 {leftNav}
                 <span className="nav-title"><Moment format={dateFormat}>{start}</Moment> - <Moment
@@ -52,75 +30,70 @@ class Week extends ExpenseDateRange {
             <div className='row week-expenses'>
                 <div className="col day-column">
 
-                    <button type={'button'} onClick={() => this.navigateTo(moment(start).day(0), 'day')}>
+                    <button type={'button'} onClick={() => navCallback(moment(start).day(0), 'day')}>
                         <div className="day-title">Sun <br/>
                             <Moment className="day-date" format={'M/D'}>{moment(start).day(0)}</Moment>
                         </div>
                     </button>
-                    <div className="day-expense-list">{this.toDailyExpenses(days[0])}</div>
-                    <div className="day-total text-center">${Week.sumExpenseAmounts(days[0])}</div>
+                    <div className="day-expense-list">{ExpenseDateRange.toDailyExpenses(days[0], smallScreen)}</div>
+                    <div className="day-total text-center">${ExpenseDateRange.sumExpenseAmounts(days[0])}</div>
                 </div>
                 <div className="col day-column">
-                    <button type={'button'} onClick={() => this.navigateTo(moment(start).day(1), 'day')}>
+                    <button type={'button'} onClick={() => navCallback(moment(start).day(1), 'day')}>
                         <div className="day-title">Mon <br/>
                             <Moment className="day-date" format={'M/D'}>{moment(start).day(1)}</Moment>
                         </div>
                     </button>
-                    <div className="day-expense-list">{this.toDailyExpenses(days[1])}</div>
-                    <div className="day-total text-center">${Week.sumExpenseAmounts(days[1])}</div>
+                    <div className="day-expense-list">{ExpenseDateRange.toDailyExpenses(days[1], smallScreen)}</div>
+                    <div className="day-total text-center">${ExpenseDateRange.sumExpenseAmounts(days[1])}</div>
                 </div>
                 <div className="col day-column">
-                    <button type={'button'} onClick={() => this.navigateTo(moment(start).day(2), 'day')}>
+                    <button type={'button'} onClick={() => navCallback(moment(start).day(2), 'day')}>
                         <div className="day-title">Tue <br/>
                             <Moment className="day-date" format={'M/D'}>{moment(start).day(2)}</Moment>
                         </div>
                     </button>
-                    <div className="day-expense-list">{this.toDailyExpenses(days[2])}</div>
-                    <div className="day-total text-center">${Week.sumExpenseAmounts(days[2])}</div>
+                    <div className="day-expense-list">{ExpenseDateRange.toDailyExpenses(days[2], smallScreen)}</div>
+                    <div className="day-total text-center">${ExpenseDateRange.sumExpenseAmounts(days[2])}</div>
                 </div>
                 <div className="col day-column">
-                    <button type={'button'} onClick={() => this.navigateTo(moment(start).day(3), 'day')}>
+                    <button type={'button'} onClick={() => navCallback(moment(start).day(3), 'day')}>
                         <div className="day-title">Wed <br/>
                             <Moment className="day-date" format={'M/D'}>{moment(start).day(3)}</Moment>
                         </div>
                     </button>
-                    <div className="day-expense-list">{this.toDailyExpenses(days[3])}</div>
-                    <div className="day-total text-center">${Week.sumExpenseAmounts(days[3])}</div>
+                    <div className="day-expense-list">{ExpenseDateRange.toDailyExpenses(days[3], smallScreen)}</div>
+                    <div className="day-total text-center">${ExpenseDateRange.sumExpenseAmounts(days[3])}</div>
                 </div>
                 <div className="col day-column">
-                    <button type={'button'} onClick={() => this.navigateTo(moment(start).day(4), 'day')}>
+                    <button type={'button'} onClick={() => navCallback(moment(start).day(4), 'day')}>
                         <div className="day-title">Thu<br/>
                             <Moment className="day-date" format={'M/D'}>{moment(start).day(4)}</Moment>
                         </div>
                     </button>
-                    <div className="day-expense-list">{this.toDailyExpenses(days[4])}</div>
-                    <div className="day-total text-center">${Week.sumExpenseAmounts(days[4])}</div>
+                    <div className="day-expense-list">{ExpenseDateRange.toDailyExpenses(days[4], smallScreen)}</div>
+                    <div className="day-total text-center">${ExpenseDateRange.sumExpenseAmounts(days[4])}</div>
                 </div>
                 <div className="col day-column">
-                    <button type={'button'} onClick={() => this.navigateTo(moment(start).day(5), 'day')}>
+                    <button type={'button'} onClick={() => navCallback(moment(start).day(5), 'day')}>
                         <div className="day-title">Fri <br/> <Moment className="day-date"
                                                                      format={'M/D'}>{moment(start).day(5)}</Moment>
                         </div>
                     </button>
-                    <div className="day-expense-list">{this.toDailyExpenses(days[5])}</div>
-                    <div className="day-total text-center">${Week.sumExpenseAmounts(days[5])}</div>
+                    <div className="day-expense-list">{ExpenseDateRange.toDailyExpenses(days[5], smallScreen)}</div>
+                    <div className="day-total text-center">${ExpenseDateRange.sumExpenseAmounts(days[5])}</div>
                 </div>
                 <div className="col day-column">
-                    <button type={'button'} onClick={() => this.navigateTo(moment(start).day(6), 'day')}>
+                    <button type={'button'} onClick={() => navCallback(moment(start).day(6), 'day')}>
                         <div className="day-title">Sat <br/>
                             <Moment className="day-date" format={'M/D'}>{moment(start).day(6)}</Moment>
                         </div>
                     </button>
-                    <div className="day-expense-list">{this.toDailyExpenses(days[6])}</div>
-                    <div className="day-total text-center">${Week.sumExpenseAmounts(days[6])}</div>
+                    <div className="day-expense-list">{ExpenseDateRange.toDailyExpenses(days[6], smallScreen)}</div>
+                    <div className="day-total text-center">${ExpenseDateRange.sumExpenseAmounts(days[6])}</div>
                 </div>
             </div>
         </div>
-    }
-
-    static getSpentStatementPredicate(start) {
-        if (start.day(0).dayOfYear() === moment().day(0).dayOfYear()) return <span>this week</span>;
-        if (start.day(0).dayOfYear() === moment().add(-1, 'week').day(0).dayOfYear()) return <span>last week</span>;
     }
 
 }

@@ -1,12 +1,10 @@
 .App {
-  text-align: center;
-}
+  text-align: center; }
 
 .App-logo {
   animation: App-logo-spin infinite 20s linear;
   height: 60vmin;
-  pointer-events: none;
-}
+  pointer-events: none; }
 
 .App-header {
   background-color: #282c34;
@@ -16,61 +14,47 @@
   align-items: center;
   justify-content: center;
   font-size: calc(10px + 2vmin);
-  color: white;
-}
+  color: white; }
 
 .App-link {
-  color: #61dafb;
-}
+  color: #61dafb; }
 
-.link{
-    font-size: 14px;
-}
+.link {
+  font-size: 14px; }
 
-.red{
-    color: red;
-}
+.red {
+  color: red; }
 
-.money{
-    color: green;
-}
+.money {
+  color: green; }
 
-.green{
-    color: green;
-}
+.green {
+  color: green; }
 
-.success{
-    visibility: visible;
-}
+.success {
+  visibility: visible; }
 
-.gone{
-    display: none;
-}
+.gone {
+  display: none; }
 
-.error-message{
-    visibility: visible;
-}
+.error-message {
+  visibility: visible; }
 
-.hidden{
-    visibility: hidden;
-}
+.hidden {
+  visibility: hidden; }
 
-.form{
-    margin: auto;
-    width: 50%;
-    padding: 40px;
-}
+.form {
+  margin: auto;
+  width: 50%;
+  padding: 40px; }
 
-.page{
-    padding: 32px;
-}
+.page {
+  padding: 32px; }
 
 @keyframes App-logo-spin {
-
   from {
-    transform: rotate(0deg);
-  }
+    transform: rotate(0deg); }
   to {
-    transform: rotate(360deg);
-  }
-}
+    transform: rotate(360deg); } }
+
+/*# sourceMappingURL=App.css.map */

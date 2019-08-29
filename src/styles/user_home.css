@@ -1,0 +1,21 @@
+.habits div[class^="col-"] {
+  padding: 4px; }
+
+.row {
+  margin: 0; }
+
+.piggy.card {
+  padding: 16px; }
+
+.devil .expense-card .card-body, .angel .expense-card .card-body {
+  padding: 40px; }
+  .devil .expense-card .card-body .card-text.money, .angel .expense-card .card-body .card-text.money {
+    font-size: 1.5rem; }
+  .devil .expense-card .card-body .card-text.expense-name, .angel .expense-card .card-body .card-text.expense-name {
+    font-size: 1.25rem;
+    font-weight: 500; }
+.devil .expense-card .card-body img, .angel .expense-card .card-body img {
+  height: 80px;
+  width: 80px; }
+
+/*# sourceMappingURL=user_home.css.map */
