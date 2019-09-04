@@ -14,6 +14,10 @@ $font-size-xs: .7rem;
     }
   }
 
+  button{
+    box-shadow: none;
+  }
+
   .weekend {
     background: #fafafa;
   }
@@ -32,11 +36,18 @@ $font-size-xs: .7rem;
   .col.day-totals {
     text-align: center;
     border-bottom: none;
-    font-size: .85rem;
-    padding: 36px 20px;
+    padding: 30px 20px;
 
     a {
       padding: 24px;
+    }
+
+    button{
+      border: none;
+    }
+
+    button:hover {
+      text-decoration: underline;
     }
   }
 

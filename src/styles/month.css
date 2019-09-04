@@ -4,6 +4,8 @@
   border-bottom: 1px darkgrey solid; }
   .month-container .header.row .col {
     border: none; }
+.month-container button {
+  box-shadow: none; }
 .month-container .weekend {
   background: #fafafa; }
 .month-container .row {
@@ -16,10 +18,13 @@
 .month-container .col.day-totals {
   text-align: center;
   border-bottom: none;
-  font-size: .85rem;
-  padding: 36px 20px; }
+  padding: 30px 20px; }
   .month-container .col.day-totals a {
     padding: 24px; }
+  .month-container .col.day-totals button {
+    border: none; }
+  .month-container .col.day-totals button:hover {
+    text-decoration: underline; }
 .month-container .today {
   background: #f3fdf3; }
   .month-container .today .date {

@@ -1,8 +1,44 @@
 .habits div[class^="col-"] {
   padding: 4px; }
 
-.row {
-  margin: 0; }
+.date-nav > .inline {
+  width: 360px; }
+
+.nav-title {
+  font-size: 19px;
+  font-weight: 500; }
+
+a:hover, a:visited, a:link, a:active {
+  text-decoration: none; }
+
+.btn-secondary {
+  color: #000000;
+  border: 1px solid lightgray; }
+
+.date-control .btn {
+  border: 1px solid lightgray;
+  background: #fff; }
+  .date-control .btn img {
+    margin: 0; }
+.date-control div[class^='col-'] {
+  padding: 0; }
+
+.btn-default img {
+  height: 24px;
+  width: 24px;
+  margin-right: 8px;
+  vertical-align: bottom; }
+
+.date-control .btn:hover {
+  background: gainsboro; }
+
+.action {
+  padding: 10px;
+  border-radius: 2px;
+  background: lightgreen;
+  text-decoration: none;
+  border: 1px green solid;
+  font-weight: 400; }
 
 .piggy.card {
   padding: 16px; }
@@ -17,5 +53,8 @@
 .devil .expense-card .card-body img, .angel .expense-card .card-body img {
   height: 80px;
   width: 80px; }
+
+.card.chart {
+  padding: 16px; }
 
 /*# sourceMappingURL=user_home.css.map */

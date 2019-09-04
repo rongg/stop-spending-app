@@ -1,30 +1,84 @@
-.habits{
-  div[class^="col-"]{
+.habits {
+  div[class^="col-"] {
     padding: 4px;
   }
 }
 
-.row{
-  margin: 0;
+.date-nav > .inline {
+  width: 360px;
 }
 
-.piggy.card{
+.nav-title{
+  font-size: 19px;
+  font-weight: 500;
+}
+
+a:hover, a:visited, a:link, a:active {
+  text-decoration: none;
+}
+
+
+.btn-secondary {
+  color: #000000;
+  border: 1px solid lightgray;
+}
+
+.date-control{
+  .btn{
+    border: 1px solid lightgray;
+    background: #fff;
+    img{
+      margin: 0;
+    }
+  }
+  div[class^='col-']{
+    padding: 0;
+  }
+}
+
+.btn-default{
+  img {
+    height: 24px;
+    width: 24px;
+    margin-right: 8px;
+    vertical-align: bottom;
+  }
+}
+
+.date-control .btn:hover {
+  background: gainsboro
+}
+
+.action {
+  padding: 10px;
+  border-radius: 2px;
+  background: lightgreen; //#51b55f;
+  text-decoration: none;
+  border: 1px green solid;
+  //color: #fff;
+  font-weight: 400;
+
+
+}
+
+.piggy.card {
   padding: 16px;
 }
 
-.devil, .angel{
-  .card-header{
-    .card-text.expense-name{
+.devil, .angel {
+  .card-header {
+    .card-text.expense-name {
       font-size: 1.25rem;
       font-weight: 500;
     }
   }
-  .expense-card .card-body{
+
+  .expense-card .card-body {
     padding: 24px;
   }
 
 
-  .card-text.money{
+  .card-text.money {
     font-size: 1.5rem;
   }
 
@@ -33,4 +87,8 @@
     height: $length;
     width: $length;
   }
+}
+
+.card.chart{
+  padding: 16px;
 }

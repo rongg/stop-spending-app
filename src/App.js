@@ -36,7 +36,7 @@ class App extends React.Component {
     render() {
         const user = this.state.user;
         return (
-            <div>
+            <div className={'app'}>
                 <NavBar user={user}/>
                 <div className="container">
                     <Switch>

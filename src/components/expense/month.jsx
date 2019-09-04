@@ -44,7 +44,7 @@ class Month extends React.Component {
                     </div>
                 ))}
                 <div className={'col day-totals'} key={'total-' + index}>
-                    {weekTotals[index] > 0 && <button type={'button'} onClick={() => navCallback(w[0].date, 'week')}>
+                    {weekTotals[index] > 0 && <button className='btn btn-default' onClick={() => navCallback(w[0].date, 'week')}>
                         <span className={'money'}>${weekTotals[index]}</span>
                     </button>}
                 </div>
@@ -52,7 +52,7 @@ class Month extends React.Component {
         ));
 
 
-        return <div>
+        return <div className={'col-sm-12'}>
             <div className='month-container'>
                 <div className='header row'>
                     <div className='col'>Sun</div>

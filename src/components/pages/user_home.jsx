@@ -13,6 +13,7 @@ import "../../styles/user_home.css";
 import MyChart from "../common/my_chart";
 import ExpenseCard from "../expense/expense_card";
 import Moment from "react-moment";
+import Icon from "../common/Icon";
 
 class UserHome extends React.Component {
 
@@ -64,47 +65,66 @@ class UserHome extends React.Component {
         let datePrefix = 'Weekly';
         let dateFormat = 'MMM D';
 
+        const startEndSameMonth = start.isSame(end, 'month');
+        let dateFormat2 = startEndSameMonth && currentNav === 'week' ? 'D' : null;
+
         if (currentNav === 'month') {
             datePrefix = 'Monthly';
-            dateFormat = 'MMMM YYYY';
+            dateFormat = start.isSame(moment(), 'year') ? 'MMMM' : 'MMMM YYYY';
         }
         if (currentNav === 'day') {
             datePrefix = 'Daily';
-            dateFormat = 'ddd MMM D';
+            dateFormat = 'dddd MMM D';
         }
-
-
-        const leftNav = <button onClick={() => this.incrementPeriod(-1, currentNav)}
-                                style={{marginRight: '24px'}}>Prev</button>;
-        const rightNav = <button onClick={() => this.incrementPeriod(1, currentNav)}
-                                 style={{marginLeft: '24px'}}>Next</button>;
+        const leftNav = <a className='btn btn-default' onClick={() => this.incrementPeriod(-1, currentNav)}><Icon
+            path={'app_icons/left.svg'}/></a>;
+        const rightNav = <a className='btn btn-default' onClick={() => this.incrementPeriod(1, currentNav)}
+                            style={{float: 'right'}}><Icon path={'app_icons/right.svg'}/></a>;
 
         return <div className="m-auto page">
-            <h3 className={'text-left'}>My Spending Summary</h3>
+            <div className='row'>
+                <div className='col-sm-12'>
+                    <h3 className={'text-left'}>My Spending Summary</h3>
+                </div>
+            </div>
             <br/>
-            <div className={'row'}>
+
+            <br/>
+            <div className={'date-nav row'}>
                 <div className="col-sm-4 expenses-nav text-left">
-                    <button
-                        onClick={() => this.setCurrentNav('month', moment().startOf('month'), moment().endOf('month'))}
-                        className={currentNav === 'month' ? 'active' : 'inactive'}>Month
-                    </button>
-                    <button
-                        onClick={() => this.setCurrentNav('week', moment().startOf('week'), moment().endOf('week'))}
-                        className={currentNav === 'week' ? 'active' : 'inactive'}>Week
-                    </button>
-                    <button
-                        onClick={() => this.setCurrentNav('day', moment().startOf('day'), moment().endOf('day'))}
-                        className={currentNav === 'day' ? 'active' : 'inactive'}>Day
-                    </button>
+                    <div className='btn-group' role='group'>
+                        <button
+                            onClick={() => this.setCurrentNav('month', moment().startOf('month'), moment().endOf('month'))}
+                            className={`btn btn-secondary ${currentNav === 'month' ? 'active' : 'inactive'}`}>Month
+                        </button>
+                        <button
+                            onClick={() => this.setCurrentNav('week', moment().startOf('week'), moment().endOf('week'))}
+                            className={`btn btn-secondary ${currentNav === 'week' ? 'active' : 'inactive'}`}>Week
+                        </button>
+                        <button
+                            onClick={() => this.setCurrentNav('day', moment().startOf('day'), moment().endOf('day'))}
+                            className={`btn btn-secondary ${currentNav === 'day' ? 'active' : 'inactive'}`}>Day
+                        </button>
+                    </div>
                 </div>
 
-                <div className='text-center date-nav'>
-                    {leftNav}
-                    {currentNav === 'week' ?
-                        <span className="nav-title"><Moment format={dateFormat}>{start}</Moment> - <Moment
-                            format={dateFormat}>{end}</Moment></span> :
-                        <span className="nav-title"><Moment format={dateFormat}>{start}</Moment></span>}
-                    {rightNav}
+                <div className='col-sm-4 date-control'>
+                    <div className={'row'}>
+                        <div className={'col-3'}>
+                            {leftNav}
+                        </div>
+                        <div className='col-6 text-center'>
+                            <div style={{padding: '5px'}}>
+                                {currentNav === 'week' ?
+                                    <span className="nav-title"><Moment format={dateFormat}>{start}</Moment> - <Moment
+                                        format={dateFormat2 || dateFormat}>{end}</Moment></span> :
+                                    <span className="nav-title"><Moment format={dateFormat}>{start}</Moment></span>}
+                            </div>
+                        </div>
+                        <div className={'col-3'}>
+                            {rightNav}
+                        </div>
+                    </div>
                 </div>
 
             </div>
@@ -134,23 +154,26 @@ class UserHome extends React.Component {
 
             </div>
             <br/>
-
             <div className={'row text-center'}>
-                <div className={'col-sm-4'}><a
-                    href={'habit/new'}
-                    className='link'>Create a Spending Habit</a>
+                <div className={'col-sm-4'}>
+                    <a href={'habit/new'}
+                       className="btn btn-block btn-primary btn-default"><Icon path={'money_default.svg'}/>Create a
+                        Spending Habit</a>
                 </div>
-                <div className={'col-sm-4'}><a
-                    href={this.state.habitId ? '/habit/' + this.state.habitId + '/expense/new' : '/expense/new'}
-                    className='link'>Log an Expense</a>
+                <div className={'col-sm-4'} style={{padding: 0}}>
+                    <a href={this.state.habitId ? '/habit/' + this.state.habitId + '/expense/new' : '/expense/new'}
+                       className="btn btn-block btn-primary btn-default"><Icon path={'app_icons/log.svg'}/>Log an
+                        Expense</a>
                 </div>
-                <div className={'col-sm-4'}><a
-                    href={'urge/new'}
-                    className='link'>Log an Urge</a>
+                <div className={'col-sm-4'}>
+                    <a href={'urge/new'}
+                       className="btn btn-block btn-primary btn-default"><Icon path={'app_icons/devil.svg'}/>Log an Urge</a>
                 </div>
             </div>
+
             <br/>
-            <div>
+
+            <div className={'expenses-range-container card'}>
                 {currentNav === 'week' && <Week expenses={expenses} start={start} end={end} smallScreen={smallScreen}
                                                 navCallback={this.navigateTo}
                                                 incrementPeriod={this.incrementPeriod}/>}
@@ -163,7 +186,12 @@ class UserHome extends React.Component {
 
             <br/>
             <br/>
-            <h3>My {datePrefix} Spending Habits</h3>
+
+            <div className='row'>
+                <div className='col-sm-12'>
+                    <h3>My {datePrefix} Spending Habits</h3>
+                </div>
+            </div>
             <br/>
             <div className={'row habits col-sm-12'}>
                 {habits.map((habit, index) => (
@@ -176,11 +204,15 @@ class UserHome extends React.Component {
             <br/>
             <div className={'row stats'} style={{height: '400px'}}>
                 <div className="col-sm-6">
-                    <MyChart type={'pie'} label={'Habits'} data={fHabits} valueKey={'spent'}/>
+                    <div className='card chart'>
+                        <MyChart type={'bar'} label={datePrefix + ' Expenses ($)'} colors={'#5bca6a'} data={fHabits}
+                                 valueKey={'spent'}/>
+                    </div>
                 </div>
                 <div className="col-sm-6">
-                    <MyChart type={'bar'} label={datePrefix + ' Expenses'} colors={'#5bca6a'} data={fHabits}
-                             valueKey={'spent'}/>
+                    <div className='card chart'>
+                        <MyChart type={'pie'} label={'Habits'} data={fHabits} valueKey={'spent'}/>
+                    </div>
                 </div>
             </div>
         </div>;

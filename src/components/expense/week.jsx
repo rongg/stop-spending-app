@@ -4,7 +4,7 @@ import moment from 'moment';
 import Moment from 'react-moment';
 import ExpenseDateRange from "./expense_date_range";
 
-class Week extends React.Component{
+class Week extends React.Component {
 
 
     render() {
@@ -15,9 +15,8 @@ class Week extends React.Component{
 
         return <div className={'week-container'}>
 
-            <div className='row week-expenses'>
+            <div className='row week-expenses col-sm-12'>
                 <div className="col day-column">
-
                     <button type={'button'} onClick={() => navCallback(moment(start).day(0), 'day')}>
                         <div className="day-title">Sun <br/>
                             <Moment className="day-date" format={'M/D'}>{moment(start).day(0)}</Moment>
