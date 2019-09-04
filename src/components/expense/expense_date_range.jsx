@@ -38,6 +38,7 @@ class ExpenseDateRange {
         if (!day) return [];
         return day.map((expense, index) => (
             <ExpenseCard key={'mon-expense-' + index} expense={expense}
+                         needWant={expense.needWant}
                          link={expense.habitId ? '/habit/' + expense.habitId + '/expense/' + expense._id : '/expense/' + expense._id}
                          icon={expense.habit && expense.habit.icon ? expense.habit.icon : expenses.getDefaultIcon()}
                          height={smallScreen ? '50px' : '80px'} hideName={smallScreen}/>

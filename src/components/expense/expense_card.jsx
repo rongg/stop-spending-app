@@ -7,12 +7,16 @@ class ExpenseCard extends React.Component {
 
     render() {
         const {amount, name, date} = this.props.expense;
-        const {icon, showTime, link, height, width, padding, hideName} = this.props;
+        const {icon, showTime, link, height, width, padding, hideName, needWant} = this.props;
 
         return (
             <div className="expense-card card text-center"
                  style={{minHeight: height || '180px', width: width}}>
                 <a href={link} style={{textDecoration: 'none'}}>
+                    <div className={'card-header'}>
+                        {!hideName &&
+                        <p className={`card-text expense-name ${name.length > 12 && 'small'}`}>{name}</p>}
+                    </div>
                     <div className="card-body" style={padding && {padding: padding}}>
                         {showTime && date &&
                         <p className={'card-text'}
@@ -23,9 +27,10 @@ class ExpenseCard extends React.Component {
                         <p className="card-text money">
                             ${amount}
                         </p>
-                        {!hideName &&
-                        <p className={`card-text expense-name ${name.length > 12 && 'small'}`}>{name}</p>}
                     </div>
+                    {/*<div className={'card-footer'}>*/}
+                        {/*{needWant && <Icon path={needWant.toLowerCase() === 'need' ? 'app_icons/angel.svg' : 'app_icons/devil.svg'} />}*/}
+                    {/*</div>*/}
                 </a>
             </div>)
     }

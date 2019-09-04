@@ -12,6 +12,7 @@ import HabitCard from "../habit/habit_card";
 import "../../styles/user_home.css";
 import MyChart from "../common/my_chart";
 import ExpenseCard from "../expense/expense_card";
+import Moment from "react-moment";
 
 class UserHome extends React.Component {
 
@@ -52,8 +53,8 @@ class UserHome extends React.Component {
         this.sortExpensesBy('desc');
         const {expenses, start, end, smallScreen, currentNav, habits} = this.state;
         habits.sort((a, b) => {
-            if(a.spent > b.spent) return -1;
-            if(a.spent < b.spent) return 1;
+            if (a.spent > b.spent) return -1;
+            if (a.spent < b.spent) return 1;
 
             return 0;
         });
@@ -61,14 +62,28 @@ class UserHome extends React.Component {
         const fHabits = habits.filter(h => h.spent && h.spent > 0);
 
         let datePrefix = 'Weekly';
-        if(currentNav === 'month') datePrefix = 'Monthly';
-        if(currentNav === 'day') datePrefix = 'Daily';
+        let dateFormat = 'MMM D';
+
+        if (currentNav === 'month') {
+            datePrefix = 'Monthly';
+            dateFormat = 'MMMM YYYY';
+        }
+        if (currentNav === 'day') {
+            datePrefix = 'Daily';
+            dateFormat = 'ddd MMM D';
+        }
+
+
+        const leftNav = <button onClick={() => this.incrementPeriod(-1, currentNav)}
+                                style={{marginRight: '24px'}}>Prev</button>;
+        const rightNav = <button onClick={() => this.incrementPeriod(1, currentNav)}
+                                 style={{marginLeft: '24px'}}>Next</button>;
 
         return <div className="m-auto page">
             <h3 className={'text-left'}>My Spending Summary</h3>
             <br/>
             <div className={'row'}>
-                <div className="col-sm-5 expenses-nav text-left">
+                <div className="col-sm-4 expenses-nav text-left">
                     <button
                         onClick={() => this.setCurrentNav('month', moment().startOf('month'), moment().endOf('month'))}
                         className={currentNav === 'month' ? 'active' : 'inactive'}>Month
@@ -83,11 +98,23 @@ class UserHome extends React.Component {
                     </button>
                 </div>
 
+                <div className='text-center date-nav'>
+                    {leftNav}
+                    {currentNav === 'week' ?
+                        <span className="nav-title"><Moment format={dateFormat}>{start}</Moment> - <Moment
+                            format={dateFormat}>{end}</Moment></span> :
+                        <span className="nav-title"><Moment format={dateFormat}>{start}</Moment></span>}
+                    {rightNav}
+                </div>
+
             </div>
             <br/>
             <div className={'piggy row'}>
                 <div className="col-sm-4 angel">
-                    <ExpenseCard height={224} expense={{name: 'Needs', amount: ExpenseDateRange.sumExpenseAmounts(expenses.filter(e => e.needWant && e.needWant.toLowerCase() === 'need'))}} icon={'app_icons/angel.svg'} />
+                    <ExpenseCard height={224} expense={{
+                        name: 'Needs',
+                        amount: ExpenseDateRange.sumExpenseAmounts(expenses.filter(e => e.needWant && e.needWant.toLowerCase() === 'need'))
+                    }} icon={'app_icons/angel.svg'}/>
                 </div>
 
                 <div className={'col-sm-4 card piggy'}>
@@ -99,7 +126,10 @@ class UserHome extends React.Component {
                 </div>
 
                 <div className="col-sm-4 devil">
-                    <ExpenseCard height={224} expense={{name: 'Wants', amount: ExpenseDateRange.sumExpenseAmounts(expenses.filter(e => e.needWant && e.needWant.toLowerCase() === 'want'))}} icon={'app_icons/devil.svg'} />
+                    <ExpenseCard height={224} expense={{
+                        name: 'Wants',
+                        amount: ExpenseDateRange.sumExpenseAmounts(expenses.filter(e => e.needWant && e.needWant.toLowerCase() === 'want'))
+                    }} icon={'app_icons/devil.svg'}/>
                 </div>
 
             </div>
@@ -149,7 +179,8 @@ class UserHome extends React.Component {
                     <MyChart type={'pie'} label={'Habits'} data={fHabits} valueKey={'spent'}/>
                 </div>
                 <div className="col-sm-6">
-                    <MyChart type={'bar'} label={datePrefix + ' Expenses'} colors={'#5bca6a'} data={fHabits} valueKey={'spent'}/>
+                    <MyChart type={'bar'} label={datePrefix + ' Expenses'} colors={'#5bca6a'} data={fHabits}
+                             valueKey={'spent'}/>
                 </div>
             </div>
         </div>;

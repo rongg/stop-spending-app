@@ -7,13 +7,13 @@
 .piggy.card {
   padding: 16px; }
 
+.devil .card-header .card-text.expense-name, .angel .card-header .card-text.expense-name {
+  font-size: 1.25rem;
+  font-weight: 500; }
 .devil .expense-card .card-body, .angel .expense-card .card-body {
-  padding: 40px; }
-  .devil .expense-card .card-body .card-text.money, .angel .expense-card .card-body .card-text.money {
-    font-size: 1.5rem; }
-  .devil .expense-card .card-body .card-text.expense-name, .angel .expense-card .card-body .card-text.expense-name {
-    font-size: 1.25rem;
-    font-weight: 500; }
+  padding: 24px; }
+.devil .card-text.money, .angel .card-text.money {
+  font-size: 1.5rem; }
 .devil .expense-card .card-body img, .angel .expense-card .card-body img {
   height: 80px;
   width: 80px; }

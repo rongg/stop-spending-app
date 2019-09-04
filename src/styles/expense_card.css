@@ -1,6 +1,9 @@
 .expense-card .card-body img {
   height: 24px;
   width: 24px; }
+.expense-card .card-footer img {
+  height: 16px;
+  width: 16px; }
 .expense-card .card-body {
   padding: 8px; }
 .expense-card .card-text {
@@ -8,6 +11,15 @@
   margin: 0; }
 .expense-card .card-text.small {
   font-size: .6rem; }
+.expense-card .card-header {
+  background-color: #fff;
+  border-bottom: 1px solid #ffa7b6;
+  padding: 4px; }
+.expense-card .card-footer {
+  text-align: left;
+  background-color: #fff;
+  padding: 0;
+  border-top: none; }
 
 @media (max-width: 576px) {
   .expense-card.card .card-body {

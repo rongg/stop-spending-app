@@ -9,23 +9,11 @@ class Week extends React.Component{
 
     render() {
 
-        const {smallScreen, expenses, start, end, incrementPeriod, navCallback} = this.props;
+        const {smallScreen, expenses, start, navCallback} = this.props;
 
         const days = ExpenseDateRange.assignExpensesToDays(expenses, 'day');
 
-        const dateFormat = smallScreen ? 'MMM D' : 'MMM D';
-
-        const leftNav = <button onClick={() => incrementPeriod(-1, 'week')}
-                                style={{marginRight: '24px'}}>Prev</button>;
-        const rightNav = <button onClick={() => incrementPeriod(1, 'week')}
-                                 style={{marginLeft: '24px'}}>Next</button>;
         return <div className={'week-container'}>
-            <div className='text-center date-nav'>
-                {leftNav}
-                <span className="nav-title"><Moment format={dateFormat}>{start}</Moment> - <Moment
-                    format={dateFormat}>{end}</Moment></span>
-                {rightNav}
-            </div>
 
             <div className='row week-expenses'>
                 <div className="col day-column">

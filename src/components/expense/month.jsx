@@ -1,13 +1,12 @@
 import React from 'react';
 import '../../styles/month.css';
 import moment from 'moment';
-import Moment from 'react-moment';
 import ExpenseDateRange from './expense_date_range';
 
 class Month extends React.Component {
 
     render() {
-        const {expenses, start, incrementPeriod, navCallback} = this.props;
+        const {expenses, start, navCallback} = this.props;
         let expenseDays = ExpenseDateRange.assignExpensesToDays(expenses, 'date');
         const calendarDays = Month.getCalendarDays(expenseDays, start);
 
@@ -20,13 +19,7 @@ class Month extends React.Component {
         week[5] = calendarDays.slice(35, calendarDays.length);
 
 
-        const dateFormat = 'MMMM YYYY';
 
-
-        const leftNav = <button onClick={() => incrementPeriod(-1, 'month')}
-                                style={{marginRight: '24px'}}>Prev</button>;
-        const rightNav = <button onClick={() => incrementPeriod(1, 'month')}
-                                 style={{marginLeft: '24px'}}>Next</button>;
 
         const weekTotals = [];
         week.map((w, index) => weekTotals[index] = ExpenseDateRange.sumWeeklyExpenseAmounts(w));
@@ -60,12 +53,6 @@ class Month extends React.Component {
 
 
         return <div>
-            <div className='text-center date-nav'>
-                {leftNav}
-                <span className="nav-title"><Moment format={dateFormat}>{start}</Moment></span>
-                {rightNav}
-            </div>
-
             <div className='month-container'>
                 <div className='header row'>
                     <div className='col'>Sun</div>

@@ -1,6 +1,12 @@
 .expense-card {
-  .card-body img {
+  .card-body img{
     $length: 24px;
+    height: $length;
+    width: $length;
+  }
+
+  .card-footer img{
+    $length: 16px;
     height: $length;
     width: $length;
   }
@@ -17,7 +23,18 @@
   .card-text.small{
     font-size: .6rem;
   }
+  .card-header{
+    background-color: #fff;
+    border-bottom: 1px solid #ffa7b6;
+    padding: 4px;
+  }
 
+  .card-footer{
+    text-align: left;
+    background-color: #fff;
+    padding: 0;
+    border-top: none;
+  }
 
 }
 
