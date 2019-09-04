@@ -30,7 +30,7 @@ class UserHome extends React.Component {
         this.incrementPeriod = this.incrementPeriod.bind(this);
         this.getHabitsAndExpenses = this.getHabitsAndExpenses.bind(this);
         this.navigateTo = this.navigateTo.bind(this);
-        this.sortBy = this.sortBy.bind(this);
+        this.sortExpensesBy = this.sortExpensesBy.bind(this);
         this.piggyParams = {
             width: 225,
             height: 150
@@ -49,10 +49,16 @@ class UserHome extends React.Component {
 
     render() {
 
-        this.sortBy('desc');
+        this.sortExpensesBy('desc');
         const {expenses, start, end, smallScreen, currentNav, habits} = this.state;
+        habits.sort((a, b) => {
+            if(a.spent > b.spent) return -1;
+            if(a.spent < b.spent) return 1;
+
+            return 0;
+        });
+
         const fHabits = habits.filter(h => h.spent && h.spent > 0);
-        const colors = fHabits.map(() => MyChart.getUniqueRandomColor());
 
         let datePrefix = 'Weekly';
         if(currentNav === 'month') datePrefix = 'Monthly';
@@ -127,7 +133,7 @@ class UserHome extends React.Component {
 
             <br/>
             <br/>
-            <h3>My Spending Habits</h3>
+            <h3>My {datePrefix} Spending Habits</h3>
             <br/>
             <div className={'row habits col-sm-12'}>
                 {habits.map((habit, index) => (
@@ -140,7 +146,7 @@ class UserHome extends React.Component {
             <br/>
             <div className={'row stats'} style={{height: '400px'}}>
                 <div className="col-sm-6">
-                    <MyChart type={'pie'} label={'Habits'} colors={colors} data={fHabits} valueKey={'spent'}/>
+                    <MyChart type={'pie'} label={'Habits'} data={fHabits} valueKey={'spent'}/>
                 </div>
                 <div className="col-sm-6">
                     <MyChart type={'bar'} label={datePrefix + ' Expenses'} colors={'#5bca6a'} data={fHabits} valueKey={'spent'}/>
@@ -164,7 +170,7 @@ class UserHome extends React.Component {
     }
 
 
-    sortBy(direction) {
+    sortExpensesBy(direction) {
         if (!this.state.expenses || !this.state.expenses.length) return;
 
         const compareFn = (a, b) => {

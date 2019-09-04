@@ -3,8 +3,14 @@ import {Pie, Doughnut, Bar} from "react-chartjs-2";
 
 class MyChart extends React.Component {
 
+    constructor(props){
+        super(props);
+        this.getUniqueRandomColor = this.getUniqueRandomColor.bind(this);
+    }
+
     render() {
         const {type, data, label, colors, valueKey} = this.props;
+        this.colors = MyChart.getColors();
         let {height, width} = this.props;
 
 
@@ -14,7 +20,7 @@ class MyChart extends React.Component {
                 {
                     label,
                     data: data.map(e => e[valueKey]),
-                    backgroundColor: colors || data.map(e => MyChart.getUniqueRandomColor()),
+                    backgroundColor: colors || data.map(e => this.getUniqueRandomColor()),
                 }
             ]
         };
@@ -43,23 +49,31 @@ class MyChart extends React.Component {
 
     }
 
+    colors = MyChart.getColors();
 
-    static getUniqueRandomColor() {
-        const colors = ['#5bca6a',
-            '#93ea9f',
-            '#a8b451',
-            '#ff4162',
-            '#e475d5',
+    static getColors(){
+        return ['#5bca6a',
+            '#00adca',
+            '#ca1d00',
             '#a986e6',
-            '#e0ab8a',
-            '#86e6fe',
-            '#ddc75d',
             '#ff7f50',
+            '#e475d5',
+            '#93ea9f',
+            '#e0ab8a',
+            '#a8b451',
+            '#ddc75d',
             '#b5e076',
             '#75d5e4',
             '#e48375'];
+    }
 
-        return colors[Math.floor(Math.random() * colors.length)];
+    getUniqueRandomColor() {
+        if(!this.colors.length) {
+            this.colors = MyChart.getColors();
+            return this.colors[this.colors.length / 2];
+        }
+        // const index = Math.floor(Math.random() * this.colors.length);
+        return this.colors.shift();
     }
 
 }
