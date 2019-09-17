@@ -6,10 +6,23 @@
     width: $length;
   }
 
+  .red{
+    color: #ed3742
+  }
+
+  .yellow{
+    color: #997a37;
+  }
+
   .card-body{
     padding: 4px 10px;
     position: relative;
     top: 12px;
+  }
+
+  .card-footer{
+    padding: 1px 5px;
+    background-color: #fff;
   }
 
   .card-text {
@@ -17,6 +30,9 @@
   }
   .card-text.small{
     font-size: .6rem;
+  }
+  p.habit-name{
+    margin-bottom: 10px;
   }
 }
 

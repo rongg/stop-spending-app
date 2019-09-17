@@ -3,14 +3,23 @@
   .habit-card .card-body img {
     height: 32px;
     width: 32px; }
+  .habit-card .red {
+    color: #ed3742; }
+  .habit-card .yellow {
+    color: #997a37; }
   .habit-card .card-body {
     padding: 4px 10px;
     position: relative;
     top: 12px; }
+  .habit-card .card-footer {
+    padding: 1px 5px;
+    background-color: #fff; }
   .habit-card .card-text {
     font-size: .7rem; }
   .habit-card .card-text.small {
     font-size: .6rem; }
+  .habit-card p.habit-name {
+    margin-bottom: 10px; }
 
 @media (max-width: 576px) {
   .habit-card.card .card-body {

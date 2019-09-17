@@ -1,6 +1,31 @@
 .habits div[class^="col-"] {
   padding: 4px; }
 
+.date-head {
+  padding: 2px; }
+
+.date-head.fix-top {
+  padding: 2px;
+  -webkit-box-shadow: 0 2px 1px 0 rgba(0, 0, 0, 0.1);
+  box-shadow: 0 2px 1px 0 rgba(0, 0, 0, 0.1); }
+
+.fix-top {
+  z-index: 100;
+  position: fixed;
+  top: 0%;
+  padding: 0;
+  width: 77.5%;
+  background-color: rgba(0, 98, 141, 0.25); }
+  .fix-top .date-nav {
+    position: relative;
+    margin: 0; }
+  .fix-top .date-control {
+    max-width: 33%;
+    padding-right: 0; }
+  .fix-top .expenses-nav {
+    max-width: 32.75%;
+    padding-left: 0; }
+
 .date-nav > .inline {
   width: 360px; }
 
@@ -22,12 +47,30 @@ a:hover, a:visited, a:link, a:active {
     margin: 0; }
 .date-control div[class^='col-'] {
   padding: 0; }
+.date-control .row {
+  background-color: rgba(255, 255, 255, 0.8); }
 
 .btn-default img {
   height: 24px;
   width: 24px;
   margin-right: 8px;
   vertical-align: bottom; }
+
+.habit-statement .card {
+  padding: 24px; }
+  .habit-statement .card hr {
+    margin-top: .5rem;
+    margin-bottom: .5rem; }
+  .habit-statement .card .pct {
+    font-size: 1.1rem; }
+  .habit-statement .card .money.red {
+    color: #d8545c; }
+  .habit-statement .card .money.yellow {
+    color: darkgoldenrod; }
+.habit-statement .signal img {
+  height: 56px;
+  width: 56px;
+  margin-bottom: 5px; }
 
 .date-control .btn:hover {
   background: gainsboro; }
@@ -43,18 +86,43 @@ a:hover, a:visited, a:link, a:active {
 .piggy.card {
   padding: 16px; }
 
+.unbudgeted .card-body {
+  padding: .5rem; }
+.unbudgeted .statement {
+  padding: 5px;
+  font-size: 1.1rem; }
+
+.angel {
+  border-right: solid 1px lightgray; }
+
 .devil .card-header .card-text.expense-name, .angel .card-header .card-text.expense-name {
-  font-size: 1.25rem;
+  font-size: 1.1rem;
   font-weight: 500; }
+.devil .expense-card, .angel .expense-card {
+  padding: 0; }
 .devil .expense-card .card-body, .angel .expense-card .card-body {
-  padding: 24px; }
+  padding: 10px; }
 .devil .card-text.money, .angel .card-text.money {
-  font-size: 1.5rem; }
+  font-size: 1.1rem; }
 .devil .expense-card .card-body img, .angel .expense-card .card-body img {
-  height: 80px;
-  width: 80px; }
+  height: 60px;
+  width: 60px; }
 
 .card.chart {
   padding: 16px; }
+
+.urges-summary .card-header, .goal-summary .card-header {
+  background: #fff;
+  border-bottom: 1px solid #ffc1cb;
+  font-size: 1.1rem;
+  padding: 10px; }
+  .urges-summary .card-header img, .goal-summary .card-header img {
+    height: 32px;
+    width: 32px; }
+  .urges-summary .card-header span, .goal-summary .card-header span {
+    margin-left: 10px; }
+.urges-summary .card-body .statement, .goal-summary .card-body .statement {
+  margin-top: 5px;
+  font-size: 1.1rem; }
 
 /*# sourceMappingURL=user_home.css.map */

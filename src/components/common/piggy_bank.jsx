@@ -1,22 +1,28 @@
 import React from 'react';
+import Icon from '../common/Icon';
 
 class PiggyBank extends React.Component {
 
     render() {
+        let {icon} = this.props;
+
+        if(!icon && icon !== null) icon = 'dollar_sign.svg';
+
         const p = PiggyBank.getSVGParams(this.props.budget || 1, this.props.spent || 0, this.props.width, this.props.height);
-        return <svg style={{backgroundColor: '#fff'}} viewBox="0 0 600 400" x="0px" y="0px" width={p.width}
+        return <svg viewBox="0 0 600 400" x="0px" y="0px" width={p.width}
                     height={p.height}>
 
-            <path id="pig" style={{stroke: '#ff8197', strokeWidth: '6px'}}
-                  d="M5 185 Q0 225,14 247 Q55 270,95 275 Q130 300,130 325 Q125 370,130 380 Q170 385 ,210 380 Q220 360,225 330 Q275 340,360 328 Q355 360,355 380 Q390 385,430 380 Q435 380,445 290 Q490 250,500 200 Q505 170,505 165 Q525 165,540 150 Q570 155,595 120 Q595 110,585 105 Q570 115,550 125 Q555 70,515 80 Q475 100,512 135 L480 140 Q400 40,250 50 Q225 50,170 65 Q135 20,60 30 Q70 55,118 80 Q60 120,60 160 Q50 170,5 185 Z">
+            <path id="pig" style={{stroke: '#ffa6b6', strokeWidth: '6px'}} fill='#ffb3c0'
+                  d="M5 185 Q0 225,14 247 Q55 270,95 275 Q100 275,130 325 Q125 370,130 380 Q170 385 ,210 380 Q220 360,225 330 Q275 340,360 328 Q355 360,355 380 Q390 385,430 380 Q435 380,445 290 Q490 250,500 200 Q505 170,505 165 Q525 165,540 150 Q570 155,595 120 Q595 110,585 105 Q570 115,550 125 Q555 70,515 80 Q475 100,512 135 L480 140 Q400 40,250 50 Q225 50,170 65 Q135 20,60 30 Q70 55,118 80 Q60 120,60 160 Q25 170,5 185 Z">
             </path>
-            <use clipPath="url(#greenRemClip)" href="#pig" fill="#85BB65"/>
+            {/*<use clipPath="url(#greenRemClip)" href="#pig" fill="#85BB65"/>*/}
             <use clipPath="url(#pinkClip)" href="#pig" fill="pink"/>
             <path id="tail-hole" fill="#2f2f2f" d="M530 125 Q515 110,518 100 Q528 95,535 125"/>
             <path id="coin-slot" fill="#2f2f2f" strokeWidth="2px" stroke="#191919"
                   d="M214 80 Q300 60,370 85 L367 90 Q305 70,215 85 Z"/>
             <ellipse id="eye" fill="#2f2f2f" cx="110" cy="130" rx="10" ry="13"/>
-            <text fill="#518945" x="235" y="255" fontFamily="Georgia" fontSize="175px">$</text>
+            {/*<text fill="#518945" x="235" y="255" fontFamily="Georgia" fontSize="175px">$</text>*/}
+            {icon && Icon.getSVGImage({file: icon, x: '210', y: '120', height: '150', width: '150'})}
             <clipPath id="pinkClip">
                 <rect y={0} height={p.spentHeightPct} width="100%">
                     {this.props.animate ?

@@ -27,6 +27,14 @@ class Form extends React.Component {
         return ({});
     }
 
+    getRedirectLoc(to){
+        let loc = to;
+        if(sessionStorage.returnPage) loc = sessionStorage.returnPage;
+        sessionStorage.returnPage = null;
+
+        return loc;
+    }
+
     renderInput(name, label, type, placeholder, autoFocus) {
         const {data, errors} = this.state;
         return (

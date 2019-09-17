@@ -16,6 +16,13 @@ class Icon extends React.Component {
     static getFolderPath(){
         return 'src/assets/icons/';
     }
+
+    static getSVGImage(options, isHabit){
+        const {x, y, height, width} = options;
+        const file = isHabit ? options.file : 'app_icons/' + options.file;
+
+        return <image x={x} y={y} height={height} width={width} xlinkHref={require('../../assets/icons/' + file)}  />;
+    }
 }
 
 export default Icon;

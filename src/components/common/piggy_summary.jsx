@@ -9,7 +9,7 @@ class PiggySummary extends React.Component {
             <div className="piggy-container">
                 <PiggyBank budget={0} spent={0} width={piggyWidth} height={piggyHeight} animate={false}/>
             </div>
-            <h4 className={'spent-statement'}><span className='money'>$ {amount}</span> spent {predicate}
+            <h4 className={'spent-statement'}><span className='money'>${amount}</span> spent {predicate}
             </h4>
         </div>
     }

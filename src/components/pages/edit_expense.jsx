@@ -5,6 +5,7 @@ import habits from "../../services/habits";
 import HabitCard from "../habit/habit_card";
 import axios from 'axios';
 import moment from 'moment';
+import {Redirect} from "react-router-dom";
 
 class EditExpense extends Form {
     constructor(props) {
@@ -70,6 +71,10 @@ class EditExpense extends Form {
     schema = expenses.schema;
 
     render() {
+        if(this.state.redirectTo){
+            return <Redirect to={this.getRedirectLoc(this.state.redirectTo)} />
+        }
+
         const {name, icon, budget, _id} = this.state.habit;
         let habitOptions = [{_id: '', name: '- select a habit -'}];
         habitOptions = habitOptions.concat(this.state.habits || []);
@@ -109,10 +114,10 @@ class EditExpense extends Form {
                 errors: {
                     count: 0
                 },
-                formHelp: 'Success!'
+                formHelp: 'Success!',
+                redirectTo: expense.habitId ?  '/habit/' + expense.habitId : '/'
             });
-            if(expense.habitId) window.location = '/habit/' + expense.habitId;
-            else window.location = '/expenses';
+
         }).catch(err => {
             let helpMessage = 'There was a problem with your submission!';
             if (err.response && err.response.status === 400) {

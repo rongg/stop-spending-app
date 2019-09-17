@@ -31,6 +31,7 @@ class MyHabit extends React.Component {
 
 
     componentDidMount() {
+        sessionStorage.returnPage = '/habit/' + this.props.match.params.id;
         this.getExpenses();
     }
 

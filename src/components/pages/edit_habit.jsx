@@ -68,7 +68,8 @@ class EditHabit extends Form {
                 },
                 formHelp: 'Success!'
             });
-            window.location = '/habits';
+
+            window.location = '/habit/' + response.data._id;
         }).catch(err => {
             let helpMessage = 'There was a problem with your submission!';
             if (err.response && err.response.status === 400) {

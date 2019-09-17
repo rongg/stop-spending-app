@@ -1,9 +1,18 @@
 import React from 'react';
 import expenses from '../../services/expenses';
+import {Redirect} from "react-router-dom";
 
 class DeleteExpense extends React.Component {
+    state = {
+        redirectTo: false
+    };
+
     render = () => {
-        return null
+        if (this.state.redirectTo) {
+            sessionStorage.returnPage = null;
+            return <Redirect to={this.state.redirectTo}/>;
+        }
+        return null;
     };
 
     componentDidMount() {
@@ -14,7 +23,7 @@ class DeleteExpense extends React.Component {
         expenses.deleteExpense(expenseId)
             .then(res => {
                 if (res.data.deletedCount === 1) {
-                    habitId !== 'none' ? window.location = '/habit/' + habitId : window.location = '/expenses';
+                    this.setState({redirectTo: sessionStorage.returnPage || '/'});
                 } else {
                     alert('There was a problem with your request!');
                     window.location = backToEdit;

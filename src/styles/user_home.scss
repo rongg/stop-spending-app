@@ -1,14 +1,59 @@
+$font-size-card: 1.1rem;
 .habits {
   div[class^="col-"] {
     padding: 4px;
   }
 }
 
+.date-head {
+  padding: 2px;
+}
+
+.date-head.fix-top {
+  padding: 2px;
+
+  -webkit-box-shadow: 0 2px 1px 0 rgba(0, 0, 0, .1);
+  box-shadow: 0 2px 1px 0 rgba(0, 0, 0, .1);
+}
+
+.fix-top {
+  z-index: 100;
+  position: fixed;
+  top: 0%;
+  padding: 0;
+  width: 77.5%;
+  background-color: rgba(0, 98, 141, .25);
+
+  .date-nav {
+    position: relative;
+    margin: 0;
+  }
+
+  div[class^='col-'] {
+    //padding: 0;
+  }
+
+  .date-control {
+    max-width: 33%;
+    padding-right: 0;
+  }
+
+  .expenses-nav {
+    max-width: 32.75%;
+    padding-left: 0;
+  }
+}
+
+.date-nav {
+  //background: #00628d;
+  //color: #fff;
+}
+
 .date-nav > .inline {
   width: 360px;
 }
 
-.nav-title{
+.nav-title {
   font-size: 19px;
   font-weight: 500;
 }
@@ -23,25 +68,63 @@ a:hover, a:visited, a:link, a:active {
   border: 1px solid lightgray;
 }
 
-.date-control{
-  .btn{
+.date-control {
+  .btn {
     border: 1px solid lightgray;
     background: #fff;
-    img{
+
+    img {
       margin: 0;
     }
   }
-  div[class^='col-']{
+
+  div[class^='col-'] {
     padding: 0;
+  }
+
+  .row {
+    background-color: rgba(255, 255, 255, .8);
   }
 }
 
-.btn-default{
+.btn-default {
   img {
     height: 24px;
     width: 24px;
     margin-right: 8px;
     vertical-align: bottom;
+  }
+}
+
+.habit-statement {
+  .card {
+    padding: 24px;
+
+    hr {
+      margin-top: .5rem;
+      margin-bottom: .5rem;
+    }
+
+    .pct {
+      font-size: $font-size-card;
+    }
+
+    .money.red {
+      color: #d8545c;
+    }
+
+    .money.yellow {
+      color: darkgoldenrod;
+    }
+  }
+
+  .signal {
+    img {
+      $length1: 56px;
+      height: $length1;
+      width: $length1;
+      margin-bottom: 5px;
+    }
   }
 }
 
@@ -65,30 +148,75 @@ a:hover, a:visited, a:link, a:active {
   padding: 16px;
 }
 
+.unbudgeted {
+  .card-body {
+    padding: .5rem;
+  }
+
+  .statement {
+    padding: 5px;
+    font-size: $font-size-card;
+  }
+}
+
+.angel {
+  border-right: solid 1px lightgray;
+}
+
 .devil, .angel {
   .card-header {
     .card-text.expense-name {
-      font-size: 1.25rem;
+      font-size: $font-size-card;
       font-weight: 500;
     }
   }
 
+  .expense-card {
+    padding: 0;
+  }
+
   .expense-card .card-body {
-    padding: 24px;
+    padding: 10px;
   }
 
 
   .card-text.money {
-    font-size: 1.5rem;
+    font-size: $font-size-card;
   }
 
   .expense-card .card-body img {
-    $length: 80px;
+    $length: 60px;
     height: $length;
     width: $length;
   }
 }
 
-.card.chart{
+.card.chart {
   padding: 16px;
+}
+
+
+.urges-summary, .goal-summary {
+  .card-header {
+    background: #fff;
+    border-bottom: 1px solid #ffc1cb;
+    font-size: $font-size-card;
+    padding: 10px;
+
+    img {
+      height: 32px;
+      width: 32px;
+    }
+
+    span {
+      margin-left: 10px;
+    }
+  }
+
+  .card-body {
+    .statement {
+      margin-top: 5px;
+      font-size: $font-size-card;
+    }
+  }
 }
