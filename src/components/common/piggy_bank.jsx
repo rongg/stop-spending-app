@@ -4,9 +4,12 @@ import Icon from '../common/Icon';
 class PiggyBank extends React.Component {
 
     render() {
-        let {icon} = this.props;
+        let {icon, isHabit} = this.props;
 
-        if(!icon && icon !== null) icon = 'dollar_sign.svg';
+        if(!icon && icon !== null) {
+            isHabit = false;
+            icon = 'dollar_sign.svg';
+        }
 
         const p = PiggyBank.getSVGParams(this.props.budget || 1, this.props.spent || 0, this.props.width, this.props.height);
         return <svg viewBox="0 0 600 400" x="0px" y="0px" width={p.width}
@@ -22,7 +25,7 @@ class PiggyBank extends React.Component {
                   d="M214 80 Q300 60,370 85 L367 90 Q305 70,215 85 Z"/>
             <ellipse id="eye" fill="#2f2f2f" cx="110" cy="130" rx="10" ry="13"/>
             {/*<text fill="#518945" x="235" y="255" fontFamily="Georgia" fontSize="175px">$</text>*/}
-            {icon && Icon.getSVGImage({file: icon, x: '210', y: '120', height: '150', width: '150'})}
+            {icon && Icon.getSVGImage({file: icon, x: '210', y: '125', height: '150', width: '150'}, isHabit)}
             <clipPath id="pinkClip">
                 <rect y={0} height={p.spentHeightPct} width="100%">
                     {this.props.animate ?
