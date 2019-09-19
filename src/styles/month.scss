@@ -14,6 +14,12 @@ $font-size-xs: .7rem;
     }
   }
 
+  .btn-default img{
+    margin: 0;
+    height: 32px;
+    width: 32px;
+  }
+
   button{
     box-shadow: none;
   }
@@ -33,13 +39,30 @@ $font-size-xs: .7rem;
     border-left: $border-style;
   }
 
+  .col.day.splurge, .col.day-totals.splurge{
+    .spent button, .money{
+      color: #ed4a52;
+    }
+  }
+
+
   .col.day-totals {
     text-align: center;
     border-bottom: none;
-    padding: 30px 20px;
+    padding: 14px 20px;
+    font-size: 1rem;
+
+    img{
+      height: 32px;
+      width: 32px;
+    }
 
     a {
       padding: 24px;
+    }
+
+    span{
+      font-size: .9rem;
     }
 
     button{

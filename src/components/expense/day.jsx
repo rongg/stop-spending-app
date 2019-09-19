@@ -2,6 +2,7 @@ import React from 'react';
 import '../../styles/day.css';
 import expenses from "../../services/expenses";
 import ExpenseCard from "../expense/expense_card";
+import PiggyBank from "../common/piggy_bank";
 
 class Day extends React.Component {
 
@@ -11,9 +12,17 @@ class Day extends React.Component {
 
         return <div className={'day-container'}>
             <div className='row day-expenses'>
-                <div className="m-auto col-md-6 col-lg-5 col-12 day-column">
-                    <div className="day-expense-list">{this.toDailyExpenses(expenses)}</div>
-                </div>
+                {expenses && expenses.length ? <div className="m-auto col-md-6 col-lg-5 col-12 day-column">
+                        <div className="day-expense-list">
+                            {this.toDailyExpenses(expenses)}
+                        </div>
+                    </div> :
+                    <div style={{padding: '20px'}} className={'text-center col-sm-12 no-expense'}>
+                        <PiggyBank height={48} width={64} icon={'check.svg'}/>
+                        <br/>
+                        <span>No Expenses for this
+                            day!</span>
+                    </div>}
             </div>
         </div>
     }

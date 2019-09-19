@@ -4,8 +4,7 @@
   background-color: #00628d;
   border-color: #c0392b; }
   .navbar-default .container {
-    margin-right: 96px;
-    margin-left: 96px; }
+    max-width: 1072px; }
   .navbar-default .navbar-brand {
     color: #ecf0f1; }
     .navbar-default .navbar-brand span {

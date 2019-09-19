@@ -1,0 +1,46 @@
+.my-habit{
+  .key-figures{
+    .col-sm-4{
+      padding-right: 0;
+    }
+    .card{
+      height: 166px;
+    }
+  }
+  .section-head{
+    .profile-pic.col-sm-4, .col-sm-12 {
+      padding: 0;
+      margin-bottom: 16px;
+    }
+  }
+  .habit-head{
+    .card-body {
+      height: 200px;
+    }
+    .card-footer{
+      //height: 100px;
+    }
+
+    .b-container{
+      margin-top: 5px;
+    }
+
+    .habit-card{
+      margin-bottom: 8px;
+    }
+    .btn{
+      text-align: left;
+    }
+  }
+
+  .card-header{
+    border-bottom: 1px solid #ffc1cb;
+    padding: 4px;
+    background: #fff;
+    font-size: 2rem;
+    text-align: center;
+  }
+  .habit-card .card-text {
+    font-size: 1rem;
+  }
+}

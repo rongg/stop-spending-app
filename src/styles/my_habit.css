@@ -1,0 +1,25 @@
+.my-habit .key-figures .col-sm-4 {
+  padding-right: 0; }
+.my-habit .key-figures .card {
+  height: 166px; }
+.my-habit .section-head .profile-pic.col-sm-4, .my-habit .section-head .col-sm-12 {
+  padding: 0;
+  margin-bottom: 16px; }
+.my-habit .habit-head .card-body {
+  height: 200px; }
+.my-habit .habit-head .b-container {
+  margin-top: 5px; }
+.my-habit .habit-head .habit-card {
+  margin-bottom: 8px; }
+.my-habit .habit-head .btn {
+  text-align: left; }
+.my-habit .card-header {
+  border-bottom: 1px solid #ffc1cb;
+  padding: 4px;
+  background: #fff;
+  font-size: 2rem;
+  text-align: center; }
+.my-habit .habit-card .card-text {
+  font-size: 1rem; }
+
+/*# sourceMappingURL=my_habit.css.map */

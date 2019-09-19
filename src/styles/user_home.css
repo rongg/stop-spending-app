@@ -14,7 +14,7 @@
   position: fixed;
   top: 0%;
   padding: 0;
-  width: 77.5%;
+  width: 1046px;
   background-color: rgba(0, 98, 141, 0.25); }
   .fix-top .date-nav {
     position: relative;
@@ -30,7 +30,7 @@
   width: 360px; }
 
 .nav-title {
-  font-size: 19px;
+  font-size: 18px;
   font-weight: 500; }
 
 a:hover, a:visited, a:link, a:active {

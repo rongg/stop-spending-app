@@ -2,13 +2,31 @@ import React from 'react';
 import '../../styles/month.css';
 import moment from 'moment';
 import ExpenseDateRange from './expense_date_range';
+import Icon from "../common/Icon";
 
 class Month extends React.Component {
 
     render() {
         const {expenses, start, navCallback} = this.props;
+        const filters = this.props.filters || {};
         let expenseDays = ExpenseDateRange.assignExpensesToDays(expenses, 'date');
         const calendarDays = Month.getCalendarDays(expenseDays, start);
+
+
+        //  Average expense amount per day
+        const daysInMonth = start.isSame(moment(), 'month') ? moment().date() : start.daysInMonth();
+        const weeksInMonth = daysInMonth / 7;
+        const sumExpenseAmounts = ExpenseDateRange.sumExpenseAmounts(expenses);
+        const avg = Math.round(sumExpenseAmounts / daysInMonth);
+        let weeklySplurgeLimit = 200;
+        const dailySplurgeLimit = 50;
+
+        for (let i = 0; i < calendarDays.length; i++) {
+            const exp = calendarDays[i].expenses;
+            calendarDays[i].totalSpent = exp ? ExpenseDateRange.sumExpenseAmounts(exp) : 0;
+            calendarDays[i].splurge = calendarDays[i].totalSpent > dailySplurgeLimit && calendarDays[i].totalSpent >= avg * 2;
+        }
+
 
         let week = [];
         week[0] = calendarDays.slice(0, 7);
@@ -19,33 +37,37 @@ class Month extends React.Component {
         week[5] = calendarDays.slice(35, calendarDays.length);
 
 
-
-
         const weekTotals = [];
         week.map((w, index) => weekTotals[index] = ExpenseDateRange.sumWeeklyExpenseAmounts(w));
+
+        //  Avg week totals
+        const weekAvg = Math.round(weekTotals.reduce((c, a) => c + a, 0) / (daysInMonth / 7)) * 1.25;
+        if(weekAvg >= weeklySplurgeLimit) weeklySplurgeLimit = weekAvg;
+
 
         const calendarRows = week.map((w, index) => (
             <div className='week row' key={'week-' + (index + 1)}>
 
                 {w.map((day, index) => (
                     <div
-                        className={`col day ${day.date.isSame(moment(), 'day') ? 'today' : ''} ${day.date.day() === 0 || day.date.day() === 6 ? 'weekend' : ''}`}
+                        className={`col day ${day.date.isSame(moment(), 'day') ? 'today' : ''} ${day.date.day() === 0 || day.date.day() === 6 ? 'weekend' : ''} ${day.splurge && filters.splurges && 'splurge'}`}
                         key={'day-' + (index + 1)}>
                         <div className='num'>
                             <span
                                 className={`date ${day.date.isSame(start, 'month') ? '' : 'unfocus'}`}>{day.date.date()}</span>
                         </div>
                         <div className={'spent'}>
-                            {day.expenses && day.expenses.length > 0 &&
-                            <button type={'button'} onClick={() => navCallback(day.date, 'day')}>
-                                <span>${ExpenseDateRange.sumExpenseAmounts(day.expenses)}</span>
+                            {day.totalSpent > 0 && <button type={'button'} onClick={() => navCallback(day.date, 'day')}>
+                                <span>${day.totalSpent}</span>
                             </button>}
                         </div>
                     </div>
                 ))}
-                <div className={'col day-totals'} key={'total-' + index}>
-                    {weekTotals[index] > 0 && <button className='btn btn-default' onClick={() => navCallback(w[0].date, 'week')}>
-                        <span className={'money'}>${weekTotals[index]}</span>
+                <div className={`col day-totals ${weekTotals[index] >= weeklySplurgeLimit && 'splurge'}`} key={'total-' + index}>
+                    {weekTotals[index] > 0 &&
+                    <button className='btn btn-default text-center ' onClick={() => navCallback(w[0].date, 'week')}>
+                        {weekTotals[index] >= weeklySplurgeLimit && <div><Icon path={'app_icons/broken_piggy.svg'} /></div>}
+                        <div style={{padding: `${weekTotals[index] < weeklySplurgeLimit ? '16px' : '0' }`}}><span className={'money'}>${weekTotals[index]}</span></div>
                     </button>}
                 </div>
             </div>

@@ -1,32 +1,29 @@
-.day-nav {
+.day-container .no-expense span {
+  font-size: 1.1rem;
+  margin-left: 10px; }
+.day-container .day-nav {
   margin-bottom: 16px; }
-
-.day-date {
+.day-container .day-date {
   font-size: 12px; }
-
 .day-container .day-column {
   background: none; }
   .day-container .day-column .card-body {
     padding: 4px; }
-
-.day-total {
+.day-container .day-total {
   border-top: 1px solid lightgray;
   padding: 16px;
   font-size: .85rem;
   color: green; }
-
 @media (max-width: 576px) {
-  .day-container .expense-card.card .card-body {
+  .day-container .day-container .expense-card.card .card-body {
     padding: 5px; }
-  .day-container .expense-card.card .card-text {
+  .day-container .day-container .expense-card.card .card-text {
     font-size: .8rem; }
-
-  .day-title {
+  .day-container .day-title {
     font-size: 14px;
     text-align: center;
     margin-bottom: 10px; }
-
-  .day-container .day-column {
+  .day-container .day-container .day-column {
     width: 12%;
     margin: 1px;
     height: 564px;

@@ -7,8 +7,9 @@ $colHighlight: #ffbbbc;
   -webkit-box-shadow: 0 1px 1px 0 rgba(0,0,0,.2);
   box-shadow: 0 2px 1px 0 rgba(0,0,0,.2);
   .container{
-    margin-right: 96px;
-    margin-left: 96px;
+    max-width: 1072px;
+    //margin-right: 96px;
+    //margin-left: 96px;
   }
 
   background-color: $bgDefault;

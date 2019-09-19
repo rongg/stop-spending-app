@@ -4,7 +4,7 @@ import Icon from '../common/Icon';
 class PiggyBank extends React.Component {
 
     render() {
-        let {icon, isHabit} = this.props;
+        let {icon, isHabit, outline} = this.props;
 
         if(!icon && icon !== null) {
             isHabit = false;
@@ -20,10 +20,10 @@ class PiggyBank extends React.Component {
             </path>
             {/*<use clipPath="url(#greenRemClip)" href="#pig" fill="#85BB65"/>*/}
             <use clipPath="url(#pinkClip)" href="#pig" fill="pink"/>
-            <path id="tail-hole" fill="#2f2f2f" d="M530 125 Q515 110,518 100 Q528 95,535 125"/>
-            <path id="coin-slot" fill="#2f2f2f" strokeWidth="2px" stroke="#191919"
+            <path id="tail-hole" fill={outline || "#2f2f2f"} d="M530 125 Q515 110,518 100 Q528 95,535 125"/>
+            <path id="coin-slot" fill={outline || "#2f2f2f"} strokeWidth="2px" stroke={outline || "#191919"}
                   d="M214 80 Q300 60,370 85 L367 90 Q305 70,215 85 Z"/>
-            <ellipse id="eye" fill="#2f2f2f" cx="110" cy="130" rx="10" ry="13"/>
+            <ellipse id="eye" fill={outline || "#2f2f2f"} cx="110" cy="130" rx="10" ry="13"/>
             {/*<text fill="#518945" x="235" y="255" fontFamily="Georgia" fontSize="175px">$</text>*/}
             {icon && Icon.getSVGImage({file: icon, x: '210', y: '125', height: '150', width: '150'}, isHabit)}
             <clipPath id="pinkClip">

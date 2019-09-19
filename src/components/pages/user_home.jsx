@@ -17,14 +17,17 @@ import Icon from "../common/Icon";
 import PiggyBank from "../common/piggy_bank";
 
 class UserHome extends React.Component {
-
+    defaultNav = 'month';
     state = {
-        currentNav: 'week',
-        start: moment().startOf('week'),
-        end: moment().endOf('week'),
+        currentNav: this.defaultNav,
+        start: moment().startOf(this.defaultNav),
+        end: moment().endOf(this.defaultNav),
         smallScreen: ExpenseDateRange.getScreenWidth() <= 576,
         expenses: [],
-        habits: []
+        habits: [],
+        filters: {
+            splurges: true
+        }
     };
 
     constructor(props) {
@@ -63,7 +66,7 @@ class UserHome extends React.Component {
 
     render() {
         this.sortExpensesBy('desc');
-        const {expenses, start, end, smallScreen, currentNav, habits, scrollActive} = this.state;
+        const {expenses, start, end, smallScreen, currentNav, habits, scrollActive, filters} = this.state;
         habits.sort((a, b) => {
             if (a.spent > b.spent) return -1;
             if (a.spent < b.spent) return 1;
@@ -250,7 +253,7 @@ class UserHome extends React.Component {
                       navCallback={this.navigateTo}
                       incrementPeriod={this.incrementPeriod}/>}
                 {currentNav === 'month' &&
-                <Month expenses={expenses} start={start} end={end} smallScreen={smallScreen}
+                <Month expenses={expenses} start={start} end={end} smallScreen={smallScreen} filters={filters}
                        navCallback={this.navigateTo}
                        incrementPeriod={this.incrementPeriod}/>}
                 {currentNav === 'day' && <Day expenses={expenses} start={start} end={end} smallScreen={smallScreen}
@@ -329,7 +332,7 @@ class UserHome extends React.Component {
                             <div className={'card-footer'}>
                                 <a href={'habit/new'}
                                    className="btn btn-block btn-primary btn-default"><Icon
-                                    path={'money_default.svg'}/>Create
+                                    path={'money_default.svg'}/>Track
                                     a New
                                     Habit</a>
                             </div>
