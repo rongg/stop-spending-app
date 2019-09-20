@@ -199,6 +199,15 @@ a:hover, a:visited, a:link, a:active {
 .urges-summary, .goal-summary {
   .card{
     height: 100%;
+
+    .w-habit{
+      padding: 5px;
+
+      img{
+        height: 72px;
+        width: 72px;
+      }
+    }
   }
   .card-header {
     background: #fff;
@@ -219,7 +228,14 @@ a:hover, a:visited, a:link, a:active {
   .card-body {
     .statement {
       margin-top: 5px;
-      font-size: $font-size-card;
+      font-size: 1rem;
+      .need, .want{
+        font-size: .8rem;
+        img{
+          height: 20px;
+          width: 20px;
+        }
+      }
     }
   }
 }

@@ -113,6 +113,11 @@ a:hover, a:visited, a:link, a:active {
 
 .urges-summary .card, .goal-summary .card {
   height: 100%; }
+  .urges-summary .card .w-habit, .goal-summary .card .w-habit {
+    padding: 5px; }
+    .urges-summary .card .w-habit img, .goal-summary .card .w-habit img {
+      height: 72px;
+      width: 72px; }
 .urges-summary .card-header, .goal-summary .card-header {
   background: #fff;
   border-bottom: 1px solid #ffc1cb;
@@ -125,6 +130,11 @@ a:hover, a:visited, a:link, a:active {
     margin-left: 10px; }
 .urges-summary .card-body .statement, .goal-summary .card-body .statement {
   margin-top: 5px;
-  font-size: 1.1rem; }
+  font-size: 1rem; }
+  .urges-summary .card-body .statement .need, .urges-summary .card-body .statement .want, .goal-summary .card-body .statement .need, .goal-summary .card-body .statement .want {
+    font-size: .8rem; }
+    .urges-summary .card-body .statement .need img, .urges-summary .card-body .statement .want img, .goal-summary .card-body .statement .need img, .goal-summary .card-body .statement .want img {
+      height: 20px;
+      width: 20px; }
 
 /*# sourceMappingURL=user_home.css.map */

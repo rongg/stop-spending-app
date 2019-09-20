@@ -108,14 +108,14 @@ class MyHabit extends React.Component {
                         <div className={'col-sm-12 text-center'}>
                             <a href={''}
                                className="btn btn-block btn-primary btn-default">
-                                <div className={'col-sm-12 col-xl-8 col-lg-10 m-auto'}><Icon path={'app_icons/log.svg'}/>
+                                <div className={'col-sm-12 col-xl-7 col-lg-10 m-auto'}><Icon path={'app_icons/log.svg'}/>
                                     Log an Expense
                                 </div>
 
                             </a>
                             <a href={'urge/new'}
                                className="btn btn-block btn-primary btn-default">
-                                <div className={'col-sm-12 col-xl-8 col-lg-10 m-auto'}><Icon path={'app_icons/devil.svg'}/>
+                                <div className={'col-sm-12 col-xl-7 col-lg-10 m-auto'}><Icon path={'app_icons/devil.svg'}/>
                                     Log an Urge
                                 </div>
                             </a>

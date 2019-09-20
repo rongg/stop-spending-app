@@ -67,12 +67,27 @@ class UserHome extends React.Component {
     render() {
         this.sortExpensesBy('desc');
         const {expenses, start, end, smallScreen, currentNav, habits, scrollActive, filters} = this.state;
+
+        for (let i = 0; i < habits.length; i++) {
+            habits[i].wantExpAmt = habits[i].expenses.filter(this.filterExp('want')).reduce((acc, e) => acc + e.amount, 0);
+            habits[i].needExpAmt = habits[i].expenses.filter(this.filterExp('need')).reduce((acc, e) => acc + e.amount, 0);
+        }
+
         habits.sort((a, b) => {
             if (a.spent > b.spent) return -1;
             if (a.spent < b.spent) return 1;
 
             return 0;
         });
+
+
+        console.log(habits);
+
+        const expWants = expenses.filter(this.filterExp('want'));
+        const expNeeds = expenses.filter(this.filterExp('need'));
+
+        let worstHabits = [];
+        if (habits.length) worstHabits = habits.slice(0, habits.length > 2 ? 3 : habits.length);
 
         const fHabits = habits.filter(h => h.spent && h.spent > 0);     // with expenses
 
@@ -104,7 +119,7 @@ class UserHome extends React.Component {
         const startEndSameMonth = start.isSame(end, 'month');
         let dateFormat2 = startEndSameMonth && currentNav === 'week' ? 'D' : null;
 
-        let daysDivisor  = start.isSame(moment(), 'week') ? moment().day() + 1 : 7;
+        let daysDivisor = start.isSame(moment(), 'week') ? moment().day() + 1 : 7;
 
         if (currentNav === 'month') {
             datePrefix = 'Monthly';
@@ -132,16 +147,18 @@ class UserHome extends React.Component {
 
         let avgExpense = 0;
         let avgDaily = 0;
-        if(expenses.length) {
+        if (expenses.length) {
             const totalSpent = expenses.reduce((acc, e) => acc + e.amount, 0);
             avgExpense = Math.round(totalSpent / expenses.length);  //  Used in day view
             avgDaily = Math.round(totalSpent / daysDivisor);
         }
 
+
         const leftNav = <a className='btn btn-default' onClick={() => this.incrementPeriod(-1, currentNav)}><Icon
             path={'app_icons/left.svg'}/></a>;
         const rightNav = <a className='btn btn-default' onClick={() => this.incrementPeriod(1, currentNav)}
                             style={{float: 'right'}}><Icon path={'app_icons/right.svg'}/></a>;
+
 
         return <div className="m-auto page">
             <div className={`row ${scrollActive && 'red'}`}>
@@ -226,13 +243,25 @@ class UserHome extends React.Component {
                     <div className={'card'}>
                         <div className={'card-header text-center'}>
                             <Icon path={'app_icons/devil.svg'}/>
-                            <span>Top Urge</span>
+                            <span>Worst Habits</span>
                         </div>
                         <div className={'card-body text-center'}>
-                            <Icon path={'smoking/cig.svg'}/>
-                            <br/>
-                            <div className={'statement'}>
-                                <span>Cigarettes x 7</span>
+                            <div className={'row'}>
+                                {worstHabits.map((h, index) =>
+                                    <div className={'col-sm-4 w-habit'} key={'w-habit-' + index}>
+                                        <Icon path={h.icon}/>
+                                        <div className={'statement'}>
+                                            <span>{h.name}</span><br/>
+                                            <div className={'col-sm-12 text-right'}>
+                                                <span className={'want'}><span
+                                                    className={'money'}>${h.needExpAmt}</span> <Icon
+                                                    path={'app_icons/angel.svg'}/></span><br/>
+                                                <span className={'need'}><span
+                                                    className={'money'}>${h.wantExpAmt}</span> <Icon
+                                                    path={'app_icons/trident.svg'}/></span>
+                                            </div>
+                                        </div>
+                                    </div>)}
                             </div>
                         </div>
                     </div>
@@ -321,13 +350,13 @@ class UserHome extends React.Component {
                         <div className="col-sm-6 angel">
                             <ExpenseCard height={148} expense={{
                                 name: 'Needs',
-                                amount: ExpenseDateRange.sumExpenseAmounts(expenses.filter(e => e.needWant && e.needWant.toLowerCase() === 'need'))
+                                amount: ExpenseDateRange.sumExpenseAmounts(expNeeds)
                             }} icon={'app_icons/angel.svg'}/>
                         </div>
                         <div className="col-sm-6 devil">
                             <ExpenseCard height={148} expense={{
                                 name: 'Wants',
-                                amount: ExpenseDateRange.sumExpenseAmounts(expenses.filter(e => e.needWant && e.needWant.toLowerCase() === 'want'))
+                                amount: ExpenseDateRange.sumExpenseAmounts(expWants)
                             }} icon={'app_icons/trident.svg'}/>
                         </div>
                     </div>
@@ -394,6 +423,10 @@ class UserHome extends React.Component {
 
         </div>
             ;
+    }
+
+    filterExp(needWant) {
+        return e => e.needWant && e.needWant.toLowerCase() === needWant;
     }
 
     setCurrentNav(loc, start, end) {
