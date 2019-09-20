@@ -14,7 +14,7 @@ class Month extends React.Component {
 
 
         //  Average expense amount per day
-        const daysInMonth = start.isSame(moment(), 'month') ? moment().date() : start.daysInMonth();
+        const daysInMonth = start.isSame(moment(), 'month') ? moment().date() + 1 : start.daysInMonth();
         const weeksInMonth = daysInMonth / 7;
         const sumExpenseAmounts = ExpenseDateRange.sumExpenseAmounts(expenses);
         const avg = Math.round(sumExpenseAmounts / daysInMonth);

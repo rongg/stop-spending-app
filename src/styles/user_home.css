@@ -111,6 +111,8 @@ a:hover, a:visited, a:link, a:active {
 .card.chart {
   padding: 16px; }
 
+.urges-summary .card, .goal-summary .card {
+  height: 100%; }
 .urges-summary .card-header, .goal-summary .card-header {
   background: #fff;
   border-bottom: 1px solid #ffc1cb;

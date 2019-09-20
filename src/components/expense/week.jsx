@@ -15,7 +15,7 @@ class Week extends React.Component {
         const days = ExpenseDateRange.assignExpensesToDays(expenses, 'day');
 
         //  Average expense amount per day
-        const daysInWeek  = start.isSame(moment(), 'week') ? moment().day() : 7;
+        const daysInWeek  = start.isSame(moment(), 'week') ? moment().day() + 1 : 7;
         const sumExpenseAmounts = ExpenseDateRange.sumExpenseAmounts(expenses);
         const avg = Math.round(sumExpenseAmounts / daysInWeek);
 

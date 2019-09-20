@@ -104,10 +104,13 @@ class UserHome extends React.Component {
         const startEndSameMonth = start.isSame(end, 'month');
         let dateFormat2 = startEndSameMonth && currentNav === 'week' ? 'D' : null;
 
+        let daysDivisor  = start.isSame(moment(), 'week') ? moment().day() + 1 : 7;
+
         if (currentNav === 'month') {
             datePrefix = 'Monthly';
             dateFormat = start.isSame(moment(), 'year') ? 'MMMM' : 'MMMM YYYY';
             totalBudgetKey = 'budgetMonth';
+            daysDivisor = start.isSame(moment(), 'month') ? moment().date() + 1 : start.daysInMonth();
         }
         if (currentNav === 'day') {
             datePrefix = 'Daily';
@@ -125,6 +128,14 @@ class UserHome extends React.Component {
             pace = {icon: 'app_icons/traffic_red.svg', message: 'Stop Spending!'}
         } else if (spentBudgetRatio > .5) {
             pace = {icon: 'app_icons/traffic_yellow.svg', message: 'Slow Down'};
+        }
+
+        let avgExpense = 0;
+        let avgDaily = 0;
+        if(expenses.length) {
+            const totalSpent = expenses.reduce((acc, e) => acc + e.amount, 0);
+            avgExpense = Math.round(totalSpent / expenses.length);  //  Used in day view
+            avgDaily = Math.round(totalSpent / daysDivisor);
         }
 
         const leftNav = <a className='btn btn-default' onClick={() => this.incrementPeriod(-1, currentNav)}><Icon
@@ -203,7 +214,11 @@ class UserHome extends React.Component {
                     <div className="spent-summary text-center">
                         <PiggySummary piggyWidth={this.piggyParams.width} piggyHeight={this.piggyParams.height}
                                       amount={ExpenseDateRange.sumExpenseAmounts(expenses)}
-                                      predicate={ExpenseDateRange.getSpentStatementPredicate(start, currentNav)}/>
+                                      predicate={ExpenseDateRange.getSpentStatementPredicate(start, currentNav)}
+                                      avgDaily={currentNav !== 'day' && avgDaily}
+                                      avgExpense={currentNav === 'day' && avgExpense}
+                                      numLogged={expenses.length}
+                        />
                     </div>
                 </div>
 
