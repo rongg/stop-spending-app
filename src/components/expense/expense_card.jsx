@@ -7,7 +7,7 @@ class ExpenseCard extends React.Component {
 
     render() {
         const {amount, name, date} = this.props.expense;
-        const {icon, showTime, link, height, width, padding, hideName, needWant} = this.props;
+        const {icon, showTime, link, height, width, padding, hideName} = this.props;
 
         return (
             <div className="expense-card card text-center"
