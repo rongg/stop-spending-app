@@ -3,7 +3,8 @@ button, .btn {
   box-shadow: 0 2px 1px 0 rgba(0, 0, 0, 0.1); }
 
 .app-content {
-  border-bottom: 1px solid #e5e5e5; }
+  border-bottom: 1px solid #e5e5e5;
+  min-height: 800px; }
 
 .page-footer {
   padding-top: 0 !important;
@@ -63,11 +64,6 @@ div.app {
 .hidden {
   visibility: hidden; }
 
-.form {
-  margin: auto;
-  width: 50%;
-  padding: 40px; }
-
 .page {
   padding: 32px; }
 
@@ -76,5 +72,14 @@ div.app {
     transform: rotate(0deg); }
   to {
     transform: rotate(360deg); } }
+@media (max-width: 768px) {
+  .row {
+    margin-left: 0;
+    margin-right: 0; }
+
+  .container {
+    padding-right: 10px;
+    padding-left: 10px;
+    max-width: 600px; } }
 
 /*# sourceMappingURL=App.css.map */
