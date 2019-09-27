@@ -14,6 +14,9 @@
   .habit-card .card-footer {
     padding: 1px 5px;
     background-color: #fff; }
+    .habit-card .card-footer img {
+      height: 24px;
+      width: 24px; }
   .habit-card .card-text {
     font-size: .7rem; }
   .habit-card .card-text.small {

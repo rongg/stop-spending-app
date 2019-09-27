@@ -64,7 +64,6 @@ export function getUrgesForHabit(habitId, start, end){
         throw new Error('start and end params are required!');
     }
     let url = apiUrl + '/' + habitId + '/urges?start=' + moment(start).utc().toDate() + '&end=' + moment(end).utc().toDate();
-
     return http.request({
         method: 'get',
         url: url,

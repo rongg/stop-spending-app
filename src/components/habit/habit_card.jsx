@@ -6,7 +6,13 @@ import PiggyBank from "../common/piggy_bank";
 class HabitCard extends React.Component {
 
     render() {
-        let {text, iconUrl, link, spent, budgeted, piggy} = this.props;
+        let {text, iconUrl, link, spent, budgeted, piggy, urgeCount} = this.props;
+        const max = 10;
+        let actualUrgeCount = urgeCount;
+        if(urgeCount && urgeCount > max) {
+            urgeCount = max;
+        }
+
         return (
             <div className="habit-card card text-center">
                 {piggy && <div className={'card-header'}>
@@ -25,6 +31,10 @@ class HabitCard extends React.Component {
                     <div className="footer-text card-text">
                         <span className={`money`}>$ {spent} / {budgeted}</span></div>
                 </div> : null}
+                {urgeCount !== undefined && <div className={'card-footer text-left'}>{Array.apply(null, Array(urgeCount)).map((u, i) =>
+                    <span key={'u-' + i} ><Icon path={'app_icons/devil.svg'}/></span>
+                )}
+                {actualUrgeCount > max && <span> + {actualUrgeCount - urgeCount} </span>}</div> }
             </div>)
     }
 

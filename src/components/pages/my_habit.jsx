@@ -72,8 +72,7 @@ class MyHabit extends React.Component {
 
     render() {
         let {name, budget, icon, _id, budgetType} = this.state.habit;
-        const {currentNav, start, end, expenses, smallScreen} = this.state;
-
+        const {currentNav, start, end, expenses, smallScreen, urges} = this.state;
 
         // let datePrefix = 'Weekly';
         let dateFormat = 'MMM D';
@@ -106,6 +105,7 @@ class MyHabit extends React.Component {
                     <div>
                         <HabitCard text={name} iconUrl={icon} link={'/habit/' + _id + '/edit'}
                                    piggy={true}
+                                   urgeCount={urges.length}
                                    iconHeight='56px'
                                    height='148px'
                                    key={'habit-card-' + _id} footerText={'$' + budget + ' / ' + budgetType}/>
