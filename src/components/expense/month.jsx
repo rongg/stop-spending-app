@@ -62,11 +62,11 @@ class Month extends React.Component {
                         </div>
                     </div>
                 ))}
-                <div className={`col day-totals ${weekTotals[index] >= weeklySplurgeLimit && 'splurge'}`} key={'total-' + index}>
+                <div className={`col day-totals d-none d-sm-inline ${weekTotals[index] >= weeklySplurgeLimit && 'splurge'}`} key={'total-' + index}>
                     {weekTotals[index] > 0 &&
                     <button className='btn btn-default text-center ' onClick={() => navCallback(w[0].date, 'week')}>
                         {weekTotals[index] >= weeklySplurgeLimit && <div><Icon path={'app_icons/broken_piggy.svg'} /></div>}
-                        <div style={{padding: `${weekTotals[index] < weeklySplurgeLimit ? '16px' : '0' }`}}><span className={'money'}>${weekTotals[index]}</span></div>
+                        <div><span className={'money'}>${weekTotals[index]}</span></div>
                     </button>}
                 </div>
             </div>
@@ -83,7 +83,7 @@ class Month extends React.Component {
                     <div className='col'>Thu</div>
                     <div className='col'>Fri</div>
                     <div className='col'>Sat</div>
-                    <div className='col'/>
+                    <div className='col d-none d-sm-inline'/>
                 </div>
                 {calendarRows}
             </div>

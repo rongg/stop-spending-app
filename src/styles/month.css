@@ -24,8 +24,11 @@
 .month-container .col.day-totals {
   text-align: center;
   border-bottom: none;
-  padding: 14px 20px;
+  padding: 0;
   font-size: 1rem; }
+  .month-container .col.day-totals .btn {
+    padding: 0;
+    margin-top: 23px; }
   .month-container .col.day-totals img {
     height: 32px;
     width: 32px; }
@@ -61,7 +64,7 @@
     .day .spent button {
       border: none;
       color: darkgreen;
-      padding: 16px;
+      padding: 0;
       background: none; }
     .day .spent button:hover {
       text-decoration: underline; }
@@ -74,7 +77,8 @@
     width: 8%;
     padding: 0;
     text-align: left;
-    font-size: .85rem; }
+    font-size: .85rem;
+    margin-left: 4px; }
 
   .date {
     padding: 2px;
@@ -84,15 +88,19 @@
     height: 72px; }
 
   .day .spent button {
-    padding: 0;
     font-size: 0.7rem; }
 
   .month-container .col.day, .month-container .col.day-totals {
     width: 8%;
-    padding: 0;
     font-size: 0.7rem; }
+    .month-container .col.day .spent, .month-container .col.day-totals .spent {
+      margin-top: 10px; }
+    .month-container .col.day .btn, .month-container .col.day-totals .btn {
+      padding: 0; }
+    .month-container .col.day span, .month-container .col.day-totals span {
+      font-size: .7rem; }
   .month-container .col.day-totals {
-    margin-top: 20px; }
+    margin-top: 23px; }
 
   .day-column {
     width: 8%;
