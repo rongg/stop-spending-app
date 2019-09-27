@@ -9,6 +9,16 @@ $font-size-card: 1.1rem;
   padding: 2px;
 }
 
+.date-control{
+  margin-top: 10px;
+}
+
+.row.stats {
+  :nth-child(2) {
+    margin-top: 10px;
+  }
+}
+
 .date-head.fix-top {
   padding: 2px;
 
@@ -19,9 +29,9 @@ $font-size-card: 1.1rem;
 .fix-top {
   z-index: 100;
   position: fixed;
-  top: 0%;
+  top: 0;
   padding: 0;
-  width: 1046px;
+  width: 94.5%;
   background-color: rgba(0, 98, 141, .25);
 
   .date-nav {
@@ -45,8 +55,10 @@ $font-size-card: 1.1rem;
 }
 
 .date-nav {
-  //background: #00628d;
-  //color: #fff;
+  margin: 0;
+  .expenses-nav {
+    padding: 0;
+  }
 }
 
 .date-nav > .inline {
@@ -164,6 +176,7 @@ a:hover, a:visited, a:link, a:active {
 }
 
 .devil, .angel {
+  margin-top: 10px;
   .card-header {
     .card-text.expense-name {
       font-size: $font-size-card;
@@ -197,18 +210,23 @@ a:hover, a:visited, a:link, a:active {
 
 
 .urges-summary, .goal-summary {
-  .card{
+  div[class^='col-'] {
+    padding: 0 15px 0 0;
+  }
+
+  .card {
     height: 100%;
 
-    .w-habit{
+    .w-habit {
       padding: 5px;
 
-      img{
+      img {
         height: 72px;
         width: 72px;
       }
     }
   }
+
   .card-header {
     background: #fff;
     border-bottom: 1px solid #ffc1cb;
@@ -229,13 +247,133 @@ a:hover, a:visited, a:link, a:active {
     .statement {
       margin-top: 5px;
       font-size: 1rem;
-      .need, .want{
+
+      .stat {
         font-size: .8rem;
-        img{
+
+        img {
           height: 20px;
           width: 20px;
         }
       }
     }
   }
+}
+
+@media (min-width: 568px) {
+  .fix-top {
+    width: 548px;
+  }
+}
+
+@media (min-width: 640px) {
+  .fix-top {
+    width: 517px;
+  }
+  .row.stats{
+    :nth-child(2){
+      margin-top: 0;
+    }
+  }
+}
+
+@media(min-width: 768px) {
+
+
+  .fix-top {
+    width: 641px;
+  }
+
+  .col-md-6.goal-summary{
+    padding-right: 5px;
+  }
+
+  .col-md-6.urges-summary{
+    padding-left: 5px;
+  }
+
+}
+
+@media (min-width: 992px) {
+  .date-control{
+    margin-top: 0;
+  }
+
+  .fix-top {
+    width: 866px;
+  }
+
+  .col-md-6.goal-summary{
+    padding-right: 15px;
+  }
+
+  .col-md-6.urges-summary{
+    padding-left: 15px;
+  }
+
+  .date-control{
+    padding: 0;
+  }
+}
+
+@media (min-width: 1200px) {
+  .fix-top {
+    width: 1046px;
+  }
+}
+
+@media (max-width: 767px) {
+
+  .urges-summary {
+    margin-top: 10px;
+    .text-right {
+      text-align: center !important;
+    }
+  }
+  .date-head.fix-top {
+    margin-top: 0;
+
+    .expenses-nav, .date-control {
+      max-width: unset;
+      margin-top: 2px;
+      margin-bottom: 0;
+    }
+  }
+
+  .row.habits{
+    padding: 0;
+  }
+
+  .habit-statement{
+    .devil, .unbudgeted{
+      margin-top: 10px;
+    }
+  }
+
+  div[class^='col-'] {
+    padding: 0;
+  }
+
+  .expenses-nav {
+    padding: 0;
+
+    margin-top: 10px;
+  }
+
+  .date-control {
+    padding: 0;
+
+
+  }
+
+  .actions {
+    margin-top: 16px;
+    .btn{
+      margin-top: 8px;
+    }
+    .btn img {
+      margin-left: 50px;
+    }
+  }
+
 }

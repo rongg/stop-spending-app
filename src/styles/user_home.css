@@ -4,6 +4,12 @@
 .date-head {
   padding: 2px; }
 
+.date-control {
+  margin-top: 10px; }
+
+.row.stats :nth-child(2) {
+  margin-top: 10px; }
+
 .date-head.fix-top {
   padding: 2px;
   -webkit-box-shadow: 0 2px 1px 0 rgba(0, 0, 0, 0.1);
@@ -12,9 +18,9 @@
 .fix-top {
   z-index: 100;
   position: fixed;
-  top: 0%;
+  top: 0;
   padding: 0;
-  width: 1046px;
+  width: 94.5%;
   background-color: rgba(0, 98, 141, 0.25); }
   .fix-top .date-nav {
     position: relative;
@@ -25,6 +31,11 @@
   .fix-top .expenses-nav {
     max-width: 32.75%;
     padding-left: 0; }
+
+.date-nav {
+  margin: 0; }
+  .date-nav .expenses-nav {
+    padding: 0; }
 
 .date-nav > .inline {
   width: 360px; }
@@ -95,22 +106,26 @@ a:hover, a:visited, a:link, a:active {
 .angel {
   border-right: solid 1px lightgray; }
 
-.devil .card-header .card-text.expense-name, .angel .card-header .card-text.expense-name {
-  font-size: 1.1rem;
-  font-weight: 500; }
-.devil .expense-card, .angel .expense-card {
-  padding: 0; }
-.devil .expense-card .card-body, .angel .expense-card .card-body {
-  padding: 10px; }
-.devil .card-text.money, .angel .card-text.money {
-  font-size: 1.1rem; }
-.devil .expense-card .card-body img, .angel .expense-card .card-body img {
-  height: 60px;
-  width: 60px; }
+.devil, .angel {
+  margin-top: 10px; }
+  .devil .card-header .card-text.expense-name, .angel .card-header .card-text.expense-name {
+    font-size: 1.1rem;
+    font-weight: 500; }
+  .devil .expense-card, .angel .expense-card {
+    padding: 0; }
+  .devil .expense-card .card-body, .angel .expense-card .card-body {
+    padding: 10px; }
+  .devil .card-text.money, .angel .card-text.money {
+    font-size: 1.1rem; }
+  .devil .expense-card .card-body img, .angel .expense-card .card-body img {
+    height: 60px;
+    width: 60px; }
 
 .card.chart {
   padding: 16px; }
 
+.urges-summary div[class^='col-'], .goal-summary div[class^='col-'] {
+  padding: 0 15px 0 0; }
 .urges-summary .card, .goal-summary .card {
   height: 100%; }
   .urges-summary .card .w-habit, .goal-summary .card .w-habit {
@@ -131,10 +146,82 @@ a:hover, a:visited, a:link, a:active {
 .urges-summary .card-body .statement, .goal-summary .card-body .statement {
   margin-top: 5px;
   font-size: 1rem; }
-  .urges-summary .card-body .statement .need, .urges-summary .card-body .statement .want, .goal-summary .card-body .statement .need, .goal-summary .card-body .statement .want {
+  .urges-summary .card-body .statement .stat, .goal-summary .card-body .statement .stat {
     font-size: .8rem; }
-    .urges-summary .card-body .statement .need img, .urges-summary .card-body .statement .want img, .goal-summary .card-body .statement .need img, .goal-summary .card-body .statement .want img {
+    .urges-summary .card-body .statement .stat img, .goal-summary .card-body .statement .stat img {
       height: 20px;
       width: 20px; }
+
+@media (min-width: 568px) {
+  .fix-top {
+    width: 548px; } }
+@media (min-width: 640px) {
+  .fix-top {
+    width: 517px; }
+
+  .row.stats :nth-child(2) {
+    margin-top: 0; } }
+@media (min-width: 768px) {
+  .fix-top {
+    width: 641px; }
+
+  .col-md-6.goal-summary {
+    padding-right: 5px; }
+
+  .col-md-6.urges-summary {
+    padding-left: 5px; } }
+@media (min-width: 992px) {
+  .date-control {
+    margin-top: 0; }
+
+  .fix-top {
+    width: 866px; }
+
+  .col-md-6.goal-summary {
+    padding-right: 15px; }
+
+  .col-md-6.urges-summary {
+    padding-left: 15px; }
+
+  .date-control {
+    padding: 0; } }
+@media (min-width: 1200px) {
+  .fix-top {
+    width: 1046px; } }
+@media (max-width: 767px) {
+  .urges-summary {
+    margin-top: 10px; }
+    .urges-summary .text-right {
+      text-align: center !important; }
+
+  .date-head.fix-top {
+    margin-top: 0; }
+    .date-head.fix-top .expenses-nav, .date-head.fix-top .date-control {
+      max-width: unset;
+      margin-top: 2px;
+      margin-bottom: 0; }
+
+  .row.habits {
+    padding: 0; }
+
+  .habit-statement .devil, .habit-statement .unbudgeted {
+    margin-top: 10px; }
+
+  div[class^='col-'] {
+    padding: 0; }
+
+  .expenses-nav {
+    padding: 0;
+    margin-top: 10px; }
+
+  .date-control {
+    padding: 0; }
+
+  .actions {
+    margin-top: 16px; }
+    .actions .btn {
+      margin-top: 8px; }
+    .actions .btn img {
+      margin-left: 50px; } }
 
 /*# sourceMappingURL=user_home.css.map */

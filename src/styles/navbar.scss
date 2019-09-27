@@ -25,6 +25,7 @@ $colHighlight: #ffbbbc;
   .navbar-text {
     color: $colDefault; }
   .navbar-nav {
+    margin-right: 20px;
     > li {
       > a {
         color: $colDefault;

@@ -33,19 +33,21 @@
 
 @media (max-width: 576px) {
   .week-container {
-    padding: 24px 10px; }
+    padding: 5px 0; }
+    .week-container .day-title {
+      font-size: .7rem; }
+    .week-container .day-expense-list {
+      padding: 1px;
+      height: 300px; }
     .week-container .card-body {
       padding: 2px; }
-    .week-container .day-title {
-      font-size: 14px;
-      text-align: center; }
     .week-container .day-column {
       width: 12%;
       padding: 2px;
-      margin: 1px;
-      height: 564px; }
+      margin: 0;
+      height: 376px; }
     .week-container .day-total {
       padding: 5px;
-      font-size: .75rem; } }
+      font-size: .7rem; } }
 
 /*# sourceMappingURL=week.css.map */

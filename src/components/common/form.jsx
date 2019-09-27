@@ -27,9 +27,9 @@ class Form extends React.Component {
         return ({});
     }
 
-    getRedirectLoc(to){
+    getRedirectLoc(to) {
         let loc = to;
-        if(sessionStorage.returnPage) loc = sessionStorage.returnPage;
+        if (sessionStorage.returnPage) loc = sessionStorage.returnPage;
         sessionStorage.returnPage = null;
 
         return loc;
@@ -44,11 +44,15 @@ class Form extends React.Component {
         );
     }
 
-    renderSelect(options, name, label) {
-        const {data} = this.state;
+    renderSelect(options, name, label, errorMessage) {
+        const {data, errors} = this.state;
 
-        return <SelectGroup options={options || []} name={name} label={label} value={data[name]}
-                            onChange={this.handleDataChange} />
+        return <div><SelectGroup options={options || []} name={name} label={label} value={data[name]}
+                                 onChange={this.handleDataChange}/>
+            <small id={name + 'help'} className={errors[name] ? 'red error-message' : 'hidden'}>{errorMessage || errors[name]}
+            </small>
+            <br/>
+        </div>;
     }
 
     renderDatePicker(name, label) {
@@ -94,11 +98,11 @@ class Form extends React.Component {
         </div>
     }
 
-    renderDollarInput(name, label, autofocus){
+    renderDollarInput(name, label, autofocus) {
         const {data, errors} = this.state;
         return <div className="form-group">
             {label && <label htmlFor={name}>{label}</label>}
-            <DollarInput name={name} value={data[name]} onChange={this.handleInputChange} autoFocus={autofocus} />
+            <DollarInput name={name} value={data[name]} onChange={this.handleInputChange} autoFocus={autofocus}/>
             <small id={name + 'help'} className={errors[name] ? 'red error-message' : 'hidden'}>{errors[name]}
             </small>
         </div>

@@ -8,7 +8,7 @@ const NavBar = ({user}) => {
             <div className='container nav-content'>
                 <a className="navbar-brand" href="/">
                     <PiggyBank height={32} width={40}
-                                    icon={null}/>
+                               icon={null}/>
                     <span>Stop Spending</span>
                 </a>
                 <button className="navbar-toggler" type="button" data-toggle="collapse"
@@ -20,10 +20,10 @@ const NavBar = ({user}) => {
                 <div className="collapse navbar-collapse" id="navbarSupportedContent">
                     {user && (
                         <React.Fragment>
-                            <ul className="navbar-nav mr-auto">
-                                {/*<li className="nav-item">*/}
-                                {/*<a className="nav-link" href="/habits">Habits</a>*/}
-                                {/*</li>*/}
+                            <ul className="navbar-nav ml-auto">
+                                <li className="nav-item">
+                                    <a className="nav-link" href="/habits">Habits</a>
+                                </li>
                                 {/*<li className="nav-item">*/}
                                 {/*<a className="nav-link" href="/expenses">Expenses</a>*/}
                                 {/*</li>*/}

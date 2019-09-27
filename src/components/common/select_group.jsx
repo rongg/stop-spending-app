@@ -13,7 +13,7 @@ const SelectGroup = ({options, name, label, value, inputHelp, helpMessage, place
     }
 
     return (
-        <div className="form-group">
+        <div className="form-group" style={{marginBottom: '0'}}>
             <label htmlFor={name}>{label}</label>
             <br/>
             {!basicSelect && <Select className={'img-select'} value={options.filter(i => i.value === value)} onChange={(data, elem) => {
@@ -25,8 +25,8 @@ const SelectGroup = ({options, name, label, value, inputHelp, helpMessage, place
                     <option value={item._id} key={'option=' + index}>{item.name}</option>
                 ))}
             </select>}
-            <small id={inputHelp} className={error ? 'red error-message' : 'hidden'}>{helpMessage}
-            </small>
+            {/*<small id={inputHelp} className={error ? 'red error-message' : 'hidden'}>{helpMessage}*/}
+            {/*</small>*/}
         </div>
     );
 };

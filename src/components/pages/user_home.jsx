@@ -17,7 +17,7 @@ import Icon from "../common/Icon";
 import PiggyBank from "../common/piggy_bank";
 
 class UserHome extends React.Component {
-    defaultNav = 'month';
+    defaultNav = 'week';
     state = {
         currentNav: this.defaultNav,
         start: moment().startOf(this.defaultNav),
@@ -80,8 +80,6 @@ class UserHome extends React.Component {
             return 0;
         });
 
-
-        console.log(habits);
 
         const expWants = expenses.filter(this.filterExp('want'));
         const expNeeds = expenses.filter(this.filterExp('need'));
@@ -166,12 +164,11 @@ class UserHome extends React.Component {
                     <h3 className={'text-left'}>My Spending Summary</h3>
                 </div>
             </div>
-            <br/>
-
+            <br className={'d-none d-lg-inline'}/>
             <br/>
             <div className={`date-head ${scrollActive && 'fix-top col-sm-12'}`}>
                 <div className={`date-nav row`}>
-                    <div className="col-sm-4 expenses-nav text-left">
+                    <div className="col-12 col-lg-4 expenses-nav text-left">
                         <div className='btn-group' role='group'>
                             <button
                                 onClick={() => this.setCurrentNav('month', moment().startOf('month'), moment().endOf('month'))}
@@ -188,7 +185,7 @@ class UserHome extends React.Component {
                         </div>
                     </div>
 
-                    <div className='col-sm-4 date-control'>
+                    <div className='col-12 col-lg-4 date-control'>
                         <div className={'row'}>
                             <div className={'col-3'}>
                                 {leftNav}
@@ -209,9 +206,59 @@ class UserHome extends React.Component {
                     </div>
                 </div>
             </div>
-            <br/>
+            <br className={'d-none d-lg-inline'}/>
+            <div className={'piggy row d-block d-lg-none'}>
+                <div className={'col-12 col-lg-4 '} style={{marginBottom: '10px'}}>
+                    <div className={'card piggy'}>
+                        <div className="spent-summary text-center">
+                            <PiggySummary piggyWidth={this.piggyParams.width} piggyHeight={this.piggyParams.height}
+                                          amount={ExpenseDateRange.sumExpenseAmounts(expenses)}
+                                          predicate={ExpenseDateRange.getSpentStatementPredicate(start, currentNav)}
+                                          avgDaily={currentNav !== 'day' && avgDaily}
+                                          avgExpense={currentNav === 'day' && avgExpense}
+                                          numLogged={expenses.length}/>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div className={'row actions d-block d-md-none'}>
+
+                <div className={'col-md-4 col-12'} style={{padding: 0}}>
+                    <a href={this.state.habitId ? '/habit/' + this.state.habitId + '/expense/new' : '/expense/new'}
+                       className="btn btn-block btn-primary btn-default text-left">
+                        <div className={'col-10'}>
+                            <Icon path={'app_icons/log.svg'}/>
+                            Log an Expense
+                        </div>
+                    </a>
+
+                </div>
+
+                <div className={'col-md-4 col-12'}>
+                    <a href={'urge/new'}
+                       className="btn btn-block btn-primary btn-default text-left">
+                        <div className={'col-10'}>
+                            <Icon path={'app_icons/devil.svg'}/>Log an
+                            Urge
+                        </div>
+                    </a>
+                </div>
+
+                <div className={'col-md-4 col-12'}>
+                    <a href={'goal/new'}
+                       className="btn btn-block btn-primary btn-default text-left">
+                        <div className={'col-10'}>
+                            <Icon path={'app_icons/target.svg'}/>
+                            Set a Goal
+                        </div>
+                    </a>
+                </div>
+                <br/>
+            </div>
+
             <div className={'piggy row'}>
-                <div className="col-sm-4 goal-summary">
+                <div className="col-lg-4 col-md-6 col-12 goal-summary">
                     <div className={'card'}>
                         <div className={'card-header text-center'}>
                             <Icon path={'app_icons/target.svg'}/>
@@ -227,7 +274,7 @@ class UserHome extends React.Component {
                     </div>
                 </div>
 
-                <div className={'col-sm-4 card piggy'}>
+                <div className={'d-lg-inline d-none col-lg-4 col-md-6 col-12  card piggy'}>
                     <div className="spent-summary text-center">
                         <PiggySummary piggyWidth={this.piggyParams.width} piggyHeight={this.piggyParams.height}
                                       amount={ExpenseDateRange.sumExpenseAmounts(expenses)}
@@ -239,7 +286,7 @@ class UserHome extends React.Component {
                     </div>
                 </div>
 
-                <div className="col-sm-4 urges-summary">
+                <div className="col-lg-4 col-md-6 col-12 urges-summary">
                     <div className={'card'}>
                         <div className={'card-header text-center'}>
                             <Icon path={'app_icons/devil.svg'}/>
@@ -248,17 +295,18 @@ class UserHome extends React.Component {
                         <div className={'card-body text-center'}>
                             <div className={'row'}>
                                 {worstHabits.map((h, index) =>
-                                    <div className={'col-sm-4 w-habit'} key={'w-habit-' + index}>
+                                    <div className={'col-4 w-habit'} key={'w-habit-' + index}>
                                         <Icon path={h.icon}/>
                                         <div className={'statement'}>
                                             <span>{h.name}</span><br/>
-                                            <div className={'col-sm-12 text-right'}>
-                                                <span className={'want'}><span
+                                            <div className={'col-12 text-right'}>
+                                                <span className={'stat'}><span
                                                     className={'money'}>${h.needExpAmt}</span> <Icon
                                                     path={'app_icons/angel.svg'}/></span><br/>
-                                                <span className={'need'}><span
+                                                <span className={'stat'}><span
                                                     className={'money'}>${h.wantExpAmt}</span> <Icon
-                                                    path={'app_icons/trident.svg'}/></span>
+                                                    path={'app_icons/trident.svg'}/></span><br/>
+                                                {h.urges && <span className={'stat'}><span className={'money'}>{h.urges.length}</span> <Icon path={'app_icons/devil.svg'}/></span>}
                                             </div>
                                         </div>
                                     </div>)}
@@ -269,7 +317,7 @@ class UserHome extends React.Component {
 
             </div>
             <br/>
-            <div className={'row text-center'}>
+            <div className={'row actions text-center d-none d-md-flex'}>
 
                 <div className={'col-sm-4'}>
                     <a href={'goal/new'}
@@ -289,7 +337,7 @@ class UserHome extends React.Component {
                 </div>
             </div>
 
-            <br/>
+            <br className={'d-none d-sm-block'}/>
 
             <div className={'expenses-range-container card'}>
                 {currentNav === 'week' &&
@@ -306,46 +354,37 @@ class UserHome extends React.Component {
             </div>
 
             <br/>
-            <br/>
-
-            <div className='row'>
-                <div className='col-sm-12'>
-                    <h3>My {datePrefix} Spending Habits</h3>
-                </div>
-            </div>
-            <br/>
 
             <div className={'row habit-statement'}>
-                <div className={'col-sm-7'}>
+                <div className={'col-md-7'}>
                     <div className={'row'}>
                         <div className={'col-sm-12'}>
                             <div className={'card'}>
                                 <div className={'row'}>
-                                    <div className={'col-sm-4 signal m-auto text-center'}>
+                                    <div className={'col-md-4 col-3 signal m-auto text-center'}>
 
                                         <Icon path={pace.icon}/>
                                         <br/>
                                         <span>{pace.message}</span>
                                     </div>
-                                    <div className={'col-sm-5 m-auto'}>
+                                    <div className={'col-md-5 col-7 m-auto'}>
                                         <span className={'money'}>${totalSpentHabits}</span> Spent on Habits
                                         <hr/>
                                         <span className={'money'}>${totalBudget}</span> <span>Budgeted</span>
                                     </div>
-                                    <div className={'col-sm-1 m-auto'}>
-                                        <span>=</span>
-                                    </div>
-                                    <div className={'col-sm-2 m-auto'}>
-                                        <span
-                                            className={`money pct ${(totalSpentHabits >= totalBudget && 'red') || (spentBudgetRatio >= .5 && 'yellow')}`}>{Math.round(spentBudgetRatio * 100)}%</span>
-                                    </div>
+                                    {/*<div className={'d-none d-md-inline col-sm-1 m-auto'}>*/}
+                                    {/*<span>=</span>*/}
+                                    {/*</div>*/}
+                                    {/*<div className={'d-none d-md-inline col-sm-2 m-auto'}>*/}
+                                    {/*<span*/}
+                                    {/*className={`money pct ${(totalSpentHabits >= totalBudget && 'red') || (spentBudgetRatio >= .5 && 'yellow')}`}>{Math.round(spentBudgetRatio * 100)}%</span>*/}
+                                    {/*</div>*/}
                                 </div>
                             </div>
                         </div>
 
 
                     </div>
-                    <br/>
                     <div className={'row'}>
                         <div className="col-sm-6 angel">
                             <ExpenseCard height={148} expense={{
@@ -362,7 +401,7 @@ class UserHome extends React.Component {
                     </div>
                 </div>
 
-                <div className={'col-sm-5 unbudgeted'}>
+                <div className={'col-md-5 unbudgeted'}>
                     <div className={'card'} style={{padding: '0'}}>
                         <div className={'col-sm-12 text-center'} style={{padding: 0}}>
                             <div className={'card-body'}>
@@ -388,10 +427,18 @@ class UserHome extends React.Component {
             </div>
 
             <br/>
+            <br/>
+
+            <div className='row'>
+                <div className='col-sm-12'>
+                    <h3>My {datePrefix} Spending Habits</h3>
+                </div>
+            </div>
+            <br/>
 
             <div className={'row habits col-sm-12'}>
                 {habits.filter(h => h._id).map((h, index) => (
-                    <div className="col-lg-2 col-md-6 col-sm-12" key={'habit-card-' + index}>
+                    <div className="col-4 col-lg-2 col-md-6 col-sm-12" key={'habit-card-' + index}>
                         <HabitCard text={h.name}
                                    spent={h.spent}
                                    budgeted={((currentNav === 'week' && h.budgetWeek) || (currentNav === 'month' && h.budgetMonth) || (currentNav === 'day' && h.budgetDay))}
@@ -472,14 +519,16 @@ class UserHome extends React.Component {
         this.getHabitsAndExpenses();
     }
 
-    // Gets all expenses for user in date range, then get habits
+    // Gets all expenses and urges for user in date range, then get habits
     getHabitsAndExpenses() {
         const {start, end} = this.state;
 
-        axios.all([expenses.get(start, end), habitService.get()])
+        axios.all([expenses.get(start, end), habitService.getAllUrges(start, end), habitService.get()])
             .then(res => {
                 let expenses = res[0].data;
-                let habits = res[1].data;
+                let urges = res[1].data;
+                let habits = res[2].data;
+
                 const unassignedHabit = {
                     _id: '',
                     name: 'other',
@@ -490,6 +539,7 @@ class UserHome extends React.Component {
                 habits = habits.map(h => {
                     h.spent = 0;
                     h.expenses = [];
+                    h.urges = urges.filter(u => u.habitId === h._id);
                     return h;
                 });
                 expenses = expenses.map(expense => {
@@ -515,6 +565,7 @@ class UserHome extends React.Component {
 
                 habits.push(unassignedHabit);
 
+                console.log(urges, habits);
                 this.setState({
                     expenses,
                     habits

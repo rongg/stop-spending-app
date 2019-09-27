@@ -1,6 +1,7 @@
 import {apiEndpoint} from '../api';
 import http from './httpService';
 import Joi from "joi-browser";
+import moment from "moment";
 
 const apiUrl = apiEndpoint + '/habits';
 
@@ -47,6 +48,41 @@ export function getForId(id){
     });
 }
 
+export function createUrge(urge){
+    return http.request({
+        method: 'post',
+        url: apiUrl + '/' + urge.habitId + '/urge',
+        headers: {
+            'Content-Type': 'application/json'
+        },
+        data: urge
+    });
+}
+
+export function getUrgesForHabit(habitId, start, end){
+    if(!start || !end){
+        throw new Error('start and end params are required!');
+    }
+    let url = apiUrl + '/' + habitId + '/urges?start=' + moment(start).utc().toDate() + '&end=' + moment(end).utc().toDate();
+
+    return http.request({
+        method: 'get',
+        url: url,
+    });
+}
+
+export function getAllUrges(start, end){
+    if(!start || !end){
+        throw new Error('start and end params are required!');
+    }
+    let url = apiUrl + '/urges/all?start=' + moment(start).utc().toDate() + '&end=' + moment(end).utc().toDate();
+
+    return http.request({
+        method: 'get',
+        url: url
+    });
+}
+
 export function getDefaultIcon(){
     return 'money_default.svg';
 }
@@ -60,6 +96,13 @@ const schema = {
     icon: Joi.string().max(255).allow('')
 };
 
+const urgeSchema = {
+    _id: Joi.string().max(25),
+    userId: Joi.string().max(25).required(),
+    date: Joi.date().required(),
+    habitId: Joi.string().max(25).required()
+};
+
 export default {
-    create, get, getForId, update, deleteById, getDefaultIcon, schema
+    create, get, getForId, update, deleteById, getDefaultIcon, getUrgesForHabit, getAllUrges, createUrge, schema, urgeSchema
 }

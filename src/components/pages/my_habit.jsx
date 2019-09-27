@@ -23,32 +23,38 @@ class MyHabit extends React.Component {
             budget: 0,
             budgetType: ''
         },
-        expenses: []
+        expenses: [],
+        urges: []
     };
 
     constructor(props) {
         super(props);
-        this.getExpenses = this.getExpenses.bind(this);
+        this.loadData = this.loadData.bind(this);
         this.incrementPeriod = this.incrementPeriod.bind(this);
     }
 
 
     componentDidMount() {
         sessionStorage.returnPage = '/habit/' + this.props.match.params.id;
-        this.getExpenses();
+        this.loadData();
     }
 
 
-    getExpenses() {
-        axios.all([habits.getForId(this.props.match.params.id), expenses.getForHabit(this.props.match.params.id, this.state.start, this.state.end)])
+    loadData() {
+        const {start, end} = this.state;
+        const habitId = this.props.match.params.id;
+
+        axios.all([habits.getForId(habitId), expenses.getForHabit(habitId, start, end),
+            habits.getUrgesForHabit(habitId, start, end)])
             .then(res => {
-                this.setState({habit: res[0].data, expenses: res[1].data})
+                console.log('urges', res[2].data);
+                this.setState({habit: res[0].data, expenses: res[1].data, urges: res[2].data})
             });
     }
 
     setCurrentNav(loc, start, end) {
         this.setState({currentNav: loc, start, end}, () => {
-            this.getExpenses();
+            this.loadData();
         });
 
     }
@@ -61,7 +67,7 @@ class MyHabit extends React.Component {
             start: start.add(num, unit),
             end: end.add(num, unit)
         });
-        this.state.habitId ? this.getExpensesForHabit() : this.getExpenses();
+        this.state.habitId ? this.getExpensesForHabit() : this.loadData();
     }
 
     render() {
@@ -69,23 +75,23 @@ class MyHabit extends React.Component {
         const {currentNav, start, end, expenses, smallScreen} = this.state;
 
 
-        let datePrefix = 'Weekly';
+        // let datePrefix = 'Weekly';
         let dateFormat = 'MMM D';
-        let totalBudgetKey = 'budgetWeek';
+        // let totalBudgetKey = 'budgetWeek';
 
         const startEndSameMonth = start.isSame(end, 'month');
         let dateFormat2 = startEndSameMonth && currentNav === 'week' ? 'D' : null;
 
 
         if (currentNav === 'month') {
-            datePrefix = 'Monthly';
+            // datePrefix = 'Monthly';
             dateFormat = start.isSame(moment(), 'year') ? 'MMMM' : 'MMMM YYYY';
-            totalBudgetKey = 'budgetMonth';
+            // totalBudgetKey = 'budgetMonth';
         }
         if (currentNav === 'day') {
-            datePrefix = 'Daily';
+            // datePrefix = 'Daily';
             dateFormat = 'dddd MMM D';
-            totalBudgetKey = 'budgetDay';
+            // totalBudgetKey = 'budgetDay';
         }
 
         const leftNav = <a className='btn btn-default' onClick={() => this.incrementPeriod(-1, currentNav)}><Icon
@@ -113,7 +119,7 @@ class MyHabit extends React.Component {
                                 </div>
 
                             </a>
-                            <a href={'urge/new'}
+                            <a href={_id + '/urge/new'}
                                className="btn btn-block btn-primary btn-default">
                                 <div className={'col-sm-12 col-xl-7 col-lg-10 m-auto'}><Icon path={'app_icons/devil.svg'}/>
                                     Log an Urge
