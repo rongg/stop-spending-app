@@ -12,7 +12,7 @@ class PiggyBank extends React.Component {
         }
 
         const p = PiggyBank.getSVGParams(this.props.budget || 1, this.props.spent || 0, this.props.width, this.props.height);
-        return <svg viewBox="0 0 600 400" x="0px" y="0px" width={p.width}
+        return <svg className={'piggy-bank'} viewBox="0 0 600 400" x="0px" y="0px" width={p.width}
                     height={p.height}>
 
             <path id="pig" style={{stroke: '#ffa6b6', strokeWidth: '6px'}} fill='#ffb3c0'

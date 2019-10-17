@@ -1,45 +1,138 @@
-.my-habit{
-  .key-figures{
-    .col-sm-4{
-      padding-right: 0;
+.my-habit {
+
+  .need-want {
+    .card-body{
+      padding-top: .75rem;
     }
-    .card{
-      height: 166px;
+    canvas{
+      height: 120px !important;
+      width: 155px !important;
     }
   }
-  .section-head{
+
+  .devil {
+    padding-left: 10px;
+  }
+
+
+  .simple-bar {
+    padding: 5px;
+    height: 90px;
+    width: 75px;
+  }
+
+  .habit-title {
+    img {
+      height: 40px;
+      width: 40px;
+    }
+
+    span {
+      vertical-align: middle;
+      margin-left: 10px;
+    }
+  }
+
+  .piggy.card {
+    margin-bottom: 10px;
+  }
+
+  .date-control {
+    padding: 15px;
+  }
+
+  .key-figures {
+
+    .piggy-bank {
+      height: 48px;
+    }
+
+    .projected {
+      .card-body .icon {
+        height: 80px;
+        width: 80px;
+        margin-bottom: 8px;
+      }
+    }
+
+    .urge-num {
+      h3 {
+        margin-top: 10px;
+      }
+
+      span {
+        font-size: .9rem;
+      }
+    }
+
+    .col-sm-4, .col-sm-6, .col-sm-2 {
+      padding-right: 0;
+    }
+
+    .card {
+      height: 200px;
+    }
+
+    .card-header .icon {
+      height: 24px;
+      width: 24px;
+    }
+
+    .icon {
+      height: 32px;
+      width: 32px;
+    }
+
+    .card-header {
+      font-size: 1.1rem;
+
+      span {
+        vertical-align: text-top;
+      }
+    }
+
+    .one-liner {
+      line-height: 6rem;
+    }
+  }
+
+  .section-head {
     .profile-pic.col-sm-4, .col-sm-12 {
       padding: 0;
       margin-bottom: 16px;
     }
   }
-  .habit-head{
+
+  .habit-head {
     .card-body {
-      height: 200px;
-    }
-    .card-footer{
-      //height: 100px;
+      height: 208px;
     }
 
-    .b-container{
+    .card-footer {
+      height: 30px;
+    }
+
+    .b-container {
       margin-top: 5px;
     }
 
-    .habit-card{
+    .habit-card {
       margin-bottom: 8px;
     }
-    .btn{
+
+    .btn {
       text-align: left;
     }
   }
 
-  .card-header{
+  .card-header {
     border-bottom: 1px solid #ffc1cb;
     padding: 4px;
     background: #fff;
     font-size: 2rem;
     text-align: center;
   }
+
   .habit-card .card-text {
     font-size: 1rem;
   }

@@ -25,6 +25,7 @@ import ResendToken from "./components/pages/resend_token";
 import ResetPasswordRequest from "./components/pages/reset_password_request";
 import ResetPassword from "./components/pages/reset_password";
 import CreateUrge from "./components/pages/create_urge";
+import CreateGoal from "./components/pages/create_goal";
 
 
 class App extends React.Component {
@@ -91,6 +92,10 @@ class App extends React.Component {
                             <Route path="/habit/:id/urge/new" exact render={props => {
                                 if (!user) return <Redirect to="/login"/>;
                                 return <CreateUrge user={user} {...props} />;
+                            }}/>
+                            <Route path="/habit/:id/goal/new" exact render={props => {
+                                if (!user) return <Redirect to="/login"/>;
+                                return <CreateGoal user={user} {...props} />;
                             }}/>
                             <Route path="/habit/:habitId/expense/:id" exact render={props => {
                                 if (!user) return <Redirect to="/login"/>;

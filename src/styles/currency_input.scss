@@ -1,7 +1,8 @@
 .currency-input{
   input{
     border: none;
-    width: 72px;
+    width: 64px;
+    padding: 5px;
   }
   input.cents{
     width: 24px;
@@ -27,9 +28,14 @@
   }
 
   .input-container{
-    padding: 5px;
+    padding: 8px;
     border-radius: 0.25rem;
     border: 1px solid lightgray;
     vertical-align: middle;
+    background: #fff;
+    span{
+      color: #7f7f7f;
+      padding: 5px;
+    }
   }
 }

@@ -117,13 +117,11 @@ class UserHome extends React.Component {
         const startEndSameMonth = start.isSame(end, 'month');
         let dateFormat2 = startEndSameMonth && currentNav === 'week' ? 'D' : null;
 
-        let daysDivisor = start.isSame(moment(), 'week') ? moment().day() + 1 : 7;
 
         if (currentNav === 'month') {
             datePrefix = 'Monthly';
             dateFormat = start.isSame(moment(), 'year') ? 'MMMM' : 'MMMM YYYY';
             totalBudgetKey = 'budgetMonth';
-            daysDivisor = start.isSame(moment(), 'month') ? moment().date() + 1 : start.daysInMonth();
         }
         if (currentNav === 'day') {
             datePrefix = 'Daily';
@@ -134,34 +132,21 @@ class UserHome extends React.Component {
         let totalBudget = habits.filter(h => h._id).reduce((acc, h) => acc + h[totalBudgetKey], 0);
         let totalSpentHabits = habits.filter(h => h._id).reduce((acc, h) => acc + h.spent, 0);
         let totalSpentOther = habits.filter(h => !h._id).reduce((acc, h) => acc + h.spent, 0);
-        let spentBudgetRatio = totalSpentHabits / totalBudget;
-        let pace = {icon: 'app_icons/traffic_green.svg', message: 'On Pace!'};
+        let pace = ExpenseDateRange.calculatePace(totalSpentHabits, totalBudget);
 
-        if (spentBudgetRatio >= 1.0) {
-            pace = {icon: 'app_icons/traffic_red.svg', message: 'Stop Spending!'}
-        } else if (spentBudgetRatio > .5) {
-            pace = {icon: 'app_icons/traffic_yellow.svg', message: 'Slow Down'};
-        }
-
-        let avgExpense = 0;
-        let avgDaily = 0;
-        if (expenses.length) {
-            const totalSpent = expenses.reduce((acc, e) => acc + e.amount, 0);
-            avgExpense = Math.round(totalSpent / expenses.length);  //  Used in day view
-            avgDaily = Math.round(totalSpent / daysDivisor);
-        }
+        const averages = ExpenseDateRange.getAverages(expenses, start, currentNav);
 
 
-        const leftNav = <a className='btn btn-default' onClick={() => this.incrementPeriod(-1, currentNav)}><Icon
-            path={'app_icons/left.svg'}/></a>;
-        const rightNav = <a className='btn btn-default' onClick={() => this.incrementPeriod(1, currentNav)}
-                            style={{float: 'right'}}><Icon path={'app_icons/right.svg'}/></a>;
+        const leftNav = <button className='btn btn-default' onClick={() => this.incrementPeriod(-1, currentNav)}><Icon
+            path={'app_icons/left.svg'}/></button>;
+        const rightNav = <button className='btn btn-default' onClick={() => this.incrementPeriod(1, currentNav)}
+                            style={{float: 'right'}}><Icon path={'app_icons/right.svg'}/></button>;
 
 
         return <div className="m-auto page">
             <div className={`row ${scrollActive && 'red'}`}>
                 <div className='col-sm-12'>
-                    <h3 className={'text-left'}>My Spending Summary</h3>
+                    <h2 className={'text-left'}>My Spending Summary</h2>
                 </div>
             </div>
             <br className={'d-none d-lg-inline'}/>
@@ -214,8 +199,8 @@ class UserHome extends React.Component {
                             <PiggySummary piggyWidth={this.piggyParams.width} piggyHeight={this.piggyParams.height}
                                           amount={ExpenseDateRange.sumExpenseAmounts(expenses)}
                                           predicate={ExpenseDateRange.getSpentStatementPredicate(start, currentNav)}
-                                          avgDaily={currentNav !== 'day' && avgDaily}
-                                          avgExpense={currentNav === 'day' && avgExpense}
+                                          avgDaily={currentNav !== 'day' ? averages.daily : null}
+                                          avgExpense={currentNav === 'day' ? averages.expense : null}
                                           numLogged={expenses.length}/>
                         </div>
                     </div>
@@ -279,8 +264,8 @@ class UserHome extends React.Component {
                         <PiggySummary piggyWidth={this.piggyParams.width} piggyHeight={this.piggyParams.height}
                                       amount={ExpenseDateRange.sumExpenseAmounts(expenses)}
                                       predicate={ExpenseDateRange.getSpentStatementPredicate(start, currentNav)}
-                                      avgDaily={currentNav !== 'day' && avgDaily}
-                                      avgExpense={currentNav === 'day' && avgExpense}
+                                      avgDaily={currentNav !== 'day' ? averages.daily : null}
+                                      avgExpense={currentNav === 'day' ? averages.expense : null}
                                       numLogged={expenses.length}
                         />
                     </div>
@@ -372,13 +357,6 @@ class UserHome extends React.Component {
                                         <hr/>
                                         <span className={'money'}>${totalBudget}</span> <span>Budgeted</span>
                                     </div>
-                                    {/*<div className={'d-none d-md-inline col-sm-1 m-auto'}>*/}
-                                    {/*<span>=</span>*/}
-                                    {/*</div>*/}
-                                    {/*<div className={'d-none d-md-inline col-sm-2 m-auto'}>*/}
-                                    {/*<span*/}
-                                    {/*className={`money pct ${(totalSpentHabits >= totalBudget && 'red') || (spentBudgetRatio >= .5 && 'yellow')}`}>{Math.round(spentBudgetRatio * 100)}%</span>*/}
-                                    {/*</div>*/}
                                 </div>
                             </div>
                         </div>
@@ -468,8 +446,7 @@ class UserHome extends React.Component {
 
             <br/>
 
-        </div>
-            ;
+        </div>;
     }
 
     filterExp(needWant) {
@@ -484,7 +461,6 @@ class UserHome extends React.Component {
     }
 
     navigateTo(date, unit) {
-        console.log('navigate', date, unit);
         const start = moment(date).startOf(unit);
         const end = moment(date).endOf(unit);
         this.setCurrentNav(unit, start, end);
@@ -565,7 +541,6 @@ class UserHome extends React.Component {
 
                 habits.push(unassignedHabit);
 
-                console.log(urges, habits);
                 this.setState({
                     expenses,
                     habits

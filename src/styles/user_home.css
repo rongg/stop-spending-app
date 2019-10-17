@@ -109,8 +109,7 @@ a:hover, a:visited, a:link, a:active {
 .devil, .angel {
   margin-top: 10px; }
   .devil .card-header .card-text.expense-name, .angel .card-header .card-text.expense-name {
-    font-size: 1.1rem;
-    font-weight: 500; }
+    font-size: 1.1rem; }
   .devil .expense-card, .angel .expense-card {
     padding: 0; }
   .devil .expense-card .card-body, .angel .expense-card .card-body {

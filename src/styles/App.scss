@@ -1,11 +1,30 @@
+$app_font: sans-serif;
+$font-weight: 300;
+h1, h2, h3, h4, h5, h6, .h1, .h2, .h3, .h4, .h5, .h6 {
+  font-weight: $font-weight;
+}
+
 button, .btn{
   -webkit-box-shadow: 0 1px 1px 0 rgba(0,0,0,.1);
   box-shadow: 0 2px 1px 0 rgba(0,0,0,.1);
 }
 
+input{
+  font-family: $app_font;
+  font-weight: $app_font;
+  color: darkslategray;
+}
+
+input::placeholder{
+  font-family: $app_font;
+  font-weight: $font-weight;
+  color: #8e8e8e;
+}
+
 .app-content{
   border-bottom: 1px solid #e5e5e5;
   min-height: 800px;
+  font-weight: $font-weight;
 }
 
 .page-footer{
@@ -22,11 +41,12 @@ button, .btn{
 .card{
   -webkit-box-shadow: 0 2px 1px 0 rgba(0,0,0,.1);
   box-shadow: 0 2px 1px 0 rgba(0,0,0,.1);
+  font-weight: $font-weight;
 }
 
 div.app{
   background: #f5f7fa;
-  font-family: sans-serif;
+  font-family: $app_font;
 }
 
 .App-logo {
@@ -50,6 +70,11 @@ div.app{
   color: #61dafb;
 }
 
+.icon{
+  height: 32px;
+  width: 32px;
+}
+
 .link{
     font-size: 14px;
 }
@@ -59,11 +84,11 @@ div.app{
 }
 
 .money{
-    color: green;
+    color: #329932;
 }
 
 .green{
-    color: green;
+    color: #329932;
 }
 
 .success{

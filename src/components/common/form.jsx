@@ -16,6 +16,12 @@ class Form extends React.Component {
         formHelp: '* There was a problem with your submission!'
     };
 
+    customErrors = {
+        'number.base': '* required',
+        // 'number.min': 'must be greater than 0',
+        'any.empty': '* required'
+    };
+
     constructor(props) {
         super(props);
         this.handleCreate = this.handleCreate.bind(this);
@@ -35,37 +41,50 @@ class Form extends React.Component {
         return loc;
     }
 
-    renderInput(name, label, type, placeholder, autoFocus) {
+    renderInput(name, label, type, placeholder, autoFocus, className, customErrors) {
         const {data, errors} = this.state;
         return (
-            <InputGroup autoFocus={autoFocus} name={name} label={label} value={data[name]} inputHelp={name + "Help"}
-                        helpMessage={errors[name]} placeHolder={placeholder || name} error={errors[name]} type={type}
+            <InputGroup autoFocus={autoFocus} className={className} name={name} label={label} value={data[name]}
+                        inputHelp={name + "Help"}
+                        helpMessage={errors[name]} placeHolder={placeholder || name} error={errors[name]} type={type} customErrors={customErrors}
                         onChange={this.handleInputChange}/>
         );
     }
 
-    renderSelect(options, name, label, errorMessage) {
+    renderSelect(options, name, label, errorMessage, callback) {
         const {data, errors} = this.state;
 
         return <div><SelectGroup options={options || []} name={name} label={label} value={data[name]}
-                                 onChange={this.handleDataChange}/>
-            <small id={name + 'help'} className={errors[name] ? 'red error-message' : 'hidden'}>{errorMessage || errors[name]}
+                                 onChange={(n, v) => this.handleDataChange(n, v, callback)} />
+            <small id={name + 'help'}
+                   className={errors[name] ? 'red error-message' : 'hidden'}>{errorMessage || errors[name]}
             </small>
             <br/>
         </div>;
     }
 
-    renderDatePicker(name, label) {
+    renderDatePicker(name, label, timeOptions, hideTime) {
+        // console.log(timeOptions);
         const {data, errors} = this.state;
+        let {minDate, maxDate, minTime, maxTime} = timeOptions;
+        if (!minDate) minDate = new Date(-864000000000000);
+        if (!maxDate) maxDate = new Date(864000000000000);
+        if (!minTime) minTime = moment(minDate).startOf('day').toDate();
+        if (!maxTime) maxTime = moment(maxDate).endOf('day').toDate();
+
+
         return <div className="form-group">
             <label htmlFor={name}>{label}</label><br/>
             <DatePicker
-                showTimeSelect
+                showTimeSelect={!hideTime}
                 className="form-control"
-                maxDate={new Date()}
+                minDate={minDate}
+                maxDate={maxDate}
+                minTime={minTime}
+                maxTime={maxTime}
                 dateFormat="EE MMM d, yyyy h:mm aa"
                 selected={moment(data[name]).toDate()}
-                onChange={(data) => this.handleDataChange('date', data)}
+                onChange={(data) => this.handleDataChange(name, data)}
             />
             <small id={name + 'help'} className={errors[name] ? 'red error-message' : 'hidden'}>{errors[name]}
             </small>
@@ -82,27 +101,42 @@ class Form extends React.Component {
         </div>
     }
 
-    renderRadioGroup(name, choices, label) {
+    renderRadioGroup(name, choices, label, callback) {
         const {data, errors} = this.state;
+
+        let radioGroup;
+        if (typeof choices[0] === 'object') {
+            radioGroup = <div>{choices.map((item, index) =>
+                <div key={'radio-choice-' + index}>
+                    <input type='radio' checked={(data[name] === item.value.toString() && 'checked')}
+                           name={name} value={item.value}
+                           onChange={e => this.handleInputChange(e, callback)}/><span> {item.name}</span>
+                </div>
+            )}</div>;
+        } else {
+            radioGroup = <div>{choices.map((item, index) =>
+                <div key={'radio-choice-' + index}>
+                    <input type='radio' checked={(data[name] === item && 'checked')}
+                           name={name} value={item}
+                           onChange={e => this.handleInputChange(e, callback)}/><span> {item}</span>
+                </div>
+            )}</div>;
+        }
 
         return <div className="form-group">
             {label && <label htmlFor={name}>{label}</label>}
-            {choices.map((item, index) =>
-                <div key={'radio-choice-' + index}>
-                    <input type='radio' checked={(data[name] === item && 'checked')}
-                           name={name} value={item} onChange={this.handleInputChange}/><span> {item}</span>
-                </div>
-            )}
+            {radioGroup}
             <small id={name + 'help'} className={errors[name] ? 'red error-message' : 'hidden'}>{errors[name]}
             </small>
         </div>
     }
 
-    renderDollarInput(name, label, autofocus) {
+    renderDollarInput(name, label, predicate, autofocus, customErrors) {
         const {data, errors} = this.state;
         return <div className="form-group">
             {label && <label htmlFor={name}>{label}</label>}
-            <DollarInput name={name} value={data[name]} onChange={this.handleInputChange} autoFocus={autofocus}/>
+            <DollarInput name={name} predicate={predicate} value={data[name]} onChange={this.handleInputChange}
+                         autoFocus={autofocus} customErrors={customErrors}/>
             <small id={name + 'help'} className={errors[name] ? 'red error-message' : 'hidden'}>{errors[name]}
             </small>
         </div>
@@ -129,7 +163,12 @@ class Form extends React.Component {
         console.error('Errors while validating', res.error);
         for (let e of res.error.details) {
             if (errors[e.path[0]]) continue;
-            errors[e.path[0]] = e.message;
+            const customError = this.customErrors[e.type];
+            if(customError){
+                errors[e.path[0]] = customError;
+            }else {
+                errors[e.path[0]] = e.message.replace(/"(.*?)"/, "");   //  don't show name of input
+            }
         }
 
         errors.count = res.error.details.length;
@@ -147,22 +186,23 @@ class Form extends React.Component {
         this.postForm();
     }
 
-    handleInputChange({currentTarget: input}) {
+    handleInputChange(e, callback = () => {}) {
+        const input = e.currentTarget;
         const formData = {...this.state.data};
         formData[input.name] = input.value;
         this.setState({
             data: formData,
             errors: {...this.state.errors}
-        });
+        }, () => callback(input.value));
     }
 
-    handleDataChange(name, data) {
+    handleDataChange(name, data, callback = () => {}) {
         const formData = this.state.data;
         formData[name] = data;
         this.setState({
             data: formData,
             errors: {...this.state.errors}
-        })
+        }, () => callback(data))
     }
 
 }

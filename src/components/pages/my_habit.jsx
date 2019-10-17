@@ -1,6 +1,5 @@
 import React from 'react';
 import habits from '../../services/habits';
-import HabitCard from "../habit/habit_card";
 import Week from "../expense/week";
 import Month from "../expense/month";
 import Day from "../expense/day";
@@ -11,12 +10,17 @@ import '../../styles/my_habit.css';
 import axios from "axios";
 import Moment from "react-moment";
 import Icon from "../common/Icon";
+import PiggySummary from "../common/piggy_summary";
+import SimpleBar from "../common/simple_bar";
+import PiggyBank from "../common/piggy_bank";
+import MyChart from "../common/my_chart";
 
 class MyHabit extends React.Component {
+    defaultNav = 'month';
     state = {
-        currentNav: 'week',
-        start: moment().startOf('week'),
-        end: moment().endOf('week'),
+        currentNav: this.defaultNav,
+        start: moment().startOf(this.defaultNav),
+        end: moment().endOf(this.defaultNav),
         smallScreen: ExpenseDateRange.getScreenWidth() <= 576,
         habit: {
             name: '',
@@ -24,13 +28,18 @@ class MyHabit extends React.Component {
             budgetType: ''
         },
         expenses: [],
-        urges: []
+        urges: [],
+        goals: []
     };
 
     constructor(props) {
         super(props);
         this.loadData = this.loadData.bind(this);
         this.incrementPeriod = this.incrementPeriod.bind(this);
+        this.piggyParams = {
+            width: 225,
+            height: 150
+        };
     }
 
 
@@ -45,10 +54,9 @@ class MyHabit extends React.Component {
         const habitId = this.props.match.params.id;
 
         axios.all([habits.getForId(habitId), expenses.getForHabit(habitId, start, end),
-            habits.getUrgesForHabit(habitId, start, end)])
+            habits.getUrgesForHabit(habitId, start, end), habits.getGoalsForHabit(habitId, {active: true})])
             .then(res => {
-                console.log('urges', res[2].data);
-                this.setState({habit: res[0].data, expenses: res[1].data, urges: res[2].data})
+                this.setState({habit: res[0].data, expenses: res[1].data, urges: res[2].data, goals: res[3].data})
             });
     }
 
@@ -72,108 +80,55 @@ class MyHabit extends React.Component {
 
     render() {
         let {name, budget, icon, _id, budgetType} = this.state.habit;
-        const {currentNav, start, end, expenses, smallScreen, urges} = this.state;
+        const {currentNav, start, end, expenses, smallScreen, urges, goals} = this.state;
+        const spent = ExpenseDateRange.sumExpenseAmounts(expenses);
+        console.log(goals);
 
-        // let datePrefix = 'Weekly';
         let dateFormat = 'MMM D';
-        // let totalBudgetKey = 'budgetWeek';
+
+        urges.sort((u1, u2) => {
+            if (moment(u1.date).isBefore(u2.date)) return 1;
+            if (moment(u1.date).isAfter(u2.date)) return -1;
+            return 0;
+        });
+
+        const budgets = ExpenseDateRange.calculateBudgets(budgetType, budget, start);
 
         const startEndSameMonth = start.isSame(end, 'month');
         let dateFormat2 = startEndSameMonth && currentNav === 'week' ? 'D' : null;
 
-
         if (currentNav === 'month') {
-            // datePrefix = 'Monthly';
             dateFormat = start.isSame(moment(), 'year') ? 'MMMM' : 'MMMM YYYY';
-            // totalBudgetKey = 'budgetMonth';
         }
         if (currentNav === 'day') {
-            // datePrefix = 'Daily';
             dateFormat = 'dddd MMM D';
-            // totalBudgetKey = 'budgetDay';
         }
 
-        const leftNav = <a className='btn btn-default' onClick={() => this.incrementPeriod(-1, currentNav)}><Icon
-            path={'app_icons/left.svg'}/></a>;
-        const rightNav = <a className='btn btn-default' onClick={() => this.incrementPeriod(1, currentNav)}
-                            style={{float: 'right'}}><Icon path={'app_icons/right.svg'}/></a>;
+        const averages = ExpenseDateRange.getAverages(expenses, start, currentNav);
+        let budgetPct = 100, spentPct = Math.round((spent / budgets[currentNav]) * 100);
+        if (spentPct > 100) {
+            budgetPct = Math.round(budgets[currentNav] / spent * 100);
+            spentPct = 100;
+        }
+
+        const pace = ExpenseDateRange.calculatePace(averages.projected, budgets[currentNav]);
+
+        const leftNav = <button className='btn btn-default' onClick={() => this.incrementPeriod(-1, currentNav)}><Icon
+            path={'app_icons/left.svg'}/></button>;
+        const rightNav = <button className='btn btn-default' onClick={() => this.incrementPeriod(1, currentNav)}
+                            style={{float: 'right'}}><Icon path={'app_icons/right.svg'}/></button>;
 
         if (!budgetType) budgetType = 'week';
+        const needExpAmt = ExpenseDateRange.sumExpenseAmounts(expenses.filter(e => e.needWant && e.needWant.toLowerCase() === 'need'));
+        const wantExpAmt = ExpenseDateRange.sumExpenseAmounts(expenses.filter(e => e.needWant && e.needWant.toLowerCase() === 'want'));
+
         return <div className="m-auto page my-habit">
-            <div className="row habit-head section-head" style={{margin: '0'}}>
-                <div className={'col-sm-4 profile-pic'}>
-                    <div>
-                        <HabitCard text={name} iconUrl={icon} link={'/habit/' + _id + '/edit'}
-                                   piggy={true}
-                                   urgeCount={urges.length}
-                                   iconHeight='56px'
-                                   height='148px'
-                                   key={'habit-card-' + _id} footerText={'$' + budget + ' / ' + budgetType}/>
-                    </div>
-                    <div className={'b-container'}>
-                        <div className={'col-sm-12 text-center'}>
-                            <a href={''}
-                               className="btn btn-block btn-primary btn-default">
-                                <div className={'col-sm-12 col-xl-7 col-lg-10 m-auto'}><Icon path={'app_icons/log.svg'}/>
-                                    Log an Expense
-                                </div>
-
-                            </a>
-                            <a href={_id + '/urge/new'}
-                               className="btn btn-block btn-primary btn-default">
-                                <div className={'col-sm-12 col-xl-7 col-lg-10 m-auto'}><Icon path={'app_icons/devil.svg'}/>
-                                    Log an Urge
-                                </div>
-                            </a>
-                        </div>
-                    </div>
-                </div>
-                <div className={'col-sm-8 key-figures'}>
-                    <div className={'row'}>
-                        <div className={'col-sm-4'}>
-                            <div className={'card'}>
-
-                            </div>
-                        </div>
-                        <div className={'col-sm-4'}>
-                            <div className={'card'}>
-
-                            </div>
-                        </div>
-                        <div className={'col-sm-4'}>
-                            <div className={'card'}>
-
-                            </div>
-                        </div>
-                    </div>
-                    <div className={'row'} style={{marginTop: '16px'}}>
-                        <div className={'col-sm-4'}>
-                            <div className={'card'}>
-
-                            </div>
-                        </div>
-                        <div className={'col-sm-4'}>
-                            <div className={'card'}>
-
-                            </div>
-                        </div>
-                        <div className={'col-sm-4'}>
-                            <div className={'card'}>
-
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-
-            <div className={'section-head'}>
-                <div className={'col-sm-12'}>
-                    <h3>Activity</h3>
-                </div>
-            </div>
+            <h2 className={'habit-title'}><Icon path={icon} habit={true}/>
+                <span>{name.charAt(0).toUpperCase() + name.slice(1)}</span></h2>
+            <br/>
             <div className={`date-head`}>
                 <div className={`date-nav row`}>
-                    <div className="col-sm-4 expenses-nav text-left">
+                    <div className="col-12 expenses-nav text-left">
                         <div className='btn-group' role='group'>
                             <button
                                 onClick={() => this.setCurrentNav('month', moment().startOf('month'), moment().endOf('month'))}
@@ -190,7 +145,7 @@ class MyHabit extends React.Component {
                         </div>
                     </div>
 
-                    <div className='col-sm-4 date-control'>
+                    <div className='col-12 date-control'>
                         <div className={'row'}>
                             <div className={'col-3'}>
                                 {leftNav}
@@ -212,7 +167,164 @@ class MyHabit extends React.Component {
                 </div>
             </div>
 
-            <br/>
+
+            <div className="row habit-head section-head" style={{margin: '0'}}>
+                <div className={'col-sm-4 profile-pic'}>
+                    <div className={'card piggy'}>
+                        <div className="spent-summary text-center">
+                            <PiggySummary isHabit={true} icon={icon} piggyWidth={this.piggyParams.width}
+                                          piggyHeight={this.piggyParams.height}
+                                          amount={spent}
+                                          predicate={ExpenseDateRange.getSpentStatementPredicate(start, currentNav)}
+                                          avgDaily={currentNav !== 'day' ? averages.daily : null}
+                                          avgExpense={currentNav === 'day' ? averages.expense : null}
+                                          numLogged={expenses.length}/>
+                        </div>
+                    </div>
+                    <div className={'b-container'}>
+                        <div className={'col-sm-12 text-center'}>
+                            <a href={_id + '/expense/new'}
+                               className="btn btn-block btn-primary btn-default">
+                                <div className={'col-sm-12 col-xl-7 col-lg-10 m-auto'}><Icon
+                                    path={'app_icons/log.svg'}/>
+                                    Log an Expense
+                                </div>
+
+                            </a>
+                            <a href={_id + '/urge/new'}
+                               className="btn btn-block btn-primary btn-default">
+                                <div className={'col-sm-12 col-xl-7 col-lg-10 m-auto'}><Icon
+                                    path={'app_icons/devil.svg'}/>
+                                    Log an Urge
+                                </div>
+                            </a>
+                            <a href={_id + '/goal/new'}
+                               className="btn btn-block btn-primary btn-default">
+                                <div className={'col-sm-12 col-xl-7 col-lg-10 m-auto'}><Icon
+                                    path={'app_icons/target.svg'}/>
+                                    Set a Goal
+                                </div>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+                <div className={'col-sm-8 key-figures'}>
+                    <div className={'row'}>
+                        <div className={'col-sm-4 budgeted'}>
+                            <div className={'card'}>
+                                <div className={'card-header'}>
+                                    <Icon path={'app_icons/budgeted.svg'}/> <span>Budgeted</span>
+                                </div>
+                                <div className={'card-body'}>
+                                    <div className={'row'}>
+                                        <div className={'col-12 text-center'}>
+                                            <SimpleBar pct={budgetPct}/>
+                                        </div>
+                                        <div className={'col-12 text-center'}>
+                                            <h4 className={'money'}>${budgets[currentNav]}</h4>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div className={'col-sm-4 spent'}>
+                            <div className={'card'}>
+                                <div className={'card-header'}>
+                                    <Icon path={'app_icons/dollar_sign.svg'}/> <span>Spent</span>
+                                </div>
+                                <div className={'card-body'}>
+                                    <div className={'row'}>
+                                        <div className={'col-12 text-center'}>
+                                            <SimpleBar pct={spentPct}/>
+                                        </div>
+                                        <div className={'col-12 text-center'}>
+                                            <h4 className={'money'}>${spent}</h4>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div className={'col-sm-4 need-want'}>
+                            <div className={'card'}>
+                                <div className={'card-header'}>
+                                    <Icon path={'app_icons/angel.svg'}/> <span>Need vs Want</span>
+
+                                </div>
+                                <div className={'card-body'}>
+                                    <div className={'row text-center'}>
+                                        <MyChart valueKey={'amount'}
+                                                 data={[{amount: needExpAmt, name: 'needs'}, {
+                                                     amount: wantExpAmt,
+                                                     name: 'wants'
+                                                 }]}
+                                                 type={'pie'}/>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                    </div>
+
+                    <div className={'row'} style={{marginTop: '16px'}}>
+                        <div className={'col-sm-4'}>
+                            <div className={'card'}>
+                                <div className={'card-header'}>
+                                    <Icon path={'app_icons/target.svg'}/> <span>Goal</span>
+                                </div>
+                                <div className={'card-body'}>
+                                    <div className={'row'}>
+                                        <div className={'col-12 text-center'}>
+                                            <h3 className={''}>Stay Under Budget!</h3>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div className={'col-sm-4 projected'}>
+                            <div className={'card'}>
+                                <div className={'card-header'}>
+                                    <Icon path={'app_icons/graph.svg'}/> <span>Projected</span>
+                                </div>
+                                <div className={'card-body'}>
+                                    <div className={'row'}>
+                                        <div className={'col-12 text-center'}>
+                                            <Icon path={pace.icon}/>
+                                        </div>
+                                        <div className={'col-12 text-center'}>
+                                            <h4 className={'money'}>${averages.projected}</h4>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div className={'col-sm-4'}>
+                            <div className={'card'}>
+                                <div className={'card-header'}>
+                                    <Icon path={'app_icons/devil.svg'}/> <span>Urges</span>
+                                </div>
+                                <div className={'card-body'}>
+                                    <div className={'row'}>
+                                        <div className={'col-12 text-center urge-num'}>
+                                            {urges.length ? <div>
+                                                <h3 className={'money'}>{urges.length}</h3>
+                                                <span>Last Urge <Moment
+                                                    format={'ddd, MMM Do, h:mm a'}>{urges[0].date}</Moment></span>
+                                            </div> : <div><PiggyBank icon={'check.svg'}/><h3>No Urges!</h3></div>}
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div className={'section-head'}>
+                <div className={'col-sm-12'}>
+                    < h3> Activity </h3>
+                </div>
+            </div>
+
             <div className='row text-center'>
                 <div className={'col-sm-12'}>
                     <div className={'expense-range-container card'}>

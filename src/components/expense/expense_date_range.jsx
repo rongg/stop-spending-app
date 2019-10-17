@@ -45,6 +45,67 @@ class ExpenseDateRange {
         ));
     }
 
+    static calculateBudgets(budgetType, budget, startDate) {
+        let budgetDay, budgetMonth, budgetWeek;
+        if (budgetType === 'week') {
+            budgetDay = Math.round(budget / 7);
+            if (!budgetDay) budgetDay = 1;
+            budgetMonth = Math.round(budgetDay * startDate.daysInMonth());
+            budgetWeek = Math.round(budget);
+        }
+        if (budgetType === 'month') {
+            budgetDay = Math.round(budget / startDate.daysInMonth());
+            if (!budgetDay) budgetDay = 1;
+            budgetWeek = Math.round(budgetDay * 7);
+            budgetMonth = Math.round(budget);
+        }
+        if (budgetType === 'day') {
+            budgetWeek = Math.round(budget * 7);
+            budgetMonth = Math.round(budget * startDate.daysInMonth());
+            budgetDay = Math.round(budget);
+        }
+
+        return {
+            day: budgetDay, week: budgetWeek, month: budgetMonth
+        };
+    }
+
+    static calculatePace(spent, budget) {
+        let spentBudgetRatio = spent / budget;
+        let pace = {icon: 'app_icons/traffic_green.svg', message: 'On Pace!'};
+
+        if (spentBudgetRatio >= 1.0) {
+            pace = {icon: 'app_icons/traffic_red.svg', message: 'Stop Spending!'}
+        } else if (spentBudgetRatio > .5) {
+            pace = {icon: 'app_icons/traffic_yellow.svg', message: 'Slow Down'};
+        }
+        return pace;
+    }
+
+    static getAverages(expenses, startDate, currentNav) {
+        let daysDivisor = startDate.isSame(moment(), 'week') ? moment().day() + 1 : 7;
+        let dateMultiplier = 7;
+        if (currentNav === 'month') {
+            daysDivisor = startDate.isSame(moment(), 'month') ? moment().date() : startDate.daysInMonth();
+            dateMultiplier = startDate.daysInMonth();
+        }
+        if (currentNav === 'day') {
+            daysDivisor = 1;
+            dateMultiplier = 1;
+        }
+
+        const averages = {expense: 0, daily: 0, projected: 0};
+        if (expenses.length) {
+            const totalSpent = expenses.reduce((acc, e) => acc + e.amount, 0);
+            averages.expense = Math.round(totalSpent / expenses.length);  //  Used in day view
+            const dailyAverage = totalSpent / daysDivisor;
+            averages.daily = Math.round(dailyAverage);
+            averages.projected = Math.round(dailyAverage * dateMultiplier);
+        }
+
+        return averages;
+    }
+
 
     static getSpentStatementPredicate(start, currentNav) {
         if (currentNav === 'week') {
@@ -57,6 +118,15 @@ class ExpenseDateRange {
             if (start.isSame(moment(), 'date')) return <span>today</span>;
             if (start.isSame(moment().add(-1, 'day'), 'date')) return <span>yesterday</span>;
         }
+    }
+
+    static splitExpenses(expenses) {
+        if (!expenses || !expenses.length) return {week: 0, month: 0, day: 0};
+        return {
+            week: expenses.filter(e => moment(e.date).isSame(moment().add(-1, 'week'), 'week')),
+            month: expenses.filter(e => moment(e.date).isSame(moment().add(-1, 'month'), 'month')),
+            day: expenses.filter(e => moment(e.date).isSame(moment().add(-1, 'day'), 'day'))
+        };
     }
 }
 

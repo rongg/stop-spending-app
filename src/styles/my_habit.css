@@ -1,12 +1,57 @@
-.my-habit .key-figures .col-sm-4 {
+.my-habit .need-want .card-body {
+  padding-top: .75rem; }
+.my-habit .need-want canvas {
+  height: 120px !important;
+  width: 155px !important; }
+.my-habit .devil {
+  padding-left: 10px; }
+.my-habit .simple-bar {
+  padding: 5px;
+  height: 90px;
+  width: 75px; }
+.my-habit .habit-title img {
+  height: 40px;
+  width: 40px; }
+.my-habit .habit-title span {
+  vertical-align: middle;
+  margin-left: 10px; }
+.my-habit .piggy.card {
+  margin-bottom: 10px; }
+.my-habit .date-control {
+  padding: 15px; }
+.my-habit .key-figures .piggy-bank {
+  height: 48px; }
+.my-habit .key-figures .projected .card-body .icon {
+  height: 80px;
+  width: 80px;
+  margin-bottom: 8px; }
+.my-habit .key-figures .urge-num h3 {
+  margin-top: 10px; }
+.my-habit .key-figures .urge-num span {
+  font-size: .9rem; }
+.my-habit .key-figures .col-sm-4, .my-habit .key-figures .col-sm-6, .my-habit .key-figures .col-sm-2 {
   padding-right: 0; }
 .my-habit .key-figures .card {
-  height: 166px; }
+  height: 200px; }
+.my-habit .key-figures .card-header .icon {
+  height: 24px;
+  width: 24px; }
+.my-habit .key-figures .icon {
+  height: 32px;
+  width: 32px; }
+.my-habit .key-figures .card-header {
+  font-size: 1.1rem; }
+  .my-habit .key-figures .card-header span {
+    vertical-align: text-top; }
+.my-habit .key-figures .one-liner {
+  line-height: 6rem; }
 .my-habit .section-head .profile-pic.col-sm-4, .my-habit .section-head .col-sm-12 {
   padding: 0;
   margin-bottom: 16px; }
 .my-habit .habit-head .card-body {
-  height: 200px; }
+  height: 208px; }
+.my-habit .habit-head .card-footer {
+  height: 30px; }
 .my-habit .habit-head .b-container {
   margin-top: 5px; }
 .my-habit .habit-head .habit-card {

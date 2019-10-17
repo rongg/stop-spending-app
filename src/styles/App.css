@@ -1,10 +1,24 @@
+h1, h2, h3, h4, h5, h6, .h1, .h2, .h3, .h4, .h5, .h6 {
+  font-weight: 300; }
+
 button, .btn {
   -webkit-box-shadow: 0 1px 1px 0 rgba(0, 0, 0, 0.1);
   box-shadow: 0 2px 1px 0 rgba(0, 0, 0, 0.1); }
 
+input {
+  font-family: sans-serif;
+  font-weight: sans-serif;
+  color: darkslategray; }
+
+input::placeholder {
+  font-family: sans-serif;
+  font-weight: 300;
+  color: #8e8e8e; }
+
 .app-content {
   border-bottom: 1px solid #e5e5e5;
-  min-height: 800px; }
+  min-height: 800px;
+  font-weight: 300; }
 
 .page-footer {
   padding-top: 0 !important;
@@ -16,7 +30,8 @@ button, .btn {
 
 .card {
   -webkit-box-shadow: 0 2px 1px 0 rgba(0, 0, 0, 0.1);
-  box-shadow: 0 2px 1px 0 rgba(0, 0, 0, 0.1); }
+  box-shadow: 0 2px 1px 0 rgba(0, 0, 0, 0.1);
+  font-weight: 300; }
 
 div.app {
   background: #f5f7fa;
@@ -40,6 +55,10 @@ div.app {
 .App-link {
   color: #61dafb; }
 
+.icon {
+  height: 32px;
+  width: 32px; }
+
 .link {
   font-size: 14px; }
 
@@ -47,10 +66,10 @@ div.app {
   color: #f05e67; }
 
 .money {
-  color: green; }
+  color: #329932; }
 
 .green {
-  color: green; }
+  color: #329932; }
 
 .success {
   visibility: visible; }

@@ -82,11 +82,11 @@ class CreateExpense extends Form {
                 <h2>Log an Expense</h2>
                 <form aria-describedby="formHelp">
                     <div className="form-fields">
-                        {this.renderDollarInput('amount', 'I spent', true)}
+                        {this.renderDollarInput('amount', 'I spent', null, true)}
                         {this.renderInput('name', '...on', "text", 'description')}
                         {this.renderSelect(habitOptions, 'habitId', 'Spending Habit')}
                         {this.renderRadioGroup('needWant', ['Want', 'Need'], 'This was a...')}
-                        {this.renderDatePicker('date', 'Date')}
+                        {this.renderDatePicker('date', 'Date', {})}
                     </div>
                     {this.renderButton('Log It!')}
                     <div className={"form-group"}>

@@ -6,6 +6,11 @@
   width: 100%;
 }
 
+.react-datepicker__time-container .react-datepicker__time .react-datepicker__time-box ul.react-datepicker__time-list li.react-datepicker__time-list-item {
+  padding: 0;
+  line-height: 1.5rem;
+}
+
 
 .form-fields{
   margin: 30px 0 30px 0;
@@ -20,6 +25,16 @@
   margin: auto;
   width: 100%;
   padding: 10px;
+
+  h2 img{
+    height: 40px;
+    width: 40px;
+    margin-bottom: 5px;
+  }
+
+  input.half{
+    width: 50%;
+  }
 }
 
 @media (min-width: 768px) {
