@@ -109,6 +109,13 @@ export function getGoalsForHabit(habitId, params) {
     });
 }
 
+export function getGoalById(goalId){
+    return http.requres({
+        method: 'get',
+        url: apiUrl + "/goal/" + goalId
+    });
+}
+
 export function getAllGoals(params) {
     let url = apiUrl + '/goals/all?';
     if (params.start && params.end) url += 'start=' + params.start + '&end=' + params.end + '&';
@@ -176,6 +183,7 @@ export default {
     createUrge,
     createGoal,
     getGoalsForHabit,
+    getGoalById,
     getAllGoals,
     schema,
     urgeSchema,
