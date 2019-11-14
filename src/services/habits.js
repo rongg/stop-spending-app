@@ -108,6 +108,16 @@ export function editGoal(goal) {
     });
 }
 
+export function deleteGoal(id){
+    return http.request({
+        method: 'delete',
+        url: apiUrl + '/goal/' + id,
+        headers: {
+            'Content-Type': 'application/json'
+        }
+    });
+}
+
 
 export function getGoalsForHabit(habitId, params) {
     let url = apiUrl + '/' + habitId + '/goals?';
@@ -193,6 +203,7 @@ export default {
     createUrge,
     createGoal,
     editGoal,
+    deleteGoal,
     getGoalsForHabit,
     getGoalById,
     getAllGoals,

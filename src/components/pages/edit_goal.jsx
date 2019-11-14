@@ -130,6 +130,9 @@ class EditGoal extends Form {
                     <div className={"form-group"}>
                         {this.renderHelp()}
                     </div>
+                    <br/>
+
+                    <a href={'/goal/' + this.props.match.params.id + '/delete'}>Delete</a>
                 </form>
             </div>
         </div>

@@ -18,6 +18,7 @@ import MyExpense from "./components/pages/my_expense";
 import CreateExpense from "./components/pages/create_expense";
 import EditExpense from "./components/pages/edit_expense";
 import EditGoal from "./components/pages/edit_goal";
+import DeleteGoal from "./components/pages/delete_goal";
 import DeleteExpense from "./components/pages/delete_expense";
 import Register from "./components/pages/create_account";
 import auth from './services/auth';
@@ -134,6 +135,10 @@ class App extends React.Component {
                             <Route path="/goal/:id/edit" exact render={props => {
                                 if (!user) return <Redirect to="/login"/>;
                                 return <EditGoal user={user} {...props} />;
+                            }}/>
+                            <Route path="/goal/:id/delete" exact render={props => {
+                                if (!user) return <Redirect to="/login"/>;
+                                return <DeleteGoal user={user} {...props} />;
                             }}/>
 
                             <Route path="/account/verify/:token" exact render={props => {
