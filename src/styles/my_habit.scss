@@ -1,12 +1,13 @@
 .my-habit {
 
   .need-want {
-    .card-body{
+    .card-body {
       padding-top: .75rem;
     }
-    canvas{
-      height: 120px !important;
-      width: 155px !important;
+
+    canvas {
+      height: 104px !important;
+      width: 140px !important;
     }
   }
 
@@ -17,8 +18,8 @@
 
   .simple-bar {
     padding: 5px;
-    height: 90px;
-    width: 75px;
+    height: 72px;
+    width: 64px;
   }
 
   .habit-title {
@@ -35,13 +36,29 @@
 
   .piggy.card {
     margin-bottom: 10px;
+    padding: 24px;
   }
 
   .date-control {
     padding: 15px;
   }
 
-  .key-figures {
+  .goal {
+    .card {
+      height: 440px;
+    }
+
+    .card-header span{
+      font-size: 1.4rem;
+    }
+
+    .card-body{
+      padding-top: 5px;
+    }
+
+  }
+
+  .key-figures{
 
     .piggy-bank {
       height: 48px;
@@ -65,12 +82,12 @@
       }
     }
 
-    .col-sm-4, .col-sm-6, .col-sm-2 {
+    .col-sm-4, .col-sm-6, .col-sm-2, .col {
       padding-right: 0;
     }
 
     .card {
-      height: 200px;
+      height: 180px;
     }
 
     .card-header .icon {
@@ -97,9 +114,17 @@
   }
 
   .section-head {
-    .profile-pic.col-sm-4, .col-sm-12 {
+    .profile-pic.col-sm-5, .col-sm-2 {
       padding: 0;
       margin-bottom: 16px;
+    }
+
+    .actions{
+      padding: 0;
+    }
+
+    .col-sm-12.goal {
+      padding-left: 16px;
     }
   }
 
@@ -129,7 +154,7 @@
     border-bottom: 1px solid #ffc1cb;
     padding: 4px;
     background: #fff;
-    font-size: 2rem;
+    font-size: 1.4rem;
     text-align: center;
   }
 

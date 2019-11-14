@@ -91,28 +91,29 @@ class UserHome extends React.Component {
 
 
         habits.map(h => {
-            if (h.budgetType === 'week') {
-                h.budgetDay = Math.round(h.budget / 7);
-                h.budgetMonth = Math.round(h.budgetDay * start.daysInMonth());
-                h.budgetWeek = Math.round(h.budget);
-            }
-            if (h.budgetType === 'month') {
-                h.budgetDay = Math.round(h.budget / start.daysInMonth());
-                h.budgetWeek = Math.round(h.budgetDay * 7);
-                h.budgetMonth = Math.round(h.budget);
-            }
-            if (h.budgetType === 'day') {
-                h.budgetWeek = Math.round(h.budget * 7);
-                h.budgetMonth = Math.round(h.budget * start.daysInMonth());
-                h.budgetDay = Math.round(h.budget);
-            }
+            h.budgets = ExpenseDateRange.calculateBudgets(h.budgetType, h.budget, start);
+            // if (h.budgetType === 'week') {
+            //     h.budgetDay = Math.round(h.budget / 7);
+            //     h.budgetMonth = Math.round(h.budgetDay * start.daysInMonth());
+            //     h.budgetWeek = Math.round(h.budget);
+            // }
+            // if (h.budgetType === 'month') {
+            //     h.budgetDay = Math.round(h.budget / start.daysInMonth());
+            //     h.budgetWeek = Math.round(h.budgetDay * 7);
+            //     h.budgetMonth = Math.round(h.budget);
+            // }
+            // if (h.budgetType === 'day') {
+            //     h.budgetWeek = Math.round(h.budget * 7);
+            //     h.budgetMonth = Math.round(h.budget * start.daysInMonth());
+            //     h.budgetDay = Math.round(h.budget);
+            // }
             return h;
         });
 
 
         let datePrefix = 'Weekly';
         let dateFormat = 'MMM D';
-        let totalBudgetKey = 'budgetWeek';
+        // let totalBudgetKey = 'budgetWeek';
 
         const startEndSameMonth = start.isSame(end, 'month');
         let dateFormat2 = startEndSameMonth && currentNav === 'week' ? 'D' : null;
@@ -121,21 +122,20 @@ class UserHome extends React.Component {
         if (currentNav === 'month') {
             datePrefix = 'Monthly';
             dateFormat = start.isSame(moment(), 'year') ? 'MMMM' : 'MMMM YYYY';
-            totalBudgetKey = 'budgetMonth';
+            // totalBudgetKey = 'budgetMonth';
         }
         if (currentNav === 'day') {
             datePrefix = 'Daily';
             dateFormat = 'dddd MMM D';
-            totalBudgetKey = 'budgetDay';
+            // totalBudgetKey = 'budgetDay';
         }
 
-        let totalBudget = habits.filter(h => h._id).reduce((acc, h) => acc + h[totalBudgetKey], 0);
+        let totalBudget = habits.filter(h => h._id).reduce((acc, h) => acc + h.budgets[currentNav], 0);
         let totalSpentHabits = habits.filter(h => h._id).reduce((acc, h) => acc + h.spent, 0);
         let totalSpentOther = habits.filter(h => !h._id).reduce((acc, h) => acc + h.spent, 0);
         let pace = ExpenseDateRange.calculatePace(totalSpentHabits, totalBudget);
 
         const averages = ExpenseDateRange.getAverages(expenses, start, currentNav);
-
 
         const leftNav = <button className='btn btn-default' onClick={() => this.incrementPeriod(-1, currentNav)}><Icon
             path={'app_icons/left.svg'}/></button>;
@@ -419,7 +419,7 @@ class UserHome extends React.Component {
                     <div className="col-4 col-lg-2 col-md-6 col-sm-12" key={'habit-card-' + index}>
                         <HabitCard text={h.name}
                                    spent={h.spent}
-                                   budgeted={((currentNav === 'week' && h.budgetWeek) || (currentNav === 'month' && h.budgetMonth) || (currentNav === 'day' && h.budgetDay))}
+                                   budgeted={h.budgets[currentNav]}
                                    iconUrl={h.icon || habitService.getDefaultIcon()}
                                    link={'/habit/' + h._id}/>
                     </div>

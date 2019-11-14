@@ -80,10 +80,10 @@ class EditExpense extends Form {
         habitOptions = habitOptions.concat(this.state.habits || []);
 
         return <div className='m-auto page'>
-            {this.props.match.params.habitId ? <HabitCard text={name} iconUrl={icon} link={'/habit/' + _id} margin='0' iconHeight='56px'
-                       height={name.length < 15 ? '172px' : '148px'}
-                       class='col-sm-12'
-                       key={'habit-card-' + _id} footerText={'$' + budget + ' / week'}/> : null}
+            {/*{this.props.match.params.habitId ? <HabitCard text={name} iconUrl={icon} link={'/habit/' + _id} margin='0' iconHeight='56px'*/}
+                       {/*height={name.length < 15 ? '172px' : '148px'}*/}
+                       {/*class='col-sm-12'*/}
+                       {/*key={'habit-card-' + _id} footerText={'$' + budget + ' / week'}/> : null}*/}
             <div className="form">
                 <h2>Edit Expense</h2>
                 <form aria-describedby="formHelp">

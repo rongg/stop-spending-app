@@ -97,6 +97,16 @@ export function createGoal(goal) {
         data: goal
     });
 }
+export function editGoal(goal) {
+    return http.request({
+        method: 'put',
+        url: apiUrl + '/goal/' + goal._id,
+        headers: {
+            'Content-Type': 'application/json'
+        },
+        data: goal
+    });
+}
 
 
 export function getGoalsForHabit(habitId, params) {
@@ -110,7 +120,7 @@ export function getGoalsForHabit(habitId, params) {
 }
 
 export function getGoalById(goalId){
-    return http.requres({
+    return http.request({
         method: 'get',
         url: apiUrl + "/goal/" + goalId
     });
@@ -182,6 +192,7 @@ export default {
     getAllUrges,
     createUrge,
     createGoal,
+    editGoal,
     getGoalsForHabit,
     getGoalById,
     getAllGoals,

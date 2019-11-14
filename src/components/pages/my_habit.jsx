@@ -12,11 +12,12 @@ import Moment from "react-moment";
 import Icon from "../common/Icon";
 import PiggySummary from "../common/piggy_summary";
 import SimpleBar from "../common/simple_bar";
-import PiggyBank from "../common/piggy_bank";
 import MyChart from "../common/my_chart";
+import GoalProgress from "../goal/goal_progress";
+import PiggyBank from "../common/piggy_bank";
 
 class MyHabit extends React.Component {
-    defaultNav = 'month';
+    defaultNav = 'week';
     state = {
         currentNav: this.defaultNav,
         start: moment().startOf(this.defaultNav),
@@ -29,7 +30,8 @@ class MyHabit extends React.Component {
         },
         expenses: [],
         urges: [],
-        goals: []
+        goals: [],
+        currentGoal: null
     };
 
     constructor(props) {
@@ -56,7 +58,9 @@ class MyHabit extends React.Component {
         axios.all([habits.getForId(habitId), expenses.getForHabit(habitId, start, end),
             habits.getUrgesForHabit(habitId, start, end), habits.getGoalsForHabit(habitId, {active: true})])
             .then(res => {
-                this.setState({habit: res[0].data, expenses: res[1].data, urges: res[2].data, goals: res[3].data})
+                const goals = res[3].data;
+                this.setState({habit: res[0].data, expenses: res[1].data, urges: res[2].data, goals: goals});
+                if (goals[0]) this.setState({currentGoal: goals[0]});
             });
     }
 
@@ -81,8 +85,13 @@ class MyHabit extends React.Component {
     render() {
         let {name, budget, icon, _id, budgetType} = this.state.habit;
         const {currentNav, start, end, expenses, smallScreen, urges, goals} = this.state;
+        let {currentGoal} = this.state;
+        if(currentGoal && moment().isAfter(moment(currentGoal.end))){
+            currentGoal = null;
+        }
+
         const spent = ExpenseDateRange.sumExpenseAmounts(expenses);
-        console.log(goals);
+        console.log('goals', goals);
 
         let dateFormat = 'MMM D';
 
@@ -116,7 +125,7 @@ class MyHabit extends React.Component {
         const leftNav = <button className='btn btn-default' onClick={() => this.incrementPeriod(-1, currentNav)}><Icon
             path={'app_icons/left.svg'}/></button>;
         const rightNav = <button className='btn btn-default' onClick={() => this.incrementPeriod(1, currentNav)}
-                            style={{float: 'right'}}><Icon path={'app_icons/right.svg'}/></button>;
+                                 style={{float: 'right'}}><Icon path={'app_icons/right.svg'}/></button>;
 
         if (!budgetType) budgetType = 'week';
         const needExpAmt = ExpenseDateRange.sumExpenseAmounts(expenses.filter(e => e.needWant && e.needWant.toLowerCase() === 'need'));
@@ -169,7 +178,7 @@ class MyHabit extends React.Component {
 
 
             <div className="row habit-head section-head" style={{margin: '0'}}>
-                <div className={'col-sm-4 profile-pic'}>
+                <div className={'col-sm-5 profile-pic'}>
                     <div className={'card piggy'}>
                         <div className="spent-summary text-center">
                             <PiggySummary isHabit={true} icon={icon} piggyWidth={this.piggyParams.width}
@@ -182,7 +191,7 @@ class MyHabit extends React.Component {
                         </div>
                     </div>
                     <div className={'b-container'}>
-                        <div className={'col-sm-12 text-center'}>
+                        <div className={'col-sm-12 text-center actions'}>
                             <a href={_id + '/expense/new'}
                                className="btn btn-block btn-primary btn-default">
                                 <div className={'col-sm-12 col-xl-7 col-lg-10 m-auto'}><Icon
@@ -208,9 +217,69 @@ class MyHabit extends React.Component {
                         </div>
                     </div>
                 </div>
-                <div className={'col-sm-8 key-figures'}>
+                <div className={'col-sm-7 goal'}>
+
                     <div className={'row'}>
-                        <div className={'col-sm-4 budgeted'}>
+                        <div className={'col-sm-12'} style={{paddingLeft: '8px', paddingRight: '0'}}>
+                            <div className={'card'}>
+                                <div className={'card-header'}>
+                                    <Icon path={'app_icons/target.svg'}/> <span>Current Goal</span>
+                                </div>
+                                <div className={'card-body'}>
+                                    <div className={'row'}>
+                                        <div className={'col-12 text-center'}>
+                                            {!currentGoal && <h5 className={''}>No Goal Set!</h5>}
+                                            {currentGoal && (currentGoal.type === 'Micro-Budget' || currentGoal.type === 'Beat') &&
+                                            <GoalProgress goal={currentGoal} expenses={expenses} />}
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+
+                    </div>
+
+                </div>
+
+                <div className={'col-12 key-figures'}>
+                    <div className={'row'}>
+                        <div className={'col projected'} style={{paddingLeft: '0px'}}>
+                            <div className={'card'}>
+                                <div className={'card-header'}>
+                                    <Icon path={'app_icons/graph.svg'}/> <span>Projected</span>
+                                </div>
+                                <div className={'card-body'}>
+                                    <div className={'row'}>
+                                        <div className={'col-12 text-center'}>
+                                            <Icon path={pace.icon}/>
+                                        </div>
+                                        <div className={'col-12 text-center'}>
+                                            <h4 className={'money'}>${averages.projected}</h4>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div className={'col'}>
+                            <div className={'card'}>
+                                <div className={'card-header'}>
+                                    <Icon path={'app_icons/devil.svg'}/> <span>Urges</span>
+                                </div>
+                                <div className={'card-body'}>
+                                    <div className={'row'}>
+                                        <div className={'col-12 text-center urge-num'}>
+                                            {urges.length ? <div>
+                                                <h3 className={'money'}>{urges.length}</h3>
+                                                <span>Last Urge <Moment
+                                                    format={'ddd, MMM Do, h:mm a'}>{urges[0].date}</Moment></span>
+                                            </div> : <div><PiggyBank icon={'check.svg'}/><h3>No Urges!</h3></div>}
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div className={'col budgeted'}>
                             <div className={'card'}>
                                 <div className={'card-header'}>
                                     <Icon path={'app_icons/budgeted.svg'}/> <span>Budgeted</span>
@@ -227,7 +296,7 @@ class MyHabit extends React.Component {
                                 </div>
                             </div>
                         </div>
-                        <div className={'col-sm-4 spent'}>
+                        <div className={'col spent'}>
                             <div className={'card'}>
                                 <div className={'card-header'}>
                                     <Icon path={'app_icons/dollar_sign.svg'}/> <span>Spent</span>
@@ -244,7 +313,7 @@ class MyHabit extends React.Component {
                                 </div>
                             </div>
                         </div>
-                        <div className={'col-sm-4 need-want'}>
+                        <div className={'col need-want'}>
                             <div className={'card'}>
                                 <div className={'card-header'}>
                                     <Icon path={'app_icons/angel.svg'}/> <span>Need vs Want</span>
@@ -265,60 +334,9 @@ class MyHabit extends React.Component {
 
                     </div>
 
-                    <div className={'row'} style={{marginTop: '16px'}}>
-                        <div className={'col-sm-4'}>
-                            <div className={'card'}>
-                                <div className={'card-header'}>
-                                    <Icon path={'app_icons/target.svg'}/> <span>Goal</span>
-                                </div>
-                                <div className={'card-body'}>
-                                    <div className={'row'}>
-                                        <div className={'col-12 text-center'}>
-                                            <h3 className={''}>Stay Under Budget!</h3>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        <div className={'col-sm-4 projected'}>
-                            <div className={'card'}>
-                                <div className={'card-header'}>
-                                    <Icon path={'app_icons/graph.svg'}/> <span>Projected</span>
-                                </div>
-                                <div className={'card-body'}>
-                                    <div className={'row'}>
-                                        <div className={'col-12 text-center'}>
-                                            <Icon path={pace.icon}/>
-                                        </div>
-                                        <div className={'col-12 text-center'}>
-                                            <h4 className={'money'}>${averages.projected}</h4>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        <div className={'col-sm-4'}>
-                            <div className={'card'}>
-                                <div className={'card-header'}>
-                                    <Icon path={'app_icons/devil.svg'}/> <span>Urges</span>
-                                </div>
-                                <div className={'card-body'}>
-                                    <div className={'row'}>
-                                        <div className={'col-12 text-center urge-num'}>
-                                            {urges.length ? <div>
-                                                <h3 className={'money'}>{urges.length}</h3>
-                                                <span>Last Urge <Moment
-                                                    format={'ddd, MMM Do, h:mm a'}>{urges[0].date}</Moment></span>
-                                            </div> : <div><PiggyBank icon={'check.svg'}/><h3>No Urges!</h3></div>}
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
                 </div>
             </div>
-
+            <br/>
             <div className={'section-head'}>
                 <div className={'col-sm-12'}>
                     < h3> Activity </h3>

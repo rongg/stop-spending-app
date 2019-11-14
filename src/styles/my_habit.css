@@ -1,14 +1,14 @@
 .my-habit .need-want .card-body {
   padding-top: .75rem; }
 .my-habit .need-want canvas {
-  height: 120px !important;
-  width: 155px !important; }
+  height: 104px !important;
+  width: 140px !important; }
 .my-habit .devil {
   padding-left: 10px; }
 .my-habit .simple-bar {
   padding: 5px;
-  height: 90px;
-  width: 75px; }
+  height: 72px;
+  width: 64px; }
 .my-habit .habit-title img {
   height: 40px;
   width: 40px; }
@@ -16,9 +16,16 @@
   vertical-align: middle;
   margin-left: 10px; }
 .my-habit .piggy.card {
-  margin-bottom: 10px; }
+  margin-bottom: 10px;
+  padding: 24px; }
 .my-habit .date-control {
   padding: 15px; }
+.my-habit .goal .card {
+  height: 440px; }
+.my-habit .goal .card-header span {
+  font-size: 1.4rem; }
+.my-habit .goal .card-body {
+  padding-top: 5px; }
 .my-habit .key-figures .piggy-bank {
   height: 48px; }
 .my-habit .key-figures .projected .card-body .icon {
@@ -29,10 +36,10 @@
   margin-top: 10px; }
 .my-habit .key-figures .urge-num span {
   font-size: .9rem; }
-.my-habit .key-figures .col-sm-4, .my-habit .key-figures .col-sm-6, .my-habit .key-figures .col-sm-2 {
+.my-habit .key-figures .col-sm-4, .my-habit .key-figures .col-sm-6, .my-habit .key-figures .col-sm-2, .my-habit .key-figures .col {
   padding-right: 0; }
 .my-habit .key-figures .card {
-  height: 200px; }
+  height: 180px; }
 .my-habit .key-figures .card-header .icon {
   height: 24px;
   width: 24px; }
@@ -45,9 +52,13 @@
     vertical-align: text-top; }
 .my-habit .key-figures .one-liner {
   line-height: 6rem; }
-.my-habit .section-head .profile-pic.col-sm-4, .my-habit .section-head .col-sm-12 {
+.my-habit .section-head .profile-pic.col-sm-5, .my-habit .section-head .col-sm-2 {
   padding: 0;
   margin-bottom: 16px; }
+.my-habit .section-head .actions {
+  padding: 0; }
+.my-habit .section-head .col-sm-12.goal {
+  padding-left: 16px; }
 .my-habit .habit-head .card-body {
   height: 208px; }
 .my-habit .habit-head .card-footer {
@@ -62,7 +73,7 @@
   border-bottom: 1px solid #ffc1cb;
   padding: 4px;
   background: #fff;
-  font-size: 2rem;
+  font-size: 1.4rem;
   text-align: center; }
 .my-habit .habit-card .card-text {
   font-size: 1rem; }

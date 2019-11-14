@@ -4,10 +4,10 @@ import '../../styles/icon.css';
 class Icon extends React.Component {
 
     render() {
-        let {path} = this.props;
+        let {path, className} = this.props;
         if(!path) path = 'money_default.svg';
         try {
-            return <img className="icon" src={require('../../assets/icons/' + path)} alt={'not found!'}/>;
+            return <img className={`icon ${className}`} src={require('../../assets/icons/' + path)} alt={'not found!'}/>;
         }catch(e){
             return <img className="icon" src={require('../../assets/icons/money_default.svg')} alt={'not found!'}/>;
         }

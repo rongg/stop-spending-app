@@ -48,16 +48,19 @@ class ExpenseDateRange {
     static calculateBudgets(budgetType, budget, startDate) {
         let budgetDay, budgetMonth, budgetWeek;
         if (budgetType === 'week') {
-            budgetDay = Math.round(budget / 7);
+            budgetDay = budget / 7;
             if (!budgetDay) budgetDay = 1;
             budgetMonth = Math.round(budgetDay * startDate.daysInMonth());
             budgetWeek = Math.round(budget);
+            budgetDay = Math.round(budgetDay);
         }
         if (budgetType === 'month') {
-            budgetDay = Math.round(budget / startDate.daysInMonth());
+            budgetDay = budget / startDate.daysInMonth();
             if (!budgetDay) budgetDay = 1;
             budgetWeek = Math.round(budgetDay * 7);
             budgetMonth = Math.round(budget);
+            budgetDay = Math.round(budgetDay);
+            if (!budgetDay) budgetDay = 1;
         }
         if (budgetType === 'day') {
             budgetWeek = Math.round(budget * 7);

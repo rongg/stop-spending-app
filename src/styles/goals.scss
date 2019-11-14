@@ -1,0 +1,125 @@
+.goal-progress {
+
+  img.glyph-action{
+    height: 16px;
+    width: 16px;
+    vertical-align: baseline;
+  }
+
+  .week-container {
+    .indicator {
+      margin: 0;
+    }
+  }
+
+  .week-container .day-title{
+    font-weight: 300;
+  }
+
+  .day-indicator {
+    padding: 16px 0;
+
+    .piggy-bank {
+      height: 32px;
+    }
+
+    img {
+      height: 32px;
+      width: 32px;
+    }
+
+    .finish img {
+      height: 40px;
+      width: 40px;
+      margin: -8px;
+    }
+
+    .money {
+      vertical-align: sub;
+      font-size: .9rem;
+
+      &.red {
+        color: #f05e67;
+      }
+    }
+
+    .check img {
+      height: 24px;
+      width: 24px;
+      vertical-align: bottom;
+    }
+  }
+
+  .fuel-level {
+    background-color: #252a2f;
+    height: 135px;
+    width: 100%;
+  }
+
+  &.week-prog, &.day-prog{
+    .fuel-level{
+      height: 164px;
+    }
+  }
+
+  .m-day{
+    .day-indicator {
+      padding: 20px 0;
+    }
+    .periods button{
+      padding: 10px;
+    }
+  }
+
+
+  .row.status{
+    color: #fff;
+    background: #252a2f;
+    margin: auto;
+    padding-bottom: 6px;
+  }
+
+  .day-labels.row {
+    .col.day {
+      font-weight: 600;
+      height: 20px;
+      background: #fff;
+    }
+
+  }
+
+  .col.day {
+    height: 32px;
+    padding: 0;
+    width: 35px;
+    font-size: .75rem;
+    border: 1px solid lightgray;
+    &.inactive{
+      background: #9fabb7;
+    }
+
+    &.date{
+      text-align: right;
+      font-size: .65rem;
+      span{
+        padding-right: 2px;
+      }
+    }
+
+    .avg-left{
+      text-align: center;
+      margin-top: -7px;
+    }
+
+    .icon{
+      height: 30px;
+      width: 30px;
+      padding: 5px;
+    }
+    svg{
+      height: 30px;
+      width: 30px;
+      padding-left: 2px;
+    }
+  }
+}

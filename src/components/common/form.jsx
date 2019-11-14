@@ -63,7 +63,7 @@ class Form extends React.Component {
         </div>;
     }
 
-    renderDatePicker(name, label, timeOptions, hideTime) {
+    renderDatePicker(name, label, timeOptions = {}, hideTime) {
         // console.log(timeOptions);
         const {data, errors} = this.state;
         let {minDate, maxDate, minTime, maxTime} = timeOptions;

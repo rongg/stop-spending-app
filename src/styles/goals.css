@@ -1,0 +1,73 @@
+.goal-progress img.glyph-action {
+  height: 16px;
+  width: 16px;
+  vertical-align: baseline; }
+.goal-progress .week-container .indicator {
+  margin: 0; }
+.goal-progress .week-container .day-title {
+  font-weight: 300; }
+.goal-progress .day-indicator {
+  padding: 16px 0; }
+  .goal-progress .day-indicator .piggy-bank {
+    height: 32px; }
+  .goal-progress .day-indicator img {
+    height: 32px;
+    width: 32px; }
+  .goal-progress .day-indicator .finish img {
+    height: 40px;
+    width: 40px;
+    margin: -8px; }
+  .goal-progress .day-indicator .money {
+    vertical-align: sub;
+    font-size: .9rem; }
+    .goal-progress .day-indicator .money.red {
+      color: #f05e67; }
+  .goal-progress .day-indicator .check img {
+    height: 24px;
+    width: 24px;
+    vertical-align: bottom; }
+.goal-progress .fuel-level {
+  background-color: #252a2f;
+  height: 135px;
+  width: 100%; }
+.goal-progress.week-prog .fuel-level, .goal-progress.day-prog .fuel-level {
+  height: 164px; }
+.goal-progress .m-day .day-indicator {
+  padding: 20px 0; }
+.goal-progress .m-day .periods button {
+  padding: 10px; }
+.goal-progress .row.status {
+  color: #fff;
+  background: #252a2f;
+  margin: auto;
+  padding-bottom: 6px; }
+.goal-progress .day-labels.row .col.day {
+  font-weight: 600;
+  height: 20px;
+  background: #fff; }
+.goal-progress .col.day {
+  height: 32px;
+  padding: 0;
+  width: 35px;
+  font-size: .75rem;
+  border: 1px solid lightgray; }
+  .goal-progress .col.day.inactive {
+    background: #9fabb7; }
+  .goal-progress .col.day.date {
+    text-align: right;
+    font-size: .65rem; }
+    .goal-progress .col.day.date span {
+      padding-right: 2px; }
+  .goal-progress .col.day .avg-left {
+    text-align: center;
+    margin-top: -7px; }
+  .goal-progress .col.day .icon {
+    height: 30px;
+    width: 30px;
+    padding: 5px; }
+  .goal-progress .col.day svg {
+    height: 30px;
+    width: 30px;
+    padding-left: 2px; }
+
+/*# sourceMappingURL=goals.css.map */
