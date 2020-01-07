@@ -1,5 +1,8 @@
 .goal-progress {
 
+  .inactive-day{
+  }
+
   img.glyph-action{
     height: 16px;
     width: 16px;
@@ -57,8 +60,16 @@
   }
 
   &.week-prog, &.day-prog{
-    .fuel-level{
+    .fuel-level, .count-ticks{
       height: 164px;
+      width: 100%;
+    }
+  }
+
+  &.month-prog{
+    .fuel-level, .count-ticks{
+      height: 136px;
+      width: 100%;
     }
   }
 

@@ -23,7 +23,7 @@ class Week extends React.Component {
         for (let i = 0; i < days.length; i++) {
             const exp = days[i];
             if(days[i]) {
-                days[i].totalSpent = exp ? ExpenseDateRange.sumExpenseAmounts(exp) : 0;
+                days[i].totalSpent = exp ? Math.round(ExpenseDateRange.sumExpenseAmounts(exp)) : 0;
                 days[i].splurge = days[i].totalSpent > 10 && days[i].totalSpent >= avg * 2;
             }
         }

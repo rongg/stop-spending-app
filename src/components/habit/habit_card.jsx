@@ -26,11 +26,11 @@ class HabitCard extends React.Component {
                         {!piggy && <p className={`habit-name card-text ${text.length > 18 && 'small'}`}>{text}</p>}
                     </a>
 
-                    {spent !== undefined && !budgeted && <div><span className={'money'}>${spent}</span> spent {dateNav && ' this ' + dateNav}</div>}
+                    {spent !== undefined && !budgeted && <div><span className={'money'}>${Math.round(spent)}</span> spent {dateNav && ' this ' + dateNav}</div>}
                 </div>
                 {spent !== undefined && budgeted !== undefined ? <div className={'card-footer'}>
                     <div className="footer-text card-text">
-                        <span className={`money`}>$ {spent} / {budgeted}</span></div>
+                        <span className={`money`}>$ {Math.round(spent)} / {budgeted}</span></div>
                 </div> : null}
                 {urgeCount !== undefined &&
                 <div className={'card-footer text-left'}>{Array.apply(null, Array(urgeCount)).map((u, i) =>

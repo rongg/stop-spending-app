@@ -29,14 +29,17 @@ class MyHabit extends React.Component {
             budgetType: ''
         },
         expenses: [],
+        goalExpenses: [],
         urges: [],
         goals: [],
-        currentGoal: null
+        currentGoal: null,
+        prevGoal: null
     };
 
     constructor(props) {
         super(props);
         this.loadData = this.loadData.bind(this);
+        this.loadGoalData = this.loadGoalData.bind(this);
         this.incrementPeriod = this.incrementPeriod.bind(this);
         this.piggyParams = {
             width: 225,
@@ -48,19 +51,49 @@ class MyHabit extends React.Component {
     componentDidMount() {
         sessionStorage.returnPage = '/habit/' + this.props.match.params.id;
         this.loadData();
+        this.loadGoalData();
     }
 
+    //  Get Current Goal and Expenses between start/end
+    loadGoalData() {
+        const habitId = this.props.match.params.id;
+        const getGoals = habits.getGoalsForHabit(habitId, {active: true});
+        axios.all([getGoals])
+            .then(res => {
+                const goals = res[0].data;
+                this.setState({goals: goals});
+                if (goals[0]) {
+                    axios.all([expenses.getForHabit(habitId, goals[0].start, goals[0].end)]).then(res => {
+                        const goalExpenses = res[0].data;
+                        this.setState({goalExpenses: goalExpenses});
+                    });
+                    this.setState({currentGoal: goals[0]});
+                }else{
+                    //  Get last active goal
+                    axios.all([habits.getGoalsForHabit(habitId, {active: false, start: moment().add(-30, 'days'), end: moment()})])
+                        .then(res => {
+                            const goals = res[0].data;
+                            if(goals && goals[0]) {
+                                axios.all([expenses.getForHabit(habitId, goals[0].start, goals[0].end)]).then(res => {
+                                    const goalExpenses = res[0].data;
+                                    this.setState({goalExpenses: goalExpenses});
+                                });
+                                this.setState({prevGoal: goals[0]});
+                            }
+                        });
+                }
+            });
+    }
 
+    //  Get Urges, Expenses, and Habit data for start/end
     loadData() {
         const {start, end} = this.state;
         const habitId = this.props.match.params.id;
 
         axios.all([habits.getForId(habitId), expenses.getForHabit(habitId, start, end),
-            habits.getUrgesForHabit(habitId, start, end), habits.getGoalsForHabit(habitId, {active: true})])
+            habits.getUrgesForHabit(habitId, start, end)])
             .then(res => {
-                const goals = res[3].data;
-                this.setState({habit: res[0].data, expenses: res[1].data, urges: res[2].data, goals: goals});
-                if (goals[0]) this.setState({currentGoal: goals[0]});
+                this.setState({habit: res[0].data, expenses: res[1].data, urges: res[2].data});
             });
     }
 
@@ -83,15 +116,16 @@ class MyHabit extends React.Component {
     }
 
     render() {
-        let {name, budget, icon, _id, budgetType} = this.state.habit;
-        const {currentNav, start, end, expenses, smallScreen, urges, goals} = this.state;
-        let {currentGoal} = this.state;
-        if(currentGoal && moment().isAfter(moment(currentGoal.end))){
+        let {name, budget, icon, budgetType} = this.state.habit;
+        const _id = this.props.match.params.id;
+
+        const {currentNav, start, end, expenses, smallScreen, urges, goalExpenses} = this.state;
+        let {currentGoal, prevGoal} = this.state;
+        if (currentGoal && moment().isAfter(moment(currentGoal.end))) {
             currentGoal = null;
         }
 
         const spent = ExpenseDateRange.sumExpenseAmounts(expenses);
-        console.log('goals', goals);
 
         let dateFormat = 'MMM D';
 
@@ -207,8 +241,7 @@ class MyHabit extends React.Component {
                                     Log an Urge
                                 </div>
                             </a>
-                            <a href={_id + '/goal/new'}
-                               className="btn btn-block btn-primary btn-default">
+                            <a href={_id + '/goal/new'} className={`${currentGoal && 'disabled'} btn btn-block btn-primary btn-default`}>
                                 <div className={'col-sm-12 col-xl-7 col-lg-10 m-auto'}><Icon
                                     path={'app_icons/target.svg'}/>
                                     Set a Goal
@@ -223,14 +256,17 @@ class MyHabit extends React.Component {
                         <div className={'col-sm-12'} style={{paddingLeft: '8px', paddingRight: '0'}}>
                             <div className={'card'}>
                                 <div className={'card-header'}>
-                                    <Icon path={'app_icons/target.svg'}/> <span>Current Goal</span>
+                                    {!prevGoal && <div><Icon path={'app_icons/target.svg'}/> <span>Current Goal</span></div>}
+                                    {prevGoal && <div><Icon path={'app_icons/target.svg'}/> <span>Last Goal</span></div>}
                                 </div>
                                 <div className={'card-body'}>
                                     <div className={'row'}>
                                         <div className={'col-12 text-center'}>
-                                            {!currentGoal && <h5 className={''}>No Goal Set!</h5>}
-                                            {currentGoal && (currentGoal.type === 'Micro-Budget' || currentGoal.type === 'Beat') &&
-                                            <GoalProgress goal={currentGoal} expenses={expenses} />}
+                                            {!currentGoal && !prevGoal && <h5 className={''}>No Goal Set!</h5>}
+                                            {currentGoal && (currentGoal.type === 'Micro-Budget' || currentGoal.type === 'Beat' || currentGoal.type === 'Abstain') &&
+                                            <GoalProgress goal={currentGoal} expenses={goalExpenses}/>}
+                                            {prevGoal && (prevGoal.type === 'Micro-Budget' || prevGoal.type === 'Beat' || prevGoal.type === 'Abstain') &&
+                                            <GoalProgress goal={prevGoal} expenses={goalExpenses}/>}
                                         </div>
                                     </div>
                                 </div>

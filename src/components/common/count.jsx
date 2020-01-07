@@ -4,7 +4,7 @@ class Count extends React.Component {
     render() {
         let {target, count} = this.props;
         if(target > 31) target = 31;
-        
+
         const viewBox = {x: 700, y: 400};
         let diagXOffset = 30;
         //  target <= 5
@@ -41,7 +41,7 @@ class Count extends React.Component {
                 rowSpacing: .1
             };
             diagXOffset = 10;
-        }else{
+        }else if(target > 15){
             //  16 and above
             diagXOffset = 10;
             pct = {

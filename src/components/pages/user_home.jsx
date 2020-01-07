@@ -283,13 +283,12 @@ class UserHome extends React.Component {
                                     <div className={'col-4 w-habit'} key={'w-habit-' + index}>
                                         <Icon path={h.icon}/>
                                         <div className={'statement'}>
-                                            <span>{h.name}</span><br/>
                                             <div className={'col-12 text-right'}>
                                                 <span className={'stat'}><span
-                                                    className={'money'}>${h.needExpAmt}</span> <Icon
+                                                    className={'money'}>${Math.round(h.needExpAmt)}</span> <Icon
                                                     path={'app_icons/angel.svg'}/></span><br/>
                                                 <span className={'stat'}><span
-                                                    className={'money'}>${h.wantExpAmt}</span> <Icon
+                                                    className={'money'}>${Math.round(h.wantExpAmt)}</span> <Icon
                                                     path={'app_icons/trident.svg'}/></span><br/>
                                                 {h.urges && <span className={'stat'}><span className={'money'}>{h.urges.length}</span> <Icon path={'app_icons/devil.svg'}/></span>}
                                             </div>
@@ -353,7 +352,7 @@ class UserHome extends React.Component {
                                         <span>{pace.message}</span>
                                     </div>
                                     <div className={'col-md-5 col-7 m-auto'}>
-                                        <span className={'money'}>${totalSpentHabits}</span> Spent on Habits
+                                        <span className={'money'}>${Math.round(totalSpentHabits)}</span> Spent on Habits
                                         <hr/>
                                         <span className={'money'}>${totalBudget}</span> <span>Budgeted</span>
                                     </div>

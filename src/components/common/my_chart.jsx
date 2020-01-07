@@ -72,7 +72,6 @@ class MyChart extends React.Component {
             this.colors = MyChart.getColors();
             return this.colors[this.colors.length / 2];
         }
-        // const index = Math.floor(Math.random() * this.colors.length);
         return this.colors.shift();
     }
 

@@ -2,7 +2,6 @@ import React from 'react';
 import Form from '../common/form';
 import expenses from "../../services/expenses";
 import habits from "../../services/habits";
-import HabitCard from "../habit/habit_card";
 import axios from 'axios';
 import moment from 'moment';
 import {Redirect} from "react-router-dom";
@@ -45,7 +44,6 @@ class EditExpense extends Form {
                     const expense = expenseRes.data;
                     expense.date = moment(expense.date).local().toDate();
                     delete expense.__v;
-
                     this.setState({
                         habit: habitRes.data,
                         data: expense,
@@ -75,20 +73,17 @@ class EditExpense extends Form {
             return <Redirect to={this.getRedirectLoc(this.state.redirectTo)} />
         }
 
-        const {name, icon, budget, _id} = this.state.habit;
+        const {_id} = this.state.habit;
         let habitOptions = [{_id: '', name: '- select a habit -'}];
         habitOptions = habitOptions.concat(this.state.habits || []);
 
+
         return <div className='m-auto page'>
-            {/*{this.props.match.params.habitId ? <HabitCard text={name} iconUrl={icon} link={'/habit/' + _id} margin='0' iconHeight='56px'*/}
-                       {/*height={name.length < 15 ? '172px' : '148px'}*/}
-                       {/*class='col-sm-12'*/}
-                       {/*key={'habit-card-' + _id} footerText={'$' + budget + ' / week'}/> : null}*/}
             <div className="form">
                 <h2>Edit Expense</h2>
                 <form aria-describedby="formHelp">
                     <div className="form-fields">
-                        {this.renderDollarInput('amount', 'I spent', null, true)}
+                        {this.renderDollarInput('amount', 'I spent', true)}
                         {this.renderInput('name', '...on', 'text', 'description')}
                         {this.renderSelect(habitOptions, 'habitId', 'Spending Habit')}
                         {this.renderRadioGroup('needWant', ['Want', 'Need'], 'This was a...')}
@@ -109,6 +104,7 @@ class EditExpense extends Form {
 
     postForm() {
         const expense = this.state.data;
+
         expenses.update(expense).then(response => {
             this.setState({
                 errors: {

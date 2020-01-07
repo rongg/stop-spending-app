@@ -26,6 +26,7 @@ class EditGoal extends Form {
                 userId: props.user._id,
                 habitId: props.match.params.id,
                 type: this.defaultType,
+                name: '',
                 start: moment().toDate(),
                 end: this.minDate,
                 period: this.defaultPeriod,
@@ -50,8 +51,7 @@ class EditGoal extends Form {
             axios.all([habits.getGoalById(goalId), habits.get()])
                 .then(res => {
                     const goal = res[0].data;
-                    console.log(goal);
-                    // goal.period = this.defaultPeriod;
+                    if(!goal.period) goal.period = this.defaultPeriod;
                     delete goal.__v;
 
                     delete goal._v;
@@ -65,9 +65,6 @@ class EditGoal extends Form {
                         data: goal
                     });
                     if(goal.type === 'Beat') this.getExpenses();
-                    // goal.period = {name: 'Week - $', value: 'Week'};
-                    console.log(this.state.data);
-                    // this.onPeriodSet();
 
                 });
         } else {
@@ -98,7 +95,7 @@ class EditGoal extends Form {
         };
 
         let periodChoices = ['Week', 'Month', 'Day'];
-        if (type === 'Abstain' || type === 'Daily Average') {
+        if (type === 'Abstain') {
             periodChoices = periodChoices.slice(0, 2);
             periodChoices[0] = {name: 'Week (' + this.daysLeftInWeek + ' days left)', value: 'Week'};
             periodChoices[1] = {name: 'Month (' + this.daysLeftInMonth + ' days left)', value: 'Month'};
@@ -117,10 +114,10 @@ class EditGoal extends Form {
                 <h2><Icon path={'app_icons/target.svg'}/> Edit Goal</h2>
                 <form aria-describedby="formHelp">
                     <div className="form-fields">
+                        {this.renderInput("name", "Goal Name", "text", "name your goal", true)}
                         {this.renderSelect(habitOptions, 'habitId', 'Habit', 'Select a Habit!', this.onHabitChange.bind(this))}
-                        {this.renderRadioGroup('type', ['Micro-Budget', 'Beat', 'Abstain', 'Daily Average'], 'Goal Type', this.onGoalTypeChange.bind(this))}
+                        {this.renderRadioGroup('type', ['Micro-Budget', 'Beat', 'Abstain'], 'Goal Type', this.onGoalTypeChange.bind(this))}
                         {type === 'Micro-Budget' && this.renderDollarInput('target', 'Can Spend', null,  false)}
-                        {type === 'Daily Average' && this.renderDollarInput('target', 'Maintain an Average', ' / day')}
                         {type === 'Abstain' && this.renderInput("target", "Collect Total Days of Not Spending", 'number', "days", false, 'half')}
                         {type && type !== 'Micro-Budget' && type !== 'Beat' && this.renderRadioGroup('period', periodChoices, 'Until the End of the', this.onPeriodSet.bind(this))}
                         {type && type === 'Beat' && (this.renderRadioGroup('period', periodChoices, `Spend Less Than Last`, this.onPeriodSet.bind(this)))}
@@ -141,7 +138,7 @@ class EditGoal extends Form {
 
     postForm() {
         const goal = this.state.data;
-        console.log('PUT', goal);
+        if(goal.type === 'Abstain') goal.start = moment(goal.start).startOf('day');
         habits.editGoal(goal).then(response => {
             this.setState({
                 errors: {
@@ -182,11 +179,11 @@ class EditGoal extends Form {
             case 'Beat':
                 data.end = moment().endOf(period.toLowerCase()).toDate();
                 data.target = ExpenseDateRange.sumExpenseAmounts(wmdExpenses[period.toLowerCase()]);
+                if(data.target < 1) data.target = 1;
                 this.setState({
                     data
                 });
                 break;
-            case 'Daily Average':
             case 'Abstain':
                 data.end = moment().endOf(period.toLowerCase()).toDate();
                 this.setState({
@@ -214,10 +211,6 @@ class EditGoal extends Form {
             case 'Beat':
                 this.schema = habits.goalSchema.main;
                 this.getExpenses();
-                data.period = '';
-                break;
-            case 'Daily Average':
-                this.schema = habits.goalSchema.main;
                 data.period = '';
                 break;
             case 'Abstain':

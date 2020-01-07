@@ -30,8 +30,12 @@
   background-color: #252a2f;
   height: 135px;
   width: 100%; }
-.goal-progress.week-prog .fuel-level, .goal-progress.day-prog .fuel-level {
-  height: 164px; }
+.goal-progress.week-prog .fuel-level, .goal-progress.week-prog .count-ticks, .goal-progress.day-prog .fuel-level, .goal-progress.day-prog .count-ticks {
+  height: 164px;
+  width: 100%; }
+.goal-progress.month-prog .fuel-level, .goal-progress.month-prog .count-ticks {
+  height: 136px;
+  width: 100%; }
 .goal-progress .m-day .day-indicator {
   padding: 20px 0; }
 .goal-progress .m-day .periods button {

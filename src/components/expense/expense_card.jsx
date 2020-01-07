@@ -25,12 +25,9 @@ class ExpenseCard extends React.Component {
                         </p>}
                         {icon ? <Icon path={icon}/> : null}
                         <p className="card-text money">
-                            ${amount}
+                            ${Math.round(amount)}
                         </p>
                     </div>
-                    {/*<div className={'card-footer'}>*/}
-                        {/*{needWant && <Icon path={needWant.toLowerCase() === 'need' ? 'app_icons/angel.svg' : 'app_icons/devil.svg'} />}*/}
-                    {/*</div>*/}
                 </a>
             </div>)
     }

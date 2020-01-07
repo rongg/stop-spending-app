@@ -69,6 +69,7 @@ class CreateExpense extends Form {
             return <Redirect to={this.getRedirectLoc(this.state.redirectTo)} />
         }
 
+
         const {name, icon, budget, _id} = this.state.habit;
         let habitOptions = [{_id: '', name: '- select a habit -'}];
         habitOptions = habitOptions.concat(this.state.habits || []);
@@ -82,7 +83,7 @@ class CreateExpense extends Form {
                 <h2>Log an Expense</h2>
                 <form aria-describedby="formHelp">
                     <div className="form-fields">
-                        {this.renderDollarInput('amount', 'I spent', null, true)}
+                        {this.renderDollarInput('amount', 'I spent', true)}
                         {this.renderInput('name', '...on', "text", 'description')}
                         {this.renderSelect(habitOptions, 'habitId', 'Spending Habit')}
                         {this.renderRadioGroup('needWant', ['Want', 'Need'], 'This was a...')}
@@ -100,6 +101,7 @@ class CreateExpense extends Form {
 
     postForm() {
         const expense = this.state.data;
+
         expenses.create(expense).then(response => {
             this.setState({
                 errors: {

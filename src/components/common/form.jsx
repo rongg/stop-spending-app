@@ -7,7 +7,7 @@ import InputGroup from "../common/input_group";
 import SelectGroup from "../common/select_group";
 import IconSelect from "../common/icon_select";
 import moment from 'moment';
-import DollarInput from "./dollar_input";
+import CurrencyInput from "./currency_input";
 
 class Form extends React.Component {
     state = {
@@ -18,7 +18,6 @@ class Form extends React.Component {
 
     customErrors = {
         'number.base': '* required',
-        // 'number.min': 'must be greater than 0',
         'any.empty': '* required'
     };
 
@@ -46,7 +45,8 @@ class Form extends React.Component {
         return (
             <InputGroup autoFocus={autoFocus} className={className} name={name} label={label} value={data[name]}
                         inputHelp={name + "Help"}
-                        helpMessage={errors[name]} placeHolder={placeholder || name} error={errors[name]} type={type} customErrors={customErrors}
+                        helpMessage={errors[name]} placeHolder={placeholder || name} error={errors[name]} type={type}
+                        customErrors={customErrors}
                         onChange={this.handleInputChange}/>
         );
     }
@@ -55,7 +55,7 @@ class Form extends React.Component {
         const {data, errors} = this.state;
 
         return <div><SelectGroup options={options || []} name={name} label={label} value={data[name]}
-                                 onChange={(n, v) => this.handleDataChange(n, v, callback)} />
+                                 onChange={(n, v) => this.handleDataChange(n, v, callback)}/>
             <small id={name + 'help'}
                    className={errors[name] ? 'red error-message' : 'hidden'}>{errorMessage || errors[name]}
             </small>
@@ -131,12 +131,14 @@ class Form extends React.Component {
         </div>
     }
 
-    renderDollarInput(name, label, predicate, autofocus, customErrors) {
+    renderDollarInput(name, label, autofocus) {
         const {data, errors} = this.state;
         return <div className="form-group">
             {label && <label htmlFor={name}>{label}</label>}
-            <DollarInput name={name} predicate={predicate} value={data[name]} onChange={this.handleInputChange}
-                         autoFocus={autofocus} customErrors={customErrors}/>
+            <CurrencyInput name={name} autofocus={autofocus} amount={data[name]} callback={(value) => {
+                console.log('onChange', value);
+                data[name] = value;
+            }}/>
             <small id={name + 'help'} className={errors[name] ? 'red error-message' : 'hidden'}>{errors[name]}
             </small>
         </div>
@@ -164,9 +166,9 @@ class Form extends React.Component {
         for (let e of res.error.details) {
             if (errors[e.path[0]]) continue;
             const customError = this.customErrors[e.type];
-            if(customError){
+            if (customError) {
                 errors[e.path[0]] = customError;
-            }else {
+            } else {
                 errors[e.path[0]] = e.message.replace(/"(.*?)"/, "");   //  don't show name of input
             }
         }
@@ -186,7 +188,8 @@ class Form extends React.Component {
         this.postForm();
     }
 
-    handleInputChange(e, callback = () => {}) {
+    handleInputChange(e, callback = () => {
+    }) {
         const input = e.currentTarget;
         const formData = {...this.state.data};
         formData[input.name] = input.value;
@@ -196,7 +199,8 @@ class Form extends React.Component {
         }, () => callback(input.value));
     }
 
-    handleDataChange(name, data, callback = () => {}) {
+    handleDataChange(name, data, callback = () => {
+    }) {
         const formData = this.state.data;
         formData[name] = data;
         this.setState({

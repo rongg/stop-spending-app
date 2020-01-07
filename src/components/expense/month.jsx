@@ -57,7 +57,7 @@ class Month extends React.Component {
                         </div>
                         <div className={'spent'}>
                             {day.totalSpent > 0 && <button type={'button'} onClick={() => navCallback(day.date, 'day')}>
-                                <span>${day.totalSpent}</span>
+                                <span>${Math.round(day.totalSpent)}</span>
                             </button>}
                         </div>
                     </div>
@@ -66,7 +66,7 @@ class Month extends React.Component {
                     {weekTotals[index] > 0 &&
                     <button className='btn btn-default text-center ' onClick={() => navCallback(w[0].date, 'week')}>
                         {weekTotals[index] >= weeklySplurgeLimit && <div><Icon path={'app_icons/broken_piggy.svg'} /></div>}
-                        <div><span className={'money'}>${weekTotals[index]}</span></div>
+                        <div><span className={'money'}>${Math.round(weekTotals[index])}</span></div>
                     </button>}
                 </div>
             </div>
