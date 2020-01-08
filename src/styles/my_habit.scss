@@ -48,32 +48,31 @@
       height: 440px;
     }
 
-    .card-header span{
+    .card-header span {
       font-size: 1.4rem;
     }
 
-    .card-body{
+    .card-body {
       padding-top: 5px;
     }
 
   }
 
-  .key-figures{
-
+  .key-figures {
     .piggy-bank {
-      height: 48px;
+      height: 40px;
     }
 
     .projected {
       .card-body .icon {
-        height: 80px;
-        width: 80px;
+        height: 72px;
+        width: 72px;
         margin-bottom: 8px;
       }
     }
 
     .urge-num {
-      h3 {
+      h5 {
         margin-top: 10px;
       }
 
@@ -119,12 +118,42 @@
       margin-bottom: 16px;
     }
 
-    .actions{
+    .actions {
       padding: 0;
     }
 
     .col-sm-12.goal {
       padding-left: 16px;
+    }
+  }
+
+  .habit-head .no-goals, .key-figures {
+
+    .projected {
+      .card-body .icon {
+        height: 72px;
+        width: 72px;
+        margin-bottom: 8px;
+      }
+    }
+
+    .icon {
+      height: 24px;
+      width: 24px;
+    }
+
+    .urge-num .icon{
+      margin-top: 10px;
+      height: 48px;
+      width: 48px;
+    }
+
+    .budgeted, .spent, .projected, .urges, .need-want {
+      padding-right: 0;
+    }
+
+    .card-body {
+      height: 164px;
     }
   }
 
@@ -154,7 +183,7 @@
     border-bottom: 1px solid #ffc1cb;
     padding: 4px;
     background: #fff;
-    font-size: 1.4rem;
+    font-size: 1.1rem;
     text-align: center;
   }
 
