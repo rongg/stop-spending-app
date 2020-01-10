@@ -114,7 +114,7 @@ class Count extends React.Component {
 
 
 
-        let svg = <svg style={{backgroundColor: 'black'}} className={'count-ticks'} viewBox="0 0 700 400" x="0px"
+        let svg = <svg style={{backgroundColor: '#191d20'}} className={'count-ticks'} viewBox="0 0 700 400" x="0px"
                        y="0px" width="1000px" height="400px">
             {ticks.map((t, i) => {
                 //  Draw white ticks

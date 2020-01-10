@@ -121,7 +121,6 @@ function monthTemplateAbstain(target, start, end, accumulated, progressDisplay, 
     const daysLeft = moment(end).startOf('day').diff(moment().startOf('day'), 'minutes') / (24 * 60);
     const startDayIndex = moment(start).day();
     const daysElapsed = moment().diff(moment(start).startOf('day'), 'days');
-    // const budgetLeft = target - accumulated;
     const avgLeft = 0;//Math.floor((budgetLeft) / (daysLeft + 1));
     let dayZero = moment(start).add(-startDayIndex, 'days');
 
@@ -151,8 +150,6 @@ function monthTemplateAbstain(target, start, end, accumulated, progressDisplay, 
 
     //  Find Current Day
     const todayIndex = startDayIndex + daysElapsed;
-    // console.log(startDayIndex, todayIndex, i);
-    // console.log('daysLeft', daysLeft);
     i++;
 
     for (i; i < todayIndex; i++) {
