@@ -122,6 +122,12 @@ div.app{
   }
 }
 
+@media (max-width: 640px) {
+  .app-content{
+    //padding: 5px;
+  }
+}
+
 @media (max-width: 767px) {
   .row {
     margin-left: 0;

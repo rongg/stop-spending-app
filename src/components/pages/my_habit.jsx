@@ -217,7 +217,7 @@ class MyHabit extends React.Component {
 
 
             <div className="row habit-head section-head" style={{margin: '0'}}>
-                <div className={'col-sm-5 profile-pic'}>
+                <div className={'col-md-5 profile-pic'}>
                     <div className={'card piggy'}>
                         <div className="spent-summary text-center">
                             <PiggySummary isHabit={true} icon={icon} piggyWidth={this.piggyParams.width}
@@ -256,7 +256,7 @@ class MyHabit extends React.Component {
                         </div>
                     </div>
                 </div>
-                {!showGoals && <div className={'col-sm-7 no-goals'}>
+                {!showGoals && <div className={'col-md-7 no-goals'}>
                     <div className={'row'}>
                         <div className={'col-sm-6 budgeted'}>
                             <div className={'card'}>
@@ -269,7 +269,7 @@ class MyHabit extends React.Component {
                                             <SimpleBar pct={budgetPct}/>
                                         </div>
                                         <div className={'col-12 text-center'}>
-                                            <h4 className={'money'}>${budgets[currentNav]}</h4>
+                                            <h4 className={'money'}>${Math.round(budgets[currentNav])}</h4>
                                         </div>
                                     </div>
                                 </div>
@@ -286,7 +286,7 @@ class MyHabit extends React.Component {
                                             <SimpleBar pct={spentPct}/>
                                         </div>
                                         <div className={'col-12 text-center'}>
-                                            <h4 className={'money'}>${spent}</h4>
+                                            <h4 className={'money'}>${Math.round(spent)}</h4>
                                         </div>
                                     </div>
                                 </div>
@@ -306,7 +306,7 @@ class MyHabit extends React.Component {
                                             <Icon path={pace.icon}/>
                                         </div>
                                         <div className={'col-12 text-center'}>
-                                            <h4 className={'money'}>${averages.projected}</h4>
+                                            <h4 className={'money'}>${Math.round(averages.projected)}</h4>
                                         </div>
                                     </div>
                                 </div>
@@ -321,13 +321,13 @@ class MyHabit extends React.Component {
                                     <div className={'row'}>
                                         <div className={'col-12 text-center urge-num'}>
                                             {urges.length ? <div>
-                                                    <h5 className={'money'}>{urges.length}</h5>
-                                                    <span>Last Urge <Moment
-                                                        format={'ddd, MMM Do, h:mm a'}>{urges[0].date}</Moment></span>
-                                                </div> : <div>
-                                                    <Icon path={'app_icons/checkmark.svg'}/>
-                                                    <h5 style={{marginTop: '24px'}}>No Urges!</h5>
-                                                </div>}
+                                                <h5 className={'money'}>{urges.length}</h5>
+                                                <span>Last Urge <Moment
+                                                    format={'ddd, MMM Do, h:mm a'}>{urges[0].date}</Moment></span>
+                                            </div> : <div>
+                                                <Icon path={'app_icons/checkmark.svg'}/>
+                                                <h5 style={{marginTop: '24px'}}>No Urges!</h5>
+                                            </div>}
                                         </div>
                                     </div>
                                 </div>
@@ -353,7 +353,9 @@ class MyHabit extends React.Component {
                         </div>
                     </div>
                 </div>}
-                {showGoals && <div className={'col-sm-7 goal'}>
+
+
+                {showGoals && <div className={'col-md-7 goal'}>
                     <div className={'row'}>
                         <div className={'col-sm-12'}>
                             <div className={'card'}>
@@ -388,7 +390,7 @@ class MyHabit extends React.Component {
 
                 {showGoals && <div className={'col-12 key-figures'}>
                     <div className={'row'}>
-                        <div className={'col-6 projected'} style={{paddingLeft: '0px'}}>
+                        <div className={'col-6 col-sm projected'} style={{paddingLeft: '0px'}}>
                             <div className={'card'}>
                                 <div className={'card-header'}>
                                     <Icon path={'app_icons/graph.svg'}/> <span>Projected</span>
@@ -399,13 +401,13 @@ class MyHabit extends React.Component {
                                             <Icon path={pace.icon}/>
                                         </div>
                                         <div className={'col-12 text-center'}>
-                                            <h4 className={'money'}>${averages.projected}</h4>
+                                            <h4 className={'money'}>${Math.round(averages.projected)}</h4>
                                         </div>
                                     </div>
                                 </div>
                             </div>
                         </div>
-                        <div className={'col-6'}>
+                        <div className={'col-6 col-sm urges'}>
                             <div className={'card'}>
                                 <div className={'card-header'}>
                                     <Icon path={'app_icons/devil.svg'}/> <span>Urges</span>
@@ -419,14 +421,14 @@ class MyHabit extends React.Component {
                                                     format={'ddd, MMM Do, h:mm a'}>{urges[0].date}</Moment></span>
                                             </div> : <div>
                                                 <Icon path={'app_icons/checkmark.svg'}/>
-                                                <h5 style={{marginTop: '20px'}}>No Urges!</h5>
+                                                <h6 style={{marginTop: '20px'}}>No Urges!</h6>
                                             </div>}
                                         </div>
                                     </div>
                                 </div>
                             </div>
                         </div>
-                        <div className={'col-6 budgeted'}>
+                        <div className={'col-6 col-sm budgeted'}>
                             <div className={'card'}>
                                 <div className={'card-header'}>
                                     <Icon path={'app_icons/budgeted.svg'}/> <span>Budgeted</span>
@@ -437,13 +439,13 @@ class MyHabit extends React.Component {
                                             <SimpleBar pct={budgetPct}/>
                                         </div>
                                         <div className={'col-12 text-center'}>
-                                            <h4 className={'money'}>${budgets[currentNav]}</h4>
+                                            <h4 className={'money'}>${Math.round(budgets[currentNav])}</h4>
                                         </div>
                                     </div>
                                 </div>
                             </div>
                         </div>
-                        <div className={'col-6 spent'}>
+                        <div className={'col-6 col-sm spent'}>
                             <div className={'card'}>
                                 <div className={'card-header'}>
                                     <Icon path={'app_icons/dollar_sign.svg'}/> <span>Spent</span>
@@ -454,23 +456,23 @@ class MyHabit extends React.Component {
                                             <SimpleBar pct={spentPct}/>
                                         </div>
                                         <div className={'col-12 text-center'}>
-                                            <h4 className={'money'}>${spent}</h4>
+                                            <h4 className={'money'}>${Math.round(spent)}</h4>
                                         </div>
                                     </div>
                                 </div>
                             </div>
                         </div>
-                        <div className={'hidden-xs col need-want'}>
+                        <div className={'col-6 col-sm need-want'}>
                             <div className={'card'}>
                                 <div className={'card-header'}>
-                                    <Icon path={'app_icons/angel.svg'}/> <span>Need vs Want</span>
-
+                                    <Icon path={'app_icons/angel.svg'}/><span> vs </span><Icon
+                                    path={'app_icons/trident.svg'}/>
                                 </div>
-                                <div className={'card-body'}>
+                                <div className={'card-body m-auto'}>
                                     <div className={'row text-center'}>
                                         <MyChart valueKey={'amount'}
-                                                 data={[{amount: needExpAmt, name: 'needs'}, {
-                                                     amount: wantExpAmt,
+                                                 data={[{amount: Math.round(needExpAmt), name: 'needs'}, {
+                                                     amount: Math.round(wantExpAmt),
                                                      name: 'wants'
                                                  }]}
                                                  type={'pie'}/>

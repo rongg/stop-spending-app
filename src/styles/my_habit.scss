@@ -46,11 +46,11 @@
   .goal {
 
     .col-sm-12{
-      padding-left: 8px;
+      padding-left: 0px;
       padding-right: 0;
     }
     .card {
-      height: 440px;
+      height: 432px;
     }
 
     .card-header span {
@@ -64,6 +64,7 @@
   }
 
   .key-figures {
+    margin-top: 16px;
     .piggy-bank {
       height: 40px;
     }
@@ -105,7 +106,7 @@
     }
 
     .card-header {
-      font-size: 1.1rem;
+      font-size: 1.0rem;
 
       span {
         vertical-align: text-top;
@@ -118,8 +119,8 @@
   }
 
   .section-head {
-    .profile-pic.col-sm-5, .col-sm-2 {
-      padding: 0;
+    .profile-pic.col-md-5, .col-sm-2 {
+      padding-left: 0;
       margin-bottom: 16px;
     }
 
@@ -198,15 +199,36 @@
 
 }
 
-
-@media (max-width: 576px){
+@media (max-width: 992px){
   .my-habit{
-    .goal{
-      color: red;
+    .urges{
+      display: none;
+    }
 
-      .col-sm-12{
-        padding-left: 0;
+    .col-sm-12{
+      margin-bottom: 8px;
+      padding-left: 0;
+    }
+  }
+}
+
+
+@media (max-width: 640px){
+  .my-habit{
+    .need-want {
+      //display: none;
+    }
+
+    .date-control{
+      padding: 0;
+    }
+
+    .goal{
+      margin-top: 16px;
+      .card{
+        height: 376px;
       }
+
     }
   }
 }
