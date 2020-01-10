@@ -115,7 +115,7 @@ a:hover, a:visited, a:link, a:active {
   .devil .expense-card .card-body, .angel .expense-card .card-body {
     padding: 10px; }
   .devil .card-text.money, .angel .card-text.money {
-    font-size: 1.1rem; }
+    font-size: 1.1rem !important; }
   .devil .expense-card .card-body img, .angel .expense-card .card-body img {
     height: 60px;
     width: 60px; }

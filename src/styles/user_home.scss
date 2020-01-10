@@ -193,7 +193,7 @@ a:hover, a:visited, a:link, a:active {
 
 
   .card-text.money {
-    font-size: $font-size-card;
+    font-size: $font-size-card !important;
   }
 
   .expense-card .card-body img {

@@ -92,28 +92,12 @@ class UserHome extends React.Component {
 
         habits.map(h => {
             h.budgets = ExpenseDateRange.calculateBudgets(h.budgetType, h.budget, start);
-            // if (h.budgetType === 'week') {
-            //     h.budgetDay = Math.round(h.budget / 7);
-            //     h.budgetMonth = Math.round(h.budgetDay * start.daysInMonth());
-            //     h.budgetWeek = Math.round(h.budget);
-            // }
-            // if (h.budgetType === 'month') {
-            //     h.budgetDay = Math.round(h.budget / start.daysInMonth());
-            //     h.budgetWeek = Math.round(h.budgetDay * 7);
-            //     h.budgetMonth = Math.round(h.budget);
-            // }
-            // if (h.budgetType === 'day') {
-            //     h.budgetWeek = Math.round(h.budget * 7);
-            //     h.budgetMonth = Math.round(h.budget * start.daysInMonth());
-            //     h.budgetDay = Math.round(h.budget);
-            // }
             return h;
         });
 
 
         let datePrefix = 'Weekly';
         let dateFormat = 'MMM D';
-        // let totalBudgetKey = 'budgetWeek';
 
         const startEndSameMonth = start.isSame(end, 'month');
         let dateFormat2 = startEndSameMonth && currentNav === 'week' ? 'D' : null;
@@ -122,12 +106,10 @@ class UserHome extends React.Component {
         if (currentNav === 'month') {
             datePrefix = 'Monthly';
             dateFormat = start.isSame(moment(), 'year') ? 'MMMM' : 'MMMM YYYY';
-            // totalBudgetKey = 'budgetMonth';
         }
         if (currentNav === 'day') {
             datePrefix = 'Daily';
             dateFormat = 'dddd MMM D';
-            // totalBudgetKey = 'budgetDay';
         }
 
         let totalBudget = habits.filter(h => h._id).reduce((acc, h) => acc + h.budgets[currentNav], 0);
@@ -140,7 +122,7 @@ class UserHome extends React.Component {
         const leftNav = <button className='btn btn-default' onClick={() => this.incrementPeriod(-1, currentNav)}><Icon
             path={'app_icons/left.svg'}/></button>;
         const rightNav = <button className='btn btn-default' onClick={() => this.incrementPeriod(1, currentNav)}
-                            style={{float: 'right'}}><Icon path={'app_icons/right.svg'}/></button>;
+                                 style={{float: 'right'}}><Icon path={'app_icons/right.svg'}/></button>;
 
 
         return <div className="m-auto page">
@@ -197,10 +179,10 @@ class UserHome extends React.Component {
                     <div className={'card piggy'}>
                         <div className="spent-summary text-center">
                             <PiggySummary piggyWidth={this.piggyParams.width} piggyHeight={this.piggyParams.height}
-                                          amount={ExpenseDateRange.sumExpenseAmounts(expenses)}
+                                          amount={Math.round(ExpenseDateRange.sumExpenseAmounts(expenses))}
                                           predicate={ExpenseDateRange.getSpentStatementPredicate(start, currentNav)}
-                                          avgDaily={currentNav !== 'day' ? averages.daily : null}
-                                          avgExpense={currentNav === 'day' ? averages.expense : null}
+                                          avgDaily={currentNav !== 'day' ? Math.round(averages.daily) : null}
+                                          avgExpense={currentNav === 'day' ? Math.round(averages.expense) : null}
                                           numLogged={expenses.length}/>
                         </div>
                     </div>
@@ -262,10 +244,10 @@ class UserHome extends React.Component {
                 <div className={'d-lg-inline d-none col-lg-4 col-md-6 col-12  card piggy'}>
                     <div className="spent-summary text-center">
                         <PiggySummary piggyWidth={this.piggyParams.width} piggyHeight={this.piggyParams.height}
-                                      amount={ExpenseDateRange.sumExpenseAmounts(expenses)}
+                                      amount={Math.round(ExpenseDateRange.sumExpenseAmounts(expenses))}
                                       predicate={ExpenseDateRange.getSpentStatementPredicate(start, currentNav)}
-                                      avgDaily={currentNav !== 'day' ? averages.daily : null}
-                                      avgExpense={currentNav === 'day' ? averages.expense : null}
+                                      avgDaily={currentNav !== 'day' ? Math.round(averages.daily) : null}
+                                      avgExpense={currentNav === 'day' ? Math.round(averages.expense) : null}
                                       numLogged={expenses.length}
                         />
                     </div>
@@ -290,7 +272,9 @@ class UserHome extends React.Component {
                                                 <span className={'stat'}><span
                                                     className={'money'}>${Math.round(h.wantExpAmt)}</span> <Icon
                                                     path={'app_icons/trident.svg'}/></span><br/>
-                                                {h.urges && <span className={'stat'}><span className={'money'}>{h.urges.length}</span> <Icon path={'app_icons/devil.svg'}/></span>}
+                                                {h.urges && <span className={'stat'}><span
+                                                    className={'money'}>{h.urges.length}</span> <Icon
+                                                    path={'app_icons/devil.svg'}/></span>}
                                             </div>
                                         </div>
                                     </div>)}
@@ -354,7 +338,7 @@ class UserHome extends React.Component {
                                     <div className={'col-md-5 col-7 m-auto'}>
                                         <span className={'money'}>${Math.round(totalSpentHabits)}</span> Spent on Habits
                                         <hr/>
-                                        <span className={'money'}>${totalBudget}</span> <span>Budgeted</span>
+                                        <span className={'money'}>${Math.round(totalBudget)}</span> <span>Budgeted</span>
                                     </div>
                                 </div>
                             </div>
@@ -366,13 +350,13 @@ class UserHome extends React.Component {
                         <div className="col-sm-6 angel">
                             <ExpenseCard height={148} expense={{
                                 name: 'Needs',
-                                amount: ExpenseDateRange.sumExpenseAmounts(expNeeds)
+                                amount: Math.round(ExpenseDateRange.sumExpenseAmounts(expNeeds))
                             }} icon={'app_icons/angel.svg'}/>
                         </div>
                         <div className="col-sm-6 devil">
                             <ExpenseCard height={148} expense={{
                                 name: 'Wants',
-                                amount: ExpenseDateRange.sumExpenseAmounts(expWants)
+                                amount: Math.round(ExpenseDateRange.sumExpenseAmounts(expWants))
                             }} icon={'app_icons/trident.svg'}/>
                         </div>
                     </div>
@@ -385,7 +369,7 @@ class UserHome extends React.Component {
                                 <PiggyBank height={this.piggyParams.height} width={this.piggyParams.width}
                                            icon={'question_mark.svg'}/>
                                 <div className={'statement'}>
-                                    <span className={'money'}>${totalSpentOther}</span>
+                                    <span className={'money'}>${Math.round(totalSpentOther)}</span>
                                     <span> in Unbudgeted Expenses</span>
                                 </div>
                             </div>
@@ -417,8 +401,8 @@ class UserHome extends React.Component {
                 {habits.filter(h => h._id).map((h, index) => (
                     <div className="col-4 col-lg-2 col-md-6 col-sm-12" key={'habit-card-' + index}>
                         <HabitCard text={h.name}
-                                   spent={h.spent}
-                                   budgeted={h.budgets[currentNav]}
+                                   spent={Math.round(h.spent)}
+                                   budgeted={Math.round(h.budgets[currentNav])}
                                    iconUrl={h.icon || habitService.getDefaultIcon()}
                                    link={'/habit/' + h._id}/>
                     </div>

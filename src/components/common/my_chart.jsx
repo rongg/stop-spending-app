@@ -19,7 +19,7 @@ class MyChart extends React.Component {
             datasets: [
                 {
                     label,
-                    data: data.map(e => e[valueKey]),
+                    data: data.map(e => Math.round(e[valueKey])),
                     backgroundColor: colors || data.map(e => this.getUniqueRandomColor()),
                 }
             ]
