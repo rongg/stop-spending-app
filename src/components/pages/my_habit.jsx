@@ -172,7 +172,7 @@ class MyHabit extends React.Component {
         let showGoals = currentGoal || prevGoal;
         return <div className="m-auto page my-habit">
             <h2 className={'habit-title'}><Icon path={icon} habit={true}/>
-                <span>{name.charAt(0).toUpperCase() + name.slice(1)}</span></h2>
+                <span>{name.charAt(0).toUpperCase() + name.slice(1)}</span> <a href={_id + '/edit'}><Icon path={'app_icons/glyph/edit.svg'}/></a></h2>
             <br/>
             <div className={`date-head`}>
                 <div className={`date-nav row`}>

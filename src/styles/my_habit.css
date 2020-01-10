@@ -9,6 +9,9 @@
   padding: 5px;
   height: 72px;
   width: 64px; }
+.my-habit .habit-title a img {
+  height: 20px;
+  width: 20px; }
 .my-habit .habit-title img {
   height: 40px;
   width: 40px; }
