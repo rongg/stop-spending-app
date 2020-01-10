@@ -305,7 +305,7 @@ class UserHome extends React.Component {
                 </div>
             </div>
 
-            <br className={'d-none d-sm-block'}/>
+            <br className={'d-none d-sm-inline'}/>
 
             <div className={'expenses-range-container card'}>
                 {currentNav === 'week' &&
