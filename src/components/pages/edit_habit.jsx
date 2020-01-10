@@ -53,7 +53,9 @@ class EditHabit extends Form {
                     {this.renderHelp()}
                 </div>
                 <br/>
-                <a href={'/habit/' + this.props.match.params.id + '/delete'}>Delete</a>
+                <a onClick={e => {
+                    if(window.confirm('Delete this Habit?')) window.location = '/habit/' + this.props.match.params.id + '/delete';
+                }} href={'#'}>Delete</a>
             </form>
         </div>
     }
