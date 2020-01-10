@@ -32,7 +32,7 @@ class Day extends React.Component {
         const {smallScreen} = this.props;
         return day.map((expense, index) => (
             <ExpenseCard key={'mon-expense-' + index} expense={expense}
-                         link={expense.habitId ? '/habit/' + expense.habitId + '/expense/' + expense._id : '/expense/' + expense._id}
+                         link={expense.habitId ? '/habit/' + expense.habitId + '/expense/' + expense._id + "/edit" : '/expense/' + expense._id + "/edit"}
                          icon={expense.habit && expense.habit.icon ? expense.habit.icon : expenses.getDefaultIcon()}
                          height={smallScreen ? '50px' : '80px'} hideName={smallScreen} showTime={true}/>
         ));

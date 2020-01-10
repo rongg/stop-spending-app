@@ -10,7 +10,6 @@ class Week extends React.Component {
     render() {
 
         const {smallScreen, expenses, start, navCallback} = this.props;
-        // const filters = this.props.filters || {};
 
         const days = ExpenseDateRange.assignExpensesToDays(expenses, 'day');
 
