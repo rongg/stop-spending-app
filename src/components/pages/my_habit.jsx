@@ -388,7 +388,7 @@ class MyHabit extends React.Component {
 
                 {showGoals && <div className={'col-12 key-figures'}>
                     <div className={'row'}>
-                        <div className={'col projected'} style={{paddingLeft: '0px'}}>
+                        <div className={'col-6 projected'} style={{paddingLeft: '0px'}}>
                             <div className={'card'}>
                                 <div className={'card-header'}>
                                     <Icon path={'app_icons/graph.svg'}/> <span>Projected</span>
@@ -405,7 +405,7 @@ class MyHabit extends React.Component {
                                 </div>
                             </div>
                         </div>
-                        <div className={'col'}>
+                        <div className={'col-6'}>
                             <div className={'card'}>
                                 <div className={'card-header'}>
                                     <Icon path={'app_icons/devil.svg'}/> <span>Urges</span>
@@ -426,7 +426,7 @@ class MyHabit extends React.Component {
                                 </div>
                             </div>
                         </div>
-                        <div className={'col budgeted'}>
+                        <div className={'col-6 budgeted'}>
                             <div className={'card'}>
                                 <div className={'card-header'}>
                                     <Icon path={'app_icons/budgeted.svg'}/> <span>Budgeted</span>
@@ -443,7 +443,7 @@ class MyHabit extends React.Component {
                                 </div>
                             </div>
                         </div>
-                        <div className={'col spent'}>
+                        <div className={'col-6 spent'}>
                             <div className={'card'}>
                                 <div className={'card-header'}>
                                     <Icon path={'app_icons/dollar_sign.svg'}/> <span>Spent</span>
@@ -460,7 +460,7 @@ class MyHabit extends React.Component {
                                 </div>
                             </div>
                         </div>
-                        <div className={'col need-want'}>
+                        <div className={'hidden-xs col need-want'}>
                             <div className={'card'}>
                                 <div className={'card-header'}>
                                     <Icon path={'app_icons/angel.svg'}/> <span>Need vs Want</span>
