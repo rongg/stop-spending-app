@@ -30,12 +30,12 @@
 .my-habit .goal .card-body {
   padding-top: 5px; }
 .my-habit .key-figures .piggy-bank {
-  height: 48px; }
+  height: 40px; }
 .my-habit .key-figures .projected .card-body .icon {
-  height: 80px;
-  width: 80px;
+  height: 72px;
+  width: 72px;
   margin-bottom: 8px; }
-.my-habit .key-figures .urge-num h3 {
+.my-habit .key-figures .urge-num h5 {
   margin-top: 10px; }
 .my-habit .key-figures .urge-num span {
   font-size: .9rem; }
@@ -62,6 +62,21 @@
   padding: 0; }
 .my-habit .section-head .col-sm-12.goal {
   padding-left: 16px; }
+.my-habit .habit-head .no-goals .projected .card-body .icon, .my-habit .key-figures .projected .card-body .icon {
+  height: 72px;
+  width: 72px;
+  margin-bottom: 8px; }
+.my-habit .habit-head .no-goals .icon, .my-habit .key-figures .icon {
+  height: 24px;
+  width: 24px; }
+.my-habit .habit-head .no-goals .urge-num .icon, .my-habit .key-figures .urge-num .icon {
+  margin-top: 10px;
+  height: 48px;
+  width: 48px; }
+.my-habit .habit-head .no-goals .budgeted, .my-habit .habit-head .no-goals .spent, .my-habit .habit-head .no-goals .projected, .my-habit .habit-head .no-goals .urges, .my-habit .habit-head .no-goals .need-want, .my-habit .key-figures .budgeted, .my-habit .key-figures .spent, .my-habit .key-figures .projected, .my-habit .key-figures .urges, .my-habit .key-figures .need-want {
+  padding-right: 0; }
+.my-habit .habit-head .no-goals .card-body, .my-habit .key-figures .card-body {
+  height: 164px; }
 .my-habit .habit-head .card-body {
   height: 208px; }
 .my-habit .habit-head .card-footer {
@@ -76,7 +91,7 @@
   border-bottom: 1px solid #ffc1cb;
   padding: 4px;
   background: #fff;
-  font-size: 1.4rem;
+  font-size: 1.1rem;
   text-align: center; }
 .my-habit .habit-card .card-text {
   font-size: 1rem; }

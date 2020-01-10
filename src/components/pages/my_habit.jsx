@@ -68,12 +68,16 @@ class MyHabit extends React.Component {
                         this.setState({goalExpenses: goalExpenses});
                     });
                     this.setState({currentGoal: goals[0]});
-                }else{
+                } else {
                     //  Get last active goal
-                    axios.all([habits.getGoalsForHabit(habitId, {active: false, start: moment().add(-30, 'days'), end: moment()})])
+                    axios.all([habits.getGoalsForHabit(habitId, {
+                        active: false,
+                        start: moment().add(-30, 'days'),
+                        end: moment()
+                    })])
                         .then(res => {
                             const goals = res[0].data;
-                            if(goals && goals[0]) {
+                            if (goals && goals[0]) {
                                 axios.all([expenses.getForHabit(habitId, goals[0].start, goals[0].end)]).then(res => {
                                     const goalExpenses = res[0].data;
                                     this.setState({goalExpenses: goalExpenses});
@@ -165,6 +169,7 @@ class MyHabit extends React.Component {
         const needExpAmt = ExpenseDateRange.sumExpenseAmounts(expenses.filter(e => e.needWant && e.needWant.toLowerCase() === 'need'));
         const wantExpAmt = ExpenseDateRange.sumExpenseAmounts(expenses.filter(e => e.needWant && e.needWant.toLowerCase() === 'want'));
 
+        let showGoals = currentGoal || prevGoal;
         return <div className="m-auto page my-habit">
             <h2 className={'habit-title'}><Icon path={icon} habit={true}/>
                 <span>{name.charAt(0).toUpperCase() + name.slice(1)}</span></h2>
@@ -241,7 +246,8 @@ class MyHabit extends React.Component {
                                     Log an Urge
                                 </div>
                             </a>
-                            <a href={_id + '/goal/new'} className={`${currentGoal && 'disabled'} btn btn-block btn-primary btn-default`}>
+                            <a href={_id + '/goal/new'}
+                               className={`${currentGoal && 'disabled'} btn btn-block btn-primary btn-default`}>
                                 <div className={'col-sm-12 col-xl-7 col-lg-10 m-auto'}><Icon
                                     path={'app_icons/target.svg'}/>
                                     Set a Goal
@@ -250,72 +256,9 @@ class MyHabit extends React.Component {
                         </div>
                     </div>
                 </div>
-                <div className={'col-sm-7 goal'}>
-
+                {!showGoals && <div className={'col-sm-7 no-goals'}>
                     <div className={'row'}>
-                        <div className={'col-sm-12'}>
-                            <div className={'card'}>
-                                <div className={'card-header'}>
-                                    {!prevGoal && <div><Icon path={'app_icons/target.svg'}/> <span>Current Goal</span></div>}
-                                    {prevGoal && <div><Icon path={'app_icons/target.svg'}/> <span>Last Goal</span></div>}
-                                </div>
-                                <div className={'card-body'}>
-                                    <div className={'row'}>
-                                        <div className={'col-12 text-center'}>
-                                            {!currentGoal && !prevGoal && <h5 className={''}>No Goal Set!</h5>}
-                                            {currentGoal && (currentGoal.type === 'Micro-Budget' || currentGoal.type === 'Beat' || currentGoal.type === 'Abstain') &&
-                                            <GoalProgress goal={currentGoal} expenses={goalExpenses}/>}
-                                            {prevGoal && (prevGoal.type === 'Micro-Budget' || prevGoal.type === 'Beat' || prevGoal.type === 'Abstain') &&
-                                            <GoalProgress goal={prevGoal} expenses={goalExpenses}/>}
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-
-
-                    </div>
-
-                </div>
-
-                <div className={'col-12 key-figures'}>
-                    <div className={'row'}>
-                        <div className={'col projected'} style={{paddingLeft: '0px'}}>
-                            <div className={'card'}>
-                                <div className={'card-header'}>
-                                    <Icon path={'app_icons/graph.svg'}/> <span>Projected</span>
-                                </div>
-                                <div className={'card-body'}>
-                                    <div className={'row'}>
-                                        <div className={'col-12 text-center'}>
-                                            <Icon path={pace.icon}/>
-                                        </div>
-                                        <div className={'col-12 text-center'}>
-                                            <h4 className={'money'}>${averages.projected}</h4>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        <div className={'col'}>
-                            <div className={'card'}>
-                                <div className={'card-header'}>
-                                    <Icon path={'app_icons/devil.svg'}/> <span>Urges</span>
-                                </div>
-                                <div className={'card-body'}>
-                                    <div className={'row'}>
-                                        <div className={'col-12 text-center urge-num'}>
-                                            {urges.length ? <div>
-                                                <h3 className={'money'}>{urges.length}</h3>
-                                                <span>Last Urge <Moment
-                                                    format={'ddd, MMM Do, h:mm a'}>{urges[0].date}</Moment></span>
-                                            </div> : <div><PiggyBank icon={'check.svg'}/><h3>No Urges!</h3></div>}
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        <div className={'col budgeted'}>
+                        <div className={'col-sm-6 budgeted'}>
                             <div className={'card'}>
                                 <div className={'card-header'}>
                                     <Icon path={'app_icons/budgeted.svg'}/> <span>Budgeted</span>
@@ -332,7 +275,7 @@ class MyHabit extends React.Component {
                                 </div>
                             </div>
                         </div>
-                        <div className={'col spent'}>
+                        <div className={'col-sm-6 spent'}>
                             <div className={'card'}>
                                 <div className={'card-header'}>
                                     <Icon path={'app_icons/dollar_sign.svg'}/> <span>Spent</span>
@@ -349,7 +292,175 @@ class MyHabit extends React.Component {
                                 </div>
                             </div>
                         </div>
-                        <div className={'col need-want'}>
+                    </div>
+                    <br/>
+                    <div className={'row'}>
+                        <div className={'col-sm-4 projected'}>
+                            <div className={'card'}>
+                                <div className={'card-header'}>
+                                    <Icon path={'app_icons/graph.svg'}/> <span>Projected</span>
+                                </div>
+                                <div className={'card-body'}>
+                                    <div className={'row'}>
+                                        <div className={'col-12 text-center'}>
+                                            <Icon path={pace.icon}/>
+                                        </div>
+                                        <div className={'col-12 text-center'}>
+                                            <h4 className={'money'}>${averages.projected}</h4>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div className={'col-sm-4 urges'}>
+                            <div className={'card'}>
+                                <div className={'card-header'}>
+                                    <Icon path={'app_icons/devil.svg'}/> <span>Urges</span>
+                                </div>
+                                <div className={'card-body'}>
+                                    <div className={'row'}>
+                                        <div className={'col-12 text-center urge-num'}>
+                                            {urges.length ? <div>
+                                                    <h5 className={'money'}>{urges.length}</h5>
+                                                    <span>Last Urge <Moment
+                                                        format={'ddd, MMM Do, h:mm a'}>{urges[0].date}</Moment></span>
+                                                </div> : <div>
+                                                    <Icon path={'app_icons/checkmark.svg'}/>
+                                                    <h5 style={{marginTop: '24px'}}>No Urges!</h5>
+                                                </div>}
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div className={'col-sm-4 need-want'}>
+                            <div className={'card'}>
+                                <div className={'card-header'}>
+                                    <Icon path={'app_icons/angel.svg'}/><span> vs </span><Icon
+                                    path={'app_icons/trident.svg'}/>
+                                </div>
+                                <div className={'card-body'}>
+                                    <div className={'row text-center'}>
+                                        <MyChart valueKey={'amount'}
+                                                 data={[{amount: needExpAmt, name: 'needs'}, {
+                                                     amount: wantExpAmt,
+                                                     name: 'wants'
+                                                 }]}
+                                                 type={'pie'}/>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>}
+                {showGoals && <div className={'col-sm-7 goal'}>
+                    <div className={'row'}>
+                        <div className={'col-sm-12'}>
+                            <div className={'card'}>
+                                <div className={'card-header'}>
+                                    {!prevGoal &&
+                                    <div><Icon path={'app_icons/target.svg'}/> <span>Current Goal</span></div>}
+                                    {prevGoal &&
+                                    <div><Icon path={'app_icons/target.svg'}/> <span>Last Goal</span></div>}
+                                </div>
+                                <div className={'card-body'}>
+                                    <div className={'row'}>
+                                        <div className={'col-12 text-center'}>
+                                            {!currentGoal && !prevGoal &&
+                                            <div><br/><h5 className={''}>No Goal Set!</h5></div>}
+                                            {currentGoal && (currentGoal.type === 'Micro-Budget' || currentGoal.type === 'Beat' || currentGoal.type === 'Abstain') &&
+                                            <GoalProgress goal={currentGoal} expenses={goalExpenses}/>}
+                                            {prevGoal && (prevGoal.type === 'Micro-Budget' || prevGoal.type === 'Beat' || prevGoal.type === 'Abstain') &&
+                                            <div>
+                                                <br/>
+                                                <GoalProgress goal={prevGoal} expenses={goalExpenses}/>
+                                            </div>}
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+
+                    </div>
+
+                </div>}
+
+                {showGoals && <div className={'col-12 key-figures'}>
+                    <div className={'row'}>
+                        <div className={'col-6 projected'} style={{paddingLeft: '0px'}}>
+                            <div className={'card'}>
+                                <div className={'card-header'}>
+                                    <Icon path={'app_icons/graph.svg'}/> <span>Projected</span>
+                                </div>
+                                <div className={'card-body'}>
+                                    <div className={'row'}>
+                                        <div className={'col-12 text-center'}>
+                                            <Icon path={pace.icon}/>
+                                        </div>
+                                        <div className={'col-12 text-center'}>
+                                            <h4 className={'money'}>${averages.projected}</h4>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div className={'col-6'}>
+                            <div className={'card'}>
+                                <div className={'card-header'}>
+                                    <Icon path={'app_icons/devil.svg'}/> <span>Urges</span>
+                                </div>
+                                <div className={'card-body'}>
+                                    <div className={'row'}>
+                                        <div className={'col-12 text-center urge-num'}>
+                                            {urges.length ? <div>
+                                                <h5 className={'money'}>{urges.length}</h5>
+                                                <span>Last Urge <Moment
+                                                    format={'ddd, MMM Do, h:mm a'}>{urges[0].date}</Moment></span>
+                                            </div> : <div>
+                                                <Icon path={'app_icons/checkmark.svg'}/>
+                                                <h5 style={{marginTop: '20px'}}>No Urges!</h5>
+                                            </div>}
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div className={'col-6 budgeted'}>
+                            <div className={'card'}>
+                                <div className={'card-header'}>
+                                    <Icon path={'app_icons/budgeted.svg'}/> <span>Budgeted</span>
+                                </div>
+                                <div className={'card-body'}>
+                                    <div className={'row'}>
+                                        <div className={'col-12 text-center'}>
+                                            <SimpleBar pct={budgetPct}/>
+                                        </div>
+                                        <div className={'col-12 text-center'}>
+                                            <h4 className={'money'}>${budgets[currentNav]}</h4>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div className={'col-6 spent'}>
+                            <div className={'card'}>
+                                <div className={'card-header'}>
+                                    <Icon path={'app_icons/dollar_sign.svg'}/> <span>Spent</span>
+                                </div>
+                                <div className={'card-body'}>
+                                    <div className={'row'}>
+                                        <div className={'col-12 text-center'}>
+                                            <SimpleBar pct={spentPct}/>
+                                        </div>
+                                        <div className={'col-12 text-center'}>
+                                            <h4 className={'money'}>${spent}</h4>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div className={'hidden-xs col need-want'}>
                             <div className={'card'}>
                                 <div className={'card-header'}>
                                     <Icon path={'app_icons/angel.svg'}/> <span>Need vs Want</span>
@@ -370,7 +481,7 @@ class MyHabit extends React.Component {
 
                     </div>
 
-                </div>
+                </div>}
             </div>
             <br/>
             <div className={'section-head'}>
