@@ -44,6 +44,11 @@
   }
 
   .goal {
+
+    .col-sm-12{
+      padding-left: 8px;
+      padding-right: 0;
+    }
     .card {
       height: 440px;
     }
@@ -160,5 +165,19 @@
 
   .habit-card .card-text {
     font-size: 1rem;
+  }
+
+}
+
+
+@media (max-width: 576px){
+  .my-habit{
+    .goal{
+      color: red;
+
+      .col-sm-12{
+        padding-left: 0;
+      }
+    }
   }
 }

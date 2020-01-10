@@ -20,6 +20,9 @@
   padding: 24px; }
 .my-habit .date-control {
   padding: 15px; }
+.my-habit .goal .col-sm-12 {
+  padding-left: 8px;
+  padding-right: 0; }
 .my-habit .goal .card {
   height: 440px; }
 .my-habit .goal .card-header span {
@@ -77,5 +80,11 @@
   text-align: center; }
 .my-habit .habit-card .card-text {
   font-size: 1rem; }
+
+@media (max-width: 576px) {
+  .my-habit .goal {
+    color: red; }
+    .my-habit .goal .col-sm-12 {
+      padding-left: 0; } }
 
 /*# sourceMappingURL=my_habit.css.map */

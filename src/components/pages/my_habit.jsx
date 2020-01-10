@@ -253,7 +253,7 @@ class MyHabit extends React.Component {
                 <div className={'col-sm-7 goal'}>
 
                     <div className={'row'}>
-                        <div className={'col-sm-12'} style={{paddingLeft: '8px', paddingRight: '0'}}>
+                        <div className={'col-sm-12'}>
                             <div className={'card'}>
                                 <div className={'card-header'}>
                                     {!prevGoal && <div><Icon path={'app_icons/target.svg'}/> <span>Current Goal</span></div>}
