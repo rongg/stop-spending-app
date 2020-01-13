@@ -136,7 +136,6 @@ class Form extends React.Component {
         return <div className="form-group">
             {label && <label htmlFor={name}>{label}</label>}
             <CurrencyInput name={name} autofocus={autofocus} amount={data[name]} callback={(value) => {
-                console.log('onChange', value);
                 data[name] = value;
             }}/>
             <small id={name + 'help'} className={errors[name] ? 'red error-message' : 'hidden'}>{errors[name]}
