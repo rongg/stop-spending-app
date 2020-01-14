@@ -1,3 +1,5 @@
+.my-habit .empty-message {
+  margin-top: 20px; }
 .my-habit .need-want canvas {
   height: 104px !important;
   width: 140px !important; }
@@ -21,11 +23,11 @@
   padding: 24px; }
 .my-habit .date-control {
   padding: 15px; }
-.my-habit .goal .col-sm-12 {
-  padding-left: 0px;
+.my-habit .goal .col-12 {
+  padding-left: 0;
   padding-right: 0; }
 .my-habit .goal .card {
-  height: 436px; }
+  height: 456px; }
 .my-habit .goal .card-header span {
   font-size: 1.4rem; }
 .my-habit .goal .card-body {
@@ -108,9 +110,14 @@
 @media (max-width: 640px) {
   .my-habit .date-control {
     padding: 0; }
+  .my-habit .empty-message {
+    margin-top: 10px; }
   .my-habit .goal {
     margin-top: 16px; }
     .my-habit .goal .card {
-      height: 376px; } }
+      height: 456px; }
+    .my-habit .goal .card-body {
+      padding-left: 8px;
+      padding-right: 8px; } }
 
 /*# sourceMappingURL=my_habit.css.map */

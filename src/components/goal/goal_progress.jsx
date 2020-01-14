@@ -35,7 +35,7 @@ function GoalProgress({goal, expenses}) {
         let nStart = moment(start);
         let curr = moment(nStart);
         let mEnd = moment();
-        if(mEnd.isAfter(moment(end))){
+        if (mEnd.isAfter(moment(end))) {
             mEnd = moment(end);
         }
         const daysBetween = mEnd.diff(moment(nStart), 'day');
@@ -84,7 +84,8 @@ function GoalProgress({goal, expenses}) {
     }
 
     return <div className={`goal-progress ` + period.toLowerCase() + '-prog'}>
-        <h5>{name} - {type} {predicate} <a href={`/goal/${_id}/edit`}><Icon className={'glyph-action'} path={'app_icons/glyph/edit.svg'}/></a></h5>
+        <h5>{name} - {type} {predicate} <a href={`/goal/${_id}/edit`}><Icon className={'glyph-action'}
+                                                                            path={'app_icons/glyph/edit.svg'}/></a></h5>
         {period !== 'Month' && !showPassFail && progressDisplay}
         {template}
     </div>;
@@ -93,7 +94,7 @@ function GoalProgress({goal, expenses}) {
 const passFailTemplate = (passed, target, accumulated, type, start, end) => {
     let totalName = 'Spent: $';
     let targetName = 'Target: $';
-    if(type === 'Abstain') {
+    if (type === 'Abstain') {
         totalName = 'Days Collected: ';
         targetName = 'Target: ';
     }
@@ -220,17 +221,17 @@ function monthTemplateAbstain(target, start, end, accumulated, progressDisplay, 
 
     return <div className={'m-month'}>
         <div className={'row'}>
-            <div className={'col-sm-12'}>
+            <div className={'col-12'}>
                 {progressDisplay}
             </div>
         </div>
         <div className={'row status'}>
-            <div className={'col-sm-12'}>
+            <div className={'col-12'}>
                 {progressMessage}
             </div>
         </div>
-        <div className={'row'}>
-            <div className={'col-sm-12'} style={{paddingLeft: '30px', paddingRight: '30px'}}>
+        <div className={'row time-frame'}>
+            <div className={'col-12'}>
                 <div className={'row day-labels'}>
                     <div className={'col day'}>
                         Sun
@@ -379,17 +380,17 @@ const monthTemplate = (target, start, end, accumulated, goalType, progressDispla
 
     return <div className={'m-month'}>
         <div className={'row'}>
-            <div className={'col-sm-12'}>
+            <div className={'col-12'}>
                 {progressDisplay}
             </div>
         </div>
         <div className={'row status'}>
-            <div className={'col-sm-12'}>
+            <div className={'col-12'}>
                 {progressMessage}
             </div>
         </div>
-        <div className={'row'}>
-            <div className={'col-sm-12'} style={{paddingLeft: '30px', paddingRight: '30px'}}>
+        <div className={'row time-frame'}>
+            <div className={'col-12'}>
                 <div className={'row day-labels'}>
                     <div className={'col day'}>
                         Sun
@@ -482,11 +483,11 @@ function weekTemplateAbstain(target, start, end, accumulated, expenses) {
         className={'m-week'}>
         <div className={'week-container'} style={{backgroundColor: '#2f363d'}}>
             <div className={'row status'}>
-                <div className={'col-sm-12'}>
+                <div className={'col-12'}>
                     {progressMessage}
                 </div>
             </div>
-            <div className='row week-expenses col-sm-12 day-indicator'>
+            <div className='row time-frame week-expenses col-12 day-indicator'>
                 {startIndex > 0 && Array.apply(null, Array(startIndex)).map((e, i) =>
                     <div className={'col day-column check inactive-day'} key={'left-' + i}>
                     </div>)}
@@ -514,7 +515,7 @@ function weekTemplateAbstain(target, start, end, accumulated, expenses) {
                     <Icon path={'app_icons/race_finish.svg'}/>
                 </div>}
             </div>
-            <div className='row week-expenses col-sm-12'>
+            <div className='row week-expenses col-12'>
                 {days.map((day, index) =>
                     <div className={`col day-column`} key={'day-c-' + index}>
                         <button type={'button'}>
@@ -576,47 +577,50 @@ const weekTemplate = (target, start, end, accumulated, goalType, expenses) => {
         className={'m-week'}>
         <div className={'week-container'} style={{backgroundColor: '#2f363d'}}>
             <div className={'row status'}>
-                <div className={'col-sm-12'}>
+                <div className={'col-12'}>
                     {progressMessage}
                 </div>
             </div>
-            <div className='row week-expenses col-sm-12 day-indicator'>
-                <div className={'col day-column start'}>
-                    {todayIndex > 0 && <Icon path={'app_icons/race_flag.svg'}/>}
-                    {todayIndex === 0 && <span><PiggyBank icon={null} flip/></span>}
+            <div className='time-frame week-expenses day-indicator'>
+                <div className={'row'}>
+                    <div className={'col day-column start'}>
+                        {todayIndex > 0 && <Icon path={'app_icons/race_flag.svg'}/>}
+                        {todayIndex === 0 && <span><PiggyBank icon={null} flip/></span>}
+                    </div>
+                    {Array.apply(null, Array(todayIndex > 0 ? todayIndex - 1 : 0)).map((e, i) =>
+                        <div className={'col day-column check'} key={'left-' + i}>
+                            <span><Icon path={'app_icons/checkmark.svg'}/></span>
+                        </div>)}
+                    {todayIndex > 0 && <div className={'col day-column'}>
+                        <span><PiggyBank icon={null} flip/></span>
+                    </div>}
+                    {Array.apply(null, Array(periodsLeft > 0 ? periodsLeft - 1 : 0)).map((e, i) =>
+                        <div className={'col day-column'} key={'left-' + i}>
+                            <span className={`money ${periodAvgLeft <= 0 && 'red'}`}>${periodAvgLeft}</span>
+                        </div>)}
+                    {todayIndex < 6 &&
+                    <div className={'col day-column finish'}>
+                        <Icon path={'app_icons/race_finish.svg'}/>
+                    </div>}
                 </div>
-                {Array.apply(null, Array(todayIndex > 0 ? todayIndex - 1 : 0)).map((e, i) =>
-                    <div className={'col day-column check'} key={'left-' + i}>
-                        <span><Icon path={'app_icons/checkmark.svg'}/></span>
-                    </div>)}
-                {todayIndex > 0 && <div className={'col day-column'}>}
-                    <span><PiggyBank icon={null} flip/></span>
-                </div>}
-                {Array.apply(null, Array(periodsLeft > 0 ? periodsLeft - 1 : 0)).map((e, i) =>
-                    <div className={'col day-column'} key={'left-' + i}>
-                        <span className={`money ${periodAvgLeft <= 0 && 'red'}`}>${periodAvgLeft}</span>
-                    </div>)}
-                {todayIndex < 6 &&
-                <div className={'col day-column finish'}>
-                    <Icon path={'app_icons/race_finish.svg'}/>
-                </div>}
             </div>
-            <div className='row week-expenses col-sm-12'>
+            <div className='row week-expenses'>
                 {days.map((day, index) =>
                     <div className={`col day-column`} key={'day-c-' + index}>
                         <button type={'button'}>
                             <div className="day-title">
                                 {(index === 0 || day.isAfter(days[index - 1], 'day')) ?
                                     <div>
-                                        <Moment style={{fontWeight: '500'}} format={'ddd'}>{days[index]}</Moment> <br/>
+                                        <Moment style={{fontWeight: '500'}}
+                                                format={'ddd'}>{days[index]}</Moment>
+                                        <br/>
                                         <Moment style={{fontWeight: '500'}} className="day-date"
                                                 format={'M/D'}>{days[index]}</Moment>
                                     </div> : <div><br/><br/></div>}
                                 <Moment className="day-date" format={'h:mm a'}>{days[index]}</Moment>
                             </div>
                         </button>
-                    </div>
-                )}
+                    </div>)}
             </div>
         </div>
 
@@ -656,11 +660,11 @@ const dayTemplate = (target, start, end, accumulated, goalType) => {
 
     return <div className={'m-day week-container'} style={{backgroundColor: '#2f363d'}}>
         <div className={'row status'}>
-            <div className={'col-sm-12'}>
+            <div className={'col-12'}>
                 {progressMessage}
             </div>
         </div>
-        <div className='row week-expenses col-sm-12 day-indicator'>
+        <div className='row time-frame week-expenses col-12 day-indicator'>
             <div className={'col day-column start'}>
                 {nowIndex > 0 && <Icon path={'app_icons/race_flag.svg'}/>}
                 {nowIndex <= 0 && <PiggyBank icon={null} flip/>}
@@ -680,7 +684,7 @@ const dayTemplate = (target, start, end, accumulated, goalType) => {
                 <Icon path={'app_icons/race_finish.svg'}/>
             </div>
         </div>
-        <div className='row week-expenses col-sm-12 periods'>
+        <div className='row week-expenses col-12 periods'>
             {progressCols.map((day, index) =>
                 <div className={`col day-column`} key={'day-c-' + index}>
                     <button type={'button'}>

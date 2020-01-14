@@ -20,7 +20,7 @@ class ExpenseCard extends React.Component {
                     <div className="card-body" style={padding && {padding: padding}}>
                         {showTime && date &&
                         <p className={'card-text'}
-                           style={{fontSize: '.7rem', background: 'lightcyan', padding: '4px', marginBottom: '8px'}}>
+                           style={{fontSize: '.7rem', padding: '4px'}}>
                             <Moment format={'h:mm a'}>{date}</Moment>
                         </p>}
                         {icon ? <Icon path={icon}/> : null}

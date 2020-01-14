@@ -326,7 +326,7 @@ class MyHabit extends React.Component {
                                                     format={'ddd, MMM Do, h:mm a'}>{urges[0].date}</Moment></span>
                                             </div> : <div>
                                                 <Icon path={'app_icons/checkmark.svg'}/>
-                                                <h6 style={{marginTop: '24px'}}>No Urges!</h6>
+                                                <h6 className={'empty-message'}>No Urges!</h6>
                                             </div>}
                                         </div>
                                     </div>
@@ -349,7 +349,7 @@ class MyHabit extends React.Component {
                                                                         }]}
                                                                         type={'pie'}/> : <div>
                                                 <Icon path={'app_icons/checkmark.svg'}/>
-                                                <h6 style={{marginTop: '24px'}}>No Expenses!</h6>
+                                                <h6 className={'empty-message'}>No Expenses!</h6>
 
                                             </div>}
                                         </div>
@@ -363,7 +363,7 @@ class MyHabit extends React.Component {
 
                 {showGoals && <div className={'col-md-7 goal'}>
                     <div className={'row'}>
-                        <div className={'col-sm-12'}>
+                        <div className={'col-12'}>
                             <div className={'card'}>
                                 <div className={'card-header'}>
                                     {!prevGoal &&
@@ -372,7 +372,7 @@ class MyHabit extends React.Component {
                                     <div><Icon path={'app_icons/target.svg'}/> <span>Last Goal</span></div>}
                                 </div>
                                 <div className={'card-body'}>
-                                    <div className={'row'}>
+                                    {/*<div className={'row'}>*/}
                                         <div className={'col-12 text-center'}>
                                             {!currentGoal && !prevGoal &&
                                             <div><br/><h5 className={''}>No Goal Set!</h5></div>}
@@ -384,7 +384,7 @@ class MyHabit extends React.Component {
                                                 <GoalProgress goal={prevGoal} expenses={goalExpenses}/>
                                             </div>}
                                         </div>
-                                    </div>
+                                    {/*</div>*/}
                                 </div>
                             </div>
                         </div>
@@ -427,7 +427,7 @@ class MyHabit extends React.Component {
                                                     format={'ddd, MMM Do, h:mm a'}>{urges[0].date}</Moment></span>
                                             </div> : <div>
                                                 <Icon path={'app_icons/checkmark.svg'}/>
-                                                <h6 style={{marginTop: '20px'}}>No Urges!</h6>
+                                                <h6 className={'empty-message'}>No Urges!</h6>
                                             </div>}
                                         </div>
                                     </div>
@@ -484,7 +484,7 @@ class MyHabit extends React.Component {
                                                                         }]}
                                                                         type={'pie'}/> : <div>
                                                 <Icon path={'app_icons/checkmark.svg'}/>
-                                                <h6 style={{marginTop: '24px'}}>No Expenses!</h6>
+                                                <h6 className={'empty-message'}>No Expenses!</h6>
 
                                             </div>}
                                         </div>

@@ -20,8 +20,7 @@ class Day extends React.Component {
                     <div style={{padding: '20px'}} className={'text-center col-sm-12 no-expense'}>
                         <PiggyBank height={48} width={64} icon={'check.svg'}/>
                         <br/>
-                        <span>No Expenses for this
-                            day!</span>
+                        <span>No Expenses for this Day!</span>
                     </div>}
             </div>
         </div>

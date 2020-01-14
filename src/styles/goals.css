@@ -1,6 +1,12 @@
-.goal-progress .m-month .col-sm-12 {
+.goal-progress .m-month .col-12 {
   padding-left: 15px;
   padding-right: 15px; }
+.goal-progress h5 {
+  margin-top: 4px; }
+.goal-progress .time-frame .row {
+  margin: auto; }
+.goal-progress .col-12 {
+  padding: 0; }
 .goal-progress img.glyph-action {
   height: 16px;
   width: 16px;
@@ -10,15 +16,15 @@
 .goal-progress .week-container .day-title {
   font-weight: 300; }
 .goal-progress .day-indicator {
-  padding: 16px 0; }
+  padding: 10px 0; }
   .goal-progress .day-indicator .piggy-bank {
-    height: 32px; }
+    height: 24px; }
   .goal-progress .day-indicator img {
-    height: 32px;
-    width: 32px; }
+    height: 24px;
+    width: 24px; }
   .goal-progress .day-indicator .finish img {
-    height: 40px;
-    width: 40px;
+    height: 32px;
+    width: 32px;
     margin: -8px; }
   .goal-progress .day-indicator .money {
     vertical-align: sub;
@@ -46,14 +52,14 @@
 .goal-progress .row.status {
   color: #fff;
   background: #252a2f;
-  margin: auto;
-  padding-bottom: 6px; }
+  padding: 6px;
+  margin: auto; }
 .goal-progress .day-labels.row .col.day {
   font-weight: 600;
-  height: 20px;
-  background: #fff; }
+  background: #fff;
+  padding: 4px; }
 .goal-progress .col.day {
-  height: 32px;
+  height: 30px;
   padding: 0;
   width: 35px;
   font-size: .75rem;
@@ -69,12 +75,32 @@
     text-align: center;
     margin-top: -7px; }
   .goal-progress .col.day .icon {
-    height: 30px;
-    width: 30px;
-    padding: 5px; }
+    height: 24px;
+    width: 24px;
+    padding: 4px; }
   .goal-progress .col.day svg {
-    height: 30px;
-    width: 30px;
-    padding-left: 2px; }
+    height: 26px;
+    width: 26px; }
+@media (max-width: 640px) {
+  .goal-progress .m-month .col-12 {
+    padding-left: 0;
+    padding-right: 0; }
+  .goal-progress .m-day .day-indicator {
+    padding: 10px 0; }
+  .goal-progress .m-day .periods button {
+    padding: 8px 4px;
+    font-size: .9rem; }
+  .goal-progress .week-container {
+    padding-top: 0; }
+  .goal-progress .week-container .day-column {
+    width: 12%;
+    padding: 1px;
+    margin: 0;
+    height: auto; }
+  .goal-progress .week-container .week-expenses button {
+    width: 100%;
+    border: none;
+    padding-left: 1px;
+    padding-right: 1px; } }
 
 /*# sourceMappingURL=goals.css.map */

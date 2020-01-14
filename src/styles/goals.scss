@@ -1,11 +1,25 @@
 .goal-progress {
 
   .m-month{
-    .col-sm-12{
+    .col-12{
       padding-left: 15px;
       padding-right: 15px;
     }
   }
+
+  h5{
+    margin-top: 4px;
+  }
+  .time-frame{
+    .row{
+      margin: auto;
+    }
+  }
+
+  .col-12{
+    padding: 0;
+  }
+
 
   .inactive-day{
   }
@@ -27,20 +41,20 @@
   }
 
   .day-indicator {
-    padding: 16px 0;
+    padding: 10px 0;
 
     .piggy-bank {
-      height: 32px;
+      height: 24px;
     }
 
     img {
-      height: 32px;
-      width: 32px;
+      height: 24px;
+      width: 24px;
     }
 
     .finish img {
-      height: 40px;
-      width: 40px;
+      height: 32px;
+      width: 32px;
       margin: -8px;
     }
 
@@ -93,21 +107,21 @@
   .row.status{
     color: #fff;
     background: #252a2f;
+    padding: 6px;
     margin: auto;
-    padding-bottom: 6px;
   }
 
   .day-labels.row {
     .col.day {
       font-weight: 600;
-      height: 20px;
       background: #fff;
+      padding: 4px;
     }
 
   }
 
   .col.day {
-    height: 32px;
+    height: 30px;
     padding: 0;
     width: 35px;
     font-size: .75rem;
@@ -130,14 +144,46 @@
     }
 
     .icon{
-      height: 30px;
-      width: 30px;
-      padding: 5px;
+      height: 24px;
+      width: 24px;
+      padding: 4px;
     }
     svg{
-      height: 30px;
-      width: 30px;
-      padding-left: 2px;
+      height: 26px;
+      width: 26px;
+    }
+  }
+
+  @media (max-width: 640px){
+    .m-month{
+      .col-12{
+        padding-left: 0;
+        padding-right: 0;
+      }
+    }
+
+    .m-day .day-indicator {
+      padding: 10px 0;
+    }
+    .m-day .periods button {
+      padding: 8px 4px;
+      font-size: .9rem;
+    }
+
+    .week-container{
+      padding-top: 0;
+    }
+    .week-container .day-column {
+      width: 12%;
+      padding: 1px;
+      margin: 0;
+      height: auto;
+    }
+    .week-container .week-expenses button {
+      width: 100%;
+      border: none;
+      padding-left: 1px;
+      padding-right: 1px;
     }
   }
 }

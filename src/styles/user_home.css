@@ -149,6 +149,9 @@ a:hover, a:visited, a:link, a:active {
 .urges-summary .card-body .statement, .goal-summary .card-body .statement {
   margin-top: 5px;
   font-size: 1rem; }
+  .urges-summary .card-body .statement .col-12, .goal-summary .card-body .statement .col-12 {
+    padding-left: 0;
+    padding-right: 0; }
   .urges-summary .card-body .statement .stat, .goal-summary .card-body .statement .stat {
     font-size: .8rem; }
     .urges-summary .card-body .statement .stat img, .goal-summary .card-body .statement .stat img {

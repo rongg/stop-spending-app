@@ -215,7 +215,7 @@ a:hover, a:visited, a:link, a:active {
     font-size: 1rem;
   }
 
-  .goal-type{
+  .goal-type {
     font-weight: 500;
   }
 
@@ -260,6 +260,11 @@ a:hover, a:visited, a:link, a:active {
     .statement {
       margin-top: 5px;
       font-size: 1rem;
+
+      .col-12 {
+        padding-left: 0;
+        padding-right: 0;
+      }
 
       .stat {
         font-size: .8rem;
