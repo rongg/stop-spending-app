@@ -25,6 +25,7 @@ class UserHome extends React.Component {
         smallScreen: ExpenseDateRange.getScreenWidth() <= 576,
         expenses: [],
         habits: [],
+        goals: [],
         filters: {
             splurges: true
         }
@@ -34,7 +35,7 @@ class UserHome extends React.Component {
         super(props);
         this.setCurrentNav = this.setCurrentNav.bind(this);
         this.incrementPeriod = this.incrementPeriod.bind(this);
-        this.getHabitsAndExpenses = this.getHabitsAndExpenses.bind(this);
+        this.getHabitsAndExpensesAndGoals = this.getHabitsAndExpensesAndGoals.bind(this);
         this.navigateTo = this.navigateTo.bind(this);
         this.sortExpensesBy = this.sortExpensesBy.bind(this);
         this.handleScroll = this.handleScroll.bind(this);
@@ -49,7 +50,7 @@ class UserHome extends React.Component {
 
         sessionStorage.returnPage = '/';
 
-        this.getHabitsAndExpenses();
+        this.getHabitsAndExpensesAndGoals();
 
         window.addEventListener("resize", e => {
             const screenWidth = ExpenseDateRange.getScreenWidth();
@@ -66,7 +67,7 @@ class UserHome extends React.Component {
 
     render() {
         this.sortExpensesBy('desc');
-        const {expenses, start, end, smallScreen, currentNav, habits, scrollActive, filters} = this.state;
+        const {expenses, start, end, smallScreen, currentNav, habits, scrollActive, filters, goals} = this.state;
 
         for (let i = 0; i < habits.length; i++) {
             habits[i].wantExpAmt = habits[i].expenses.filter(this.filterExp('want')).reduce((acc, e) => acc + e.amount, 0);
@@ -80,15 +81,18 @@ class UserHome extends React.Component {
             return 0;
         });
 
+        console.log('goals', goals);
 
         const expWants = expenses.filter(this.filterExp('want'));
         const expNeeds = expenses.filter(this.filterExp('need'));
 
-        let worstHabits = [];
+        let worstHabits = [], currentGoals = [];
         if (habits.length) worstHabits = habits.slice(0, habits.length > 2 ? 3 : habits.length);
+        if (goals.length) currentGoals = goals.slice(0, goals.length > 2 ? 3 : goals.length);
 
         const fHabits = habits.filter(h => h.spent && h.spent > 0);     // with expenses
 
+        worstHabits = [];
 
         habits.map(h => {
             h.budgets = ExpenseDateRange.calculateBudgets(h.budgetType, h.budget, start);
@@ -229,13 +233,20 @@ class UserHome extends React.Component {
                     <div className={'card'}>
                         <div className={'card-header text-center'}>
                             <Icon path={'app_icons/target.svg'}/>
-                            <span>Current Goal</span>
+                            <span>Current Goals</span>
                         </div>
                         <div className={'card-body text-center'}>
-                            <Icon path={'alcohol/beer_bottle.svg'}/>
-                            <br/>
-                            <div className={'statement'}>
-                                <span>Abstain</span>
+                            <div className={'row'}>
+                                {currentGoals.map((g, index) =>
+                                    <div className={'col-4 w-habit'} key={'w-habit-' + index}>
+                                        <span className={'goal-type'}>{g.type}</span>
+                                        <Icon path={g.habit.icon} />
+                                        <div className={'statement'}>
+                                            <div className={'col-12 text-center'}>
+                                                <span>{g.name}</span>
+                                            </div>
+                                        </div>
+                                    </div>)}
                             </div>
                         </div>
                     </div>
@@ -338,7 +349,8 @@ class UserHome extends React.Component {
                                     <div className={'col-md-5 col-7 m-auto'}>
                                         <span className={'money'}>${Math.round(totalSpentHabits)}</span> Spent on Habits
                                         <hr/>
-                                        <span className={'money'}>${Math.round(totalBudget)}</span> <span>Budgeted</span>
+                                        <span className={'money'}>${Math.round(totalBudget)}</span>
+                                        <span> Budgeted</span>
                                     </div>
                                 </div>
                             </div>
@@ -438,7 +450,7 @@ class UserHome extends React.Component {
 
     setCurrentNav(loc, start, end) {
         this.setState({currentNav: loc, start, end}, () => {
-            this.getHabitsAndExpenses();
+            this.getHabitsAndExpensesAndGoals();
         });
 
     }
@@ -475,18 +487,19 @@ class UserHome extends React.Component {
             start: start.add(num, unit),
             end: end.add(num, unit)
         });
-        this.getHabitsAndExpenses();
+        this.getHabitsAndExpensesAndGoals();
     }
 
     // Gets all expenses and urges for user in date range, then get habits
-    getHabitsAndExpenses() {
+    getHabitsAndExpensesAndGoals() {
         const {start, end} = this.state;
 
-        axios.all([expenses.get(start, end), habitService.getAllUrges(start, end), habitService.get()])
+        axios.all([expenses.get(start, end), habitService.getAllUrges(start, end), habitService.get(), habitService.getAllGoals({active: true})])
             .then(res => {
                 let expenses = res[0].data;
                 let urges = res[1].data;
                 let habits = res[2].data;
+                let goals = res[3].data;
 
                 const unassignedHabit = {
                     _id: '',
@@ -522,11 +535,17 @@ class UserHome extends React.Component {
                     return expense;
                 });
 
+                goals = goals.map(g => {
+                    g.habit = habits.filter(h => h._id === g.habitId)[0];
+                    return g;
+                });
+
                 habits.push(unassignedHabit);
 
                 this.setState({
                     expenses,
-                    habits
+                    habits,
+                    goals
                 });
             })
             .catch(err => {

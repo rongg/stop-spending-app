@@ -9,7 +9,7 @@ $font-size-card: 1.1rem;
   padding: 2px;
 }
 
-.date-control{
+.date-control {
   margin-top: 10px;
 }
 
@@ -56,6 +56,7 @@ $font-size-card: 1.1rem;
 
 .date-nav {
   margin: 0;
+
   .expenses-nav {
     padding: 0;
   }
@@ -177,6 +178,7 @@ a:hover, a:visited, a:link, a:active {
 
 .devil, .angel {
   margin-top: 10px;
+
   .card-header {
     .card-text.expense-name {
       font-size: $font-size-card;
@@ -209,19 +211,31 @@ a:hover, a:visited, a:link, a:active {
 
 
 .urges-summary, .goal-summary {
+  span {
+    font-size: 1rem;
+  }
+
+  .goal-type{
+    font-weight: 500;
+  }
+
   div[class^='col-'] {
-    padding: 0 15px 0 0;
+    //padding: 0 15px 0 0;
   }
 
   .card {
     height: 100%;
 
+    .card-body span {
+      font-size: .85rem;
+    }
+
     .w-habit {
       padding: 5px;
 
       img {
-        height: 72px;
-        width: 72px;
+        height: 64px;
+        width: 64px;
       }
     }
   }
@@ -269,8 +283,8 @@ a:hover, a:visited, a:link, a:active {
   .fix-top {
     width: 517px;
   }
-  .row.stats{
-    :nth-child(2){
+  .row.stats {
+    :nth-child(2) {
       margin-top: 0;
     }
   }
@@ -283,18 +297,18 @@ a:hover, a:visited, a:link, a:active {
     width: 641px;
   }
 
-  .col-md-6.goal-summary{
+  .col-md-6.goal-summary {
     padding-right: 5px;
   }
 
-  .col-md-6.urges-summary{
+  .col-md-6.urges-summary {
     padding-left: 5px;
   }
 
 }
 
 @media (min-width: 992px) {
-  .date-control{
+  .date-control {
     margin-top: 0;
   }
 
@@ -302,15 +316,15 @@ a:hover, a:visited, a:link, a:active {
     width: 866px;
   }
 
-  .col-md-6.goal-summary{
+  .col-md-6.goal-summary {
     padding-right: 15px;
   }
 
-  .col-md-6.urges-summary{
+  .col-md-6.urges-summary {
     padding-left: 15px;
   }
 
-  .date-control{
+  .date-control {
     padding: 0;
   }
 }
@@ -325,6 +339,7 @@ a:hover, a:visited, a:link, a:active {
 
   .urges-summary {
     margin-top: 10px;
+
     .text-right {
       text-align: center !important;
     }
@@ -339,12 +354,12 @@ a:hover, a:visited, a:link, a:active {
     }
   }
 
-  .row.habits{
+  .row.habits {
     padding: 0;
   }
 
-  .habit-statement{
-    .devil, .unbudgeted{
+  .habit-statement {
+    .devil, .unbudgeted {
       margin-top: 10px;
     }
   }
@@ -367,9 +382,11 @@ a:hover, a:visited, a:link, a:active {
 
   .actions {
     margin-top: 16px;
-    .btn{
+
+    .btn {
       margin-top: 8px;
     }
+
     .btn img {
       margin-left: 50px;
     }

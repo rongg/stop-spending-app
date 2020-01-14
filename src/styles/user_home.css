@@ -123,15 +123,19 @@ a:hover, a:visited, a:link, a:active {
 .card.chart {
   padding: 16px; }
 
-.urges-summary div[class^='col-'], .goal-summary div[class^='col-'] {
-  padding: 0 15px 0 0; }
+.urges-summary span, .goal-summary span {
+  font-size: 1rem; }
+.urges-summary .goal-type, .goal-summary .goal-type {
+  font-weight: 500; }
 .urges-summary .card, .goal-summary .card {
   height: 100%; }
+  .urges-summary .card .card-body span, .goal-summary .card .card-body span {
+    font-size: .85rem; }
   .urges-summary .card .w-habit, .goal-summary .card .w-habit {
     padding: 5px; }
     .urges-summary .card .w-habit img, .goal-summary .card .w-habit img {
-      height: 72px;
-      width: 72px; }
+      height: 64px;
+      width: 64px; }
 .urges-summary .card-header, .goal-summary .card-header {
   background: #fff;
   border-bottom: 1px solid #ffc1cb;
