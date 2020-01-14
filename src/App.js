@@ -140,6 +140,10 @@ class App extends React.Component {
                                 if (!user) return <Redirect to="/login"/>;
                                 return <DeleteGoal user={user} {...props} />;
                             }}/>
+                            <Route path="/goal/:new" exact render={props => {
+                                if (!user) return <Redirect to="/login"/>;
+                                return <CreateGoal user={user} {...props} />;
+                            }}/>
 
                             <Route path="/account/verify/:token" exact render={props => {
                                 return <VerifyAccount {...props}/>

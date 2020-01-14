@@ -24,7 +24,7 @@ class CreateGoal extends Form {
             wmdExpenses: {week: 0, month: 0, day: 0},
             data: {
                 userId: props.user._id,
-                habitId: props.match.params.id,
+                habitId: '',
                 type: this.defaultType,
                 name: '',
                 start: moment().toDate(),
@@ -73,12 +73,13 @@ class CreateGoal extends Form {
         if (this.state.redirectTo) {
             return <Redirect to={this.getRedirectLoc(this.state.redirectTo)}/>
         }
+        const {habits} = this.state;
 
         const {type} = this.state.data;
         const {wmdExpenses} = this.state;
 
         let habitOptions = [{_id: '', name: '- select a habit -'}];
-        habitOptions = habitOptions.concat(this.state.habits || []);
+        habitOptions = habitOptions.concat(habits || []);
         const timeOptions = {
             minDate: this.minDate,
             maxDate: null,
