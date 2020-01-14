@@ -2,7 +2,6 @@ import React from 'react';
 import Form from '../common/form';
 import expenses from "../../services/expenses";
 import habits from "../../services/habits";
-import HabitCard from "../habit/habit_card";
 import axios from 'axios';
 import moment from "moment";
 import {Redirect} from "react-router-dom";
