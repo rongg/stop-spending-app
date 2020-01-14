@@ -68,8 +68,6 @@ class CreateExpense extends Form {
             return <Redirect to={this.getRedirectLoc(this.state.redirectTo)} />
         }
 
-
-        const {name, icon, budget, _id} = this.state.habit;
         let habitOptions = [{_id: '', name: '- select a habit -'}];
         habitOptions = habitOptions.concat(this.state.habits || []);
 

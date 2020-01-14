@@ -198,8 +198,6 @@ function monthTemplateAbstain(target, start, end, accumulated, progressDisplay, 
         dayZero.add(1, 'day');
     }
 
-    console.log('days', days);
-
 
     //  Divide days into weeks
     let week = [[], [], [], [], []];

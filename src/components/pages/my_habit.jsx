@@ -14,7 +14,6 @@ import PiggySummary from "../common/piggy_summary";
 import SimpleBar from "../common/simple_bar";
 import MyChart from "../common/my_chart";
 import GoalProgress from "../goal/goal_progress";
-import PiggyBank from "../common/piggy_bank";
 
 class MyHabit extends React.Component {
     defaultNav = 'week';

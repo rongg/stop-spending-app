@@ -81,7 +81,6 @@ class UserHome extends React.Component {
             return 0;
         });
 
-        console.log('goals', goals);
 
         const expWants = expenses.filter(this.filterExp('want'));
         const expNeeds = expenses.filter(this.filterExp('need'));
@@ -91,8 +90,6 @@ class UserHome extends React.Component {
         if (goals.length) currentGoals = goals.slice(0, goals.length > 2 ? 3 : goals.length);
 
         const fHabits = habits.filter(h => h.spent && h.spent > 0);     // with expenses
-
-        worstHabits = [];
 
         habits.map(h => {
             h.budgets = ExpenseDateRange.calculateBudgets(h.budgetType, h.budget, start);
@@ -237,9 +234,10 @@ class UserHome extends React.Component {
                         </div>
                         <div className={'card-body text-center'}>
                             <div className={'row'}>
+                                {!currentGoals.length  && <div className={'col-12'}><h6>No Goals Set!</h6></div>}
                                 {currentGoals.map((g, index) =>
                                     <div className={'col-4 w-habit'} key={'w-habit-' + index}>
-                                        <span className={'goal-type'}>{g.type}</span>
+                                        <span className={'goal-type'}>{g.type}</span><br/>
                                         <Icon path={g.habit.icon} />
                                         <div className={'statement'}>
                                             <div className={'col-12 text-center'}>
@@ -272,6 +270,7 @@ class UserHome extends React.Component {
                         </div>
                         <div className={'card-body text-center'}>
                             <div className={'row'}>
+                                {!worstHabits.length  && <div className={'col-12'}><h6>No Habits!</h6></div>}
                                 {worstHabits.map((h, index) =>
                                     <div className={'col-4 w-habit'} key={'w-habit-' + index}>
                                         <Icon path={h.icon}/>
