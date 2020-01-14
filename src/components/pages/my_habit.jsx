@@ -171,7 +171,8 @@ class MyHabit extends React.Component {
         let showGoals = currentGoal || prevGoal;
         return <div className="m-auto page my-habit">
             <h2 className={'habit-title'}><Icon path={icon} habit={true}/>
-                <span>{name.charAt(0).toUpperCase() + name.slice(1)}</span> <a href={_id + '/edit'}><Icon path={'app_icons/glyph/edit.svg'}/></a></h2>
+                <span>{name.charAt(0).toUpperCase() + name.slice(1)}</span> <a href={_id + '/edit'}><Icon
+                    path={'app_icons/glyph/edit.svg'}/></a></h2>
             <br/>
             <div className={`date-head`}>
                 <div className={`date-nav row`}>
@@ -325,7 +326,7 @@ class MyHabit extends React.Component {
                                                     format={'ddd, MMM Do, h:mm a'}>{urges[0].date}</Moment></span>
                                             </div> : <div>
                                                 <Icon path={'app_icons/checkmark.svg'}/>
-                                                <h5 style={{marginTop: '24px'}}>No Urges!</h5>
+                                                <h6 style={{marginTop: '24px'}}>No Urges!</h6>
                                             </div>}
                                         </div>
                                     </div>
@@ -339,13 +340,19 @@ class MyHabit extends React.Component {
                                     path={'app_icons/trident.svg'}/>
                                 </div>
                                 <div className={'card-body'}>
-                                    <div className={'row text-center'}>
-                                        <MyChart valueKey={'amount'}
-                                                 data={[{amount: needExpAmt, name: 'needs'}, {
-                                                     amount: wantExpAmt,
-                                                     name: 'wants'
-                                                 }]}
-                                                 type={'pie'}/>
+                                    <div className={'row'}>
+                                        <div className={'col-12 text-center'}>
+                                            {expenses.length ? <MyChart valueKey={'amount'}
+                                                                        data={[{amount: needExpAmt, name: 'needs'}, {
+                                                                            amount: wantExpAmt,
+                                                                            name: 'wants'
+                                                                        }]}
+                                                                        type={'pie'}/> : <div>
+                                                <Icon path={'app_icons/checkmark.svg'}/>
+                                                <h6 style={{marginTop: '24px'}}>No Expenses!</h6>
+
+                                            </div>}
+                                        </div>
                                     </div>
                                 </div>
                             </div>
@@ -469,12 +476,18 @@ class MyHabit extends React.Component {
                                 </div>
                                 <div className={'card-body m-auto'}>
                                     <div className={'row text-center'}>
-                                        <MyChart valueKey={'amount'}
-                                                 data={[{amount: Math.round(needExpAmt), name: 'needs'}, {
-                                                     amount: Math.round(wantExpAmt),
-                                                     name: 'wants'
-                                                 }]}
-                                                 type={'pie'}/>
+                                        <div className={'col-12 text-center'}>
+                                            {expenses.length ? <MyChart valueKey={'amount'}
+                                                                        data={[{amount: needExpAmt, name: 'needs'}, {
+                                                                            amount: wantExpAmt,
+                                                                            name: 'wants'
+                                                                        }]}
+                                                                        type={'pie'}/> : <div>
+                                                <Icon path={'app_icons/checkmark.svg'}/>
+                                                <h6 style={{marginTop: '24px'}}>No Expenses!</h6>
+
+                                            </div>}
+                                        </div>
                                     </div>
                                 </div>
                             </div>
