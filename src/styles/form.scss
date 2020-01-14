@@ -35,6 +35,11 @@
   input.half{
     width: 50%;
   }
+
+  .btn-link{
+    box-shadow: none;
+    padding: 5px 0;
+  }
 }
 
 @media (min-width: 768px) {

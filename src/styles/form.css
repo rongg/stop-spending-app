@@ -24,6 +24,9 @@
     margin-bottom: 5px; }
   .form input.half {
     width: 50%; }
+  .form .btn-link {
+    box-shadow: none;
+    padding: 5px 0; }
 
 @media (min-width: 768px) {
   .form {
