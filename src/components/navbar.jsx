@@ -4,7 +4,7 @@ import PiggyBank from "./common/piggy_bank";
 
 const NavBar = ({user}) => {
     return (
-        <nav className="navbar navbar-expand-lg navbar-default">
+        <nav className="navbar navbar-expand-lg navbar-dark navbar-default">
             <div className='container nav-content'>
                 <a className="navbar-brand" href="/">
                     <PiggyBank height={32} width={40}
