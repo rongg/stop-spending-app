@@ -6,6 +6,8 @@ import Icon from "../common/Icon";
 
 class Month extends React.Component {
 
+
+
     render() {
         const {expenses, start, navCallback} = this.props;
         const filters = this.props.filters || {};
@@ -162,5 +164,9 @@ class Month extends React.Component {
     }
 
 }
+
+Month.defaultProps = {
+    navCallback: () => {}
+};
 
 export default Month;

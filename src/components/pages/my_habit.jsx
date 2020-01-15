@@ -38,6 +38,8 @@ class MyHabit extends React.Component {
     constructor(props) {
         super(props);
         this.loadData = this.loadData.bind(this);
+        this.setCurrentNav = this.setCurrentNav.bind(this);
+        this.navigateTo = this.navigateTo.bind(this);
         this.loadGoalData = this.loadGoalData.bind(this);
         this.incrementPeriod = this.incrementPeriod.bind(this);
         this.piggyParams = {
@@ -107,10 +109,15 @@ class MyHabit extends React.Component {
 
     }
 
+    navigateTo(date, unit) {
+        const start = moment(date).startOf(unit);
+        const end = moment(date).endOf(unit);
+        this.setCurrentNav(unit, start, end);
+    }
+
 
     incrementPeriod(num, unit) {
         let {start, end} = this.state;
-        // if (num > 0 && end.isAfter(moment())) return;    // Don't go into the future
         this.setState({
             start: start.add(num, unit),
             end: end.add(num, unit)
