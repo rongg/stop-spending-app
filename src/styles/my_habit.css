@@ -1,5 +1,9 @@
 .my-habit .empty-message {
   margin-top: 20px; }
+.my-habit .need-want .card-body {
+  margin: auto; }
+.my-habit .need-want .col-12 {
+  padding: 0; }
 .my-habit .need-want canvas {
   height: 104px !important;
   width: 140px !important; }
