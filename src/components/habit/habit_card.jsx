@@ -6,7 +6,7 @@ import PiggyBank from "../common/piggy_bank";
 class HabitCard extends React.Component {
 
     render() {
-        let {text, iconUrl, link, spent, budgeted, piggy, urgeCount, dateNav} = this.props;
+        let {text, iconUrl, link, spent, budgeted, piggy, urgeCount, dateNav, type} = this.props;
         const max = 10;
         let actualUrgeCount = urgeCount;
         if (urgeCount && urgeCount > max) {
@@ -31,6 +31,10 @@ class HabitCard extends React.Component {
                 {spent !== undefined && budgeted !== undefined ? <div className={'card-footer'}>
                     <div className="footer-text card-text">
                         <span className={`money`}>$ {Math.round(spent)} / {budgeted}</span></div>
+                </div> : null}
+                {type !== undefined && budgeted !== undefined ? <div className={'card-footer'}>
+                    <div className="footer-text card-text">
+                        <span className={`money`}>$ {Math.round(budgeted)} / {type}</span></div>
                 </div> : null}
                 {urgeCount !== undefined &&
                 <div className={'card-footer text-left'}>{Array.apply(null, Array(urgeCount)).map((u, i) =>
