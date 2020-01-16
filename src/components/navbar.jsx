@@ -1,8 +1,18 @@
 import React from "react";
 import '../styles/navbar.css';
 import PiggyBank from "./common/piggy_bank";
+import {NavLink} from 'react-router-dom';
+import Icon from "./common/Icon";
 
 const NavBar = ({user}) => {
+
+    function closeNavbar() {
+        const navCollapse = document.querySelector('.navbar-collapse.collapse.show');
+        if(navCollapse) {
+            document.querySelector('.navbar-toggler').click();
+        }
+    }
+
     return (
         <nav className="navbar navbar-expand-lg navbar-dark navbar-default">
             <div className='container nav-content'>
@@ -20,20 +30,27 @@ const NavBar = ({user}) => {
                 <div className="collapse navbar-collapse" id="navbarSupportedContent">
                     {user && (
                         <React.Fragment>
-                            <ul className="navbar-nav ml-auto">
+                            <ul className="navbar-nav mr-auto pages">
                                 <li className="nav-item">
-                                    <a className="nav-link" href="/habits">Habits</a>
+                                    <NavLink to="/" exact className="nav-link tall-img" onClick={closeNavbar}>
+                                        <Icon path={'app_icons/glyph/home.svg'}/>
+                                        <span className={'d-lg-none'}>Summary</span></NavLink>
                                 </li>
-                                {/*<li className="nav-item">*/}
-                                {/*<a className="nav-link" href="/expenses">Expenses</a>*/}
-                                {/*</li>*/}
+                                <li className="nav-item">
+                                    {/*<a className="nav-link" href="/habits">Habits</a>*/}
+                                    <NavLink to="/habits" className="nav-link" onClick={closeNavbar}><Icon
+                                        path={'app_icons/glyph/habits.svg'}/><span
+                                        className={'d-lg-none'}>Habits</span></NavLink>
+                                </li>
                             </ul>
-                            <ul className="navbar-nav">
+                            <ul className="navbar-nav nav-actions">
                                 <li className="nav-item">
-                                    <a className="nav-link" href="/account">{user.name}</a>
+                                    <NavLink className="nav-link" to="/account" onClick={closeNavbar}><Icon
+                                        path={'app_icons/glyph/settings.svg'}/><span>{user.name}</span></NavLink>
                                 </li>
                                 <li className="nav-item">
-                                    <a className="nav-link" href="/logout">Logout</a>
+                                    <NavLink className="nav-link" to="/logout" onClick={closeNavbar}><Icon
+                                        path={'app_icons/glyph/logout.svg'}/><span>Logout</span></NavLink>
                                 </li>
                             </ul>
                         </React.Fragment>
@@ -42,7 +59,7 @@ const NavBar = ({user}) => {
                         <React.Fragment>
                     <span className="mr-auto">
                     </span>
-                            <ul className="navbar-nav">
+                            <ul className="navbar-nav nav-actions">
                                 <li className="nav-item">
                                     <a className="nav-link" href="/Login">Login</a>
                                 </li>

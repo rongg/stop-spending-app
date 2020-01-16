@@ -1,14 +1,34 @@
 .navbar-dark {
+  padding-right: 1rem;
   -webkit-box-shadow: 0 1px 1px 0 rgba(0, 0, 0, 0.2);
   box-shadow: 0 2px 1px 0 rgba(0, 0, 0, 0.2);
   background-color: #00628d;
   border-color: #c0392b; }
+  .navbar-dark .tall-img .icon {
+    height: 20px;
+    width: 22px; }
+  .navbar-dark .icon {
+    height: 24px;
+    width: 24px; }
+  .navbar-dark .navbar-nav.pages, .navbar-dark .navbar-nav.nav-actions {
+    font-size: .85rem; }
+  .navbar-dark .navbar-nav .nav-link.active {
+    border-bottom: 1px solid rgba(255, 255, 255, 0.5);
+    background: none; }
+  .navbar-dark .navbar-nav .nav-link:hover {
+    color: #ffbbbc; }
+  .navbar-dark .navbar-nav .nav-link {
+    margin-left: 2px;
+    margin-right: 2px; }
+    .navbar-dark .navbar-nav .nav-link span {
+      margin-left: 8px; }
   .navbar-dark .navbar-nav .nav-link {
     color: #fff; }
   .navbar-dark .container {
     max-width: 1072px; }
   .navbar-dark .navbar-brand {
-    color: #ecf0f1; }
+    color: #ecf0f1;
+    margin-right: 2rem; }
     .navbar-dark .navbar-brand span {
       margin-left: 10px;
       vertical-align: bottom; }
@@ -16,18 +36,16 @@
       color: #ffbbbc; }
   .navbar-dark .navbar-text {
     color: #ecf0f1; }
-  .navbar-dark .navbar-nav {
-    margin-right: 20px; }
-    .navbar-dark .navbar-nav > li > a {
-      color: #fff; }
-      .navbar-dark .navbar-nav > li > a:hover, .navbar-dark .navbar-nav > li > a:focus {
-        color: #ffbbbc; }
-    .navbar-dark .navbar-nav > .active > a, .navbar-dark .navbar-nav > .active > a:hover, .navbar-dark .navbar-nav > .active > a:focus {
-      color: #ffbbbc;
-      background-color: #c0392b; }
-    .navbar-dark .navbar-nav > .open > a, .navbar-dark .navbar-nav > .open > a:hover, .navbar-dark .navbar-nav > .open > a:focus {
-      color: #ffbbbc;
-      background-color: #c0392b; }
+  .navbar-dark .navbar-nav > li > a {
+    color: #fff; }
+    .navbar-dark .navbar-nav > li > a:hover, .navbar-dark .navbar-nav > li > a:focus {
+      color: #ffbbbc; }
+  .navbar-dark .navbar-nav > .active > a, .navbar-dark .navbar-nav > .active > a:hover, .navbar-dark .navbar-nav > .active > a:focus {
+    color: #ffbbbc;
+    background-color: #c0392b; }
+  .navbar-dark .navbar-nav > .open > a, .navbar-dark .navbar-nav > .open > a:hover, .navbar-dark .navbar-nav > .open > a:focus {
+    color: #ffbbbc;
+    background-color: #c0392b; }
   .navbar-dark .navbar-toggle {
     border-color: #c0392b; }
     .navbar-dark .navbar-toggle:hover, .navbar-dark .navbar-toggle:focus {
@@ -41,18 +59,26 @@
     color: #ecf0f1; }
     .navbar-dark .navbar-link:hover {
       color: #ffbbbc; }
-
-@media (max-width: 767px) {
-  .navbar-default .container.nav-content {
-    margin-right: auto;
-    margin-left: auto; }
-
-  .navbar-default .navbar-nav .open .dropdown-menu > li > a {
-    color: #ecf0f1; }
-    .navbar-default .navbar-nav .open .dropdown-menu > li > a:hover, .navbar-default .navbar-nav .open .dropdown-menu > li > a:focus {
-      color: #ffbbbc; }
-  .navbar-default .navbar-nav .open .dropdown-menu > .active > a, .navbar-default .navbar-nav .open .dropdown-menu > .active > a:hover, .navbar-default .navbar-nav .open .dropdown-menu > .active > a:focus {
-    color: #ffbbbc;
-    background-color: #c0392b; } }
+  @media (max-width: 767px) {
+    .navbar-dark .navbar-nav .nav-link.active {
+      border-bottom: none; }
+    .navbar-dark .navbar-collapse {
+      padding: 20px 0; }
+      .navbar-dark .navbar-collapse ul.navbar-nav.pages {
+        border-top: 1px solid rgba(255, 255, 255, 0.2); }
+      .navbar-dark .navbar-collapse ul.navbar-nav.pages li, .navbar-dark .navbar-collapse ul.navbar-nav.nav-actions li {
+        padding-bottom: 8px;
+        padding-top: 8px;
+        border-bottom: 1px solid rgba(255, 255, 255, 0.2); }
+    .navbar-dark .navbar-dark .container.nav-content {
+      margin-right: auto;
+      margin-left: auto; }
+    .navbar-dark .navbar-dark .navbar-nav .open .dropdown-menu > li > a {
+      color: #ecf0f1; }
+      .navbar-dark .navbar-dark .navbar-nav .open .dropdown-menu > li > a:hover, .navbar-dark .navbar-dark .navbar-nav .open .dropdown-menu > li > a:focus {
+        color: #ffbbbc; }
+    .navbar-dark .navbar-dark .navbar-nav .open .dropdown-menu > .active > a, .navbar-dark .navbar-dark .navbar-nav .open .dropdown-menu > .active > a:hover, .navbar-dark .navbar-dark .navbar-nav .open .dropdown-menu > .active > a:focus {
+      color: #ffbbbc;
+      background-color: #c0392b; } }
 
 /*# sourceMappingURL=navbar.css.map */

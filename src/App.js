@@ -47,14 +47,13 @@ class App extends React.Component {
     render() {
         const user = this.state.user;
 
-
         if (this.state.hasError) {
             //  Fallback Error UI
             return <div className={'app'}>
                 <NavBar user={user}/>
                 <div className='app-content'>
                     <div className="container">
-                        <ErrorPage />
+                        <ErrorPage/>
                     </div>
                 </div>
             </div>;
@@ -68,7 +67,7 @@ class App extends React.Component {
                         <Switch>
                             <Route path="/" exact render={props => {
                                 if (!user) return <Redirect to="/login"/>;
-                                return <UserHome {...props} />;
+                                return<UserHome {...props} />
                             }}/>
                             <Route path="/error" render={props => {
                                 if (!user) return <Redirect to="/login"/>;

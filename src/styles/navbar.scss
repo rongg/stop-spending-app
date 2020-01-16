@@ -1,75 +1,181 @@
-$bgDefault   : #00628d;
-$bgHighlight : #c0392b;
-$colDefault  : #ecf0f1;
+$bgDefault: #00628d;
+$bgHighlight: #c0392b;
+$colDefault: #ecf0f1;
 $colHighlight: #ffbbbc;
+$colLine: rgba(255, 255, 255, 0.2);
 .navbar-dark {
+  padding-right: 1rem;
+  .tall-img{
+    //height: 41px;
+    .icon {
+      height: 20px;
+      width: 22px;
+    }
+  }
+
+
+  .icon{
+    height: 24px;
+    width: 24px;
+  }
+
+  .navbar-nav {
+
+    &.pages, &.nav-actions {
+      font-size: .85rem;
+    }
+
+    //.nav-link:hover{
+    //  border-bottom: 1px solid rgba(255, 255, 255, 0.5);
+    //}
+    .nav-link.active{
+      border-bottom: 1px solid rgba(255, 255, 255, 0.5);
+      background: none;
+    }
+    .nav-link:hover {
+      color: $colHighlight;
+    }
+    .nav-link{
+      margin-left: 2px;
+      margin-right: 2px;
+      span{
+        margin-left: 8px;
+      }
+    }
+
+    &.pages {
+    }
+  }
 
   .navbar-nav .nav-link {
     color: #fff;
   }
 
-  -webkit-box-shadow: 0 1px 1px 0 rgba(0,0,0,.2);
-  box-shadow: 0 2px 1px 0 rgba(0,0,0,.2);
-  .container{
+  -webkit-box-shadow: 0 1px 1px 0 rgba(0, 0, 0, .2);
+  box-shadow: 0 2px 1px 0 rgba(0, 0, 0, .2);
+
+  .container {
     max-width: 1072px;
   }
 
   background-color: $bgDefault;
   border-color: $bgHighlight;
+
   .navbar-brand {
     color: $colDefault;
-    span{
+    margin-right: 2rem;
+
+    span {
       margin-left: 10px;
       vertical-align: bottom;
     }
+
     &:hover, &:focus {
-      color: $colHighlight; }}
+      color: $colHighlight;
+    }
+  }
+
   .navbar-text {
-    color: $colDefault; }
+    color: $colDefault;
+  }
+
   .navbar-nav {
-    margin-right: 20px;
     > li {
       > a {
         color: #fff;
-        &:hover,  &:focus {
-          color: $colHighlight; }}}
+
+        &:hover, &:focus {
+          color: $colHighlight;
+        }
+      }
+    }
+
     > .active {
       > a, > a:hover, > a:focus {
         color: $colHighlight;
-        background-color: $bgHighlight; }}
+        background-color: $bgHighlight;
+      }
+    }
+
     > .open {
       > a, > a:hover, > a:focus {
         color: $colHighlight;
-        background-color: $bgHighlight; }}}
-  .navbar-toggle {
-    border-color: $bgHighlight;
-    &:hover, &:focus {
-      background-color: $bgHighlight; }
-    .icon-bar {
-      background-color: $colDefault; }}
-  .navbar-collapse,
-  .navbar-form {
-    border-color: $colDefault; }
-  .navbar-link {
-    color: $colDefault;
-    &:hover {
-      color: $colHighlight; }}}
-@media (max-width: 767px) {
-
-  .navbar-default{
-    .container.nav-content{
-      margin-right: auto;
-      margin-left: auto;
+        background-color: $bgHighlight;
+      }
     }
   }
-  .navbar-default .navbar-nav .open .dropdown-menu {
 
-    > li > a {
-      color: $colDefault;
-      &:hover, &:focus {
-        color: $colHighlight; }}
-    > .active {
-      > a, > a:hover, > a:focus{
-        color: $colHighlight;
-        background-color: $bgHighlight; }}}
+  .navbar-toggle {
+    border-color: $bgHighlight;
+
+    &:hover, &:focus {
+      background-color: $bgHighlight;
+    }
+
+    .icon-bar {
+      background-color: $colDefault;
+    }
+  }
+
+  .navbar-collapse,
+  .navbar-form {
+    border-color: $colDefault;
+  }
+
+  .navbar-link {
+    color: $colDefault;
+
+    &:hover {
+      color: $colHighlight;
+    }
+  }
+
+  @media (max-width: 767px) {
+    .navbar-nav {
+      .nav-link.active {
+        border-bottom: none;
+      }
+    }
+
+    .navbar-collapse {
+      padding: 20px 0;
+      ul.navbar-nav {
+        &.pages {
+          border-top: 1px solid $colLine;
+        }
+
+        &.pages li, &.nav-actions li {
+          padding-bottom: 8px;
+          padding-top: 8px;
+          border-bottom: 1px solid $colLine;
+        }
+      }
+
+    }
+
+    .navbar-dark {
+      .container.nav-content {
+        margin-right: auto;
+        margin-left: auto;
+      }
+    }
+    .navbar-dark .navbar-nav .open .dropdown-menu {
+
+      > li > a {
+        color: $colDefault;
+
+        &:hover, &:focus {
+          color: $colHighlight;
+        }
+      }
+
+      > .active {
+        > a, > a:hover, > a:focus {
+          color: $colHighlight;
+          background-color: $bgHighlight;
+        }
+      }
+    }
+  }
 }
+
