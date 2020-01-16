@@ -65,7 +65,7 @@ class App extends React.Component {
                 <div className='app-content'>
                     <div className="container">
                         <Switch>
-                            <Route path="/" exact render={props => {
+                            <Route path="/summary" exact render={props => {
                                 if (!user) return <Redirect to="/login"/>;
                                 return<UserHome {...props} />
                             }}/>

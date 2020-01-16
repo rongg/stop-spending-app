@@ -32,7 +32,7 @@ const NavBar = ({user}) => {
                         <React.Fragment>
                             <ul className="navbar-nav mr-auto pages">
                                 <li className="nav-item">
-                                    <NavLink to="/" exact className="nav-link tall-img" onClick={closeNavbar}>
+                                    <NavLink to="/summary" exact className="nav-link tall-img" onClick={closeNavbar}>
                                         <Icon path={'app_icons/glyph/home.svg'}/>
                                         <span className={'d-lg-none'}>Summary</span></NavLink>
                                 </li>
