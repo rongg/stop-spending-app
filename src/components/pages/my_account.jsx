@@ -7,7 +7,6 @@ class MyAccount extends React.Component {
 
 
     render() {
-        console.log(this.state.me);
         const {name, email, isVerified} = this.state.me;
         return <div className="m-auto page">
             <div className="text-center">
