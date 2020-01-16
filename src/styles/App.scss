@@ -21,6 +21,13 @@ input::placeholder{
   color: #8e8e8e;
 }
 
+.error-message{
+  .icon{
+    height: 108px;
+    width: 108px;
+  }
+}
+
 .app-content{
   border-bottom: 1px solid #e5e5e5;
   min-height: 800px;
