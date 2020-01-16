@@ -234,11 +234,13 @@ class UserHome extends React.Component {
                         </div>
                         <div className={'card-body text-center'}>
                             <div className={'row'}>
-                                {!currentGoals.length  && <div className={'col-12'}><h6>No Goals Set!</h6></div>}
+                                {!currentGoals.length && <div className={'col-12'}><h6>No Goals Set!</h6></div>}
                                 {currentGoals.map((g, index) =>
                                     <div className={'col-4 w-habit'} key={'w-habit-' + index}>
                                         <span className={'goal-type'}>{g.type}</span><br/>
-                                        <Icon path={g.habit.icon} />
+                                        <a href={g.habit._id ? '/habit/' + g.habit._id : '/habit/new'}>
+                                            <Icon path={g.habit.icon}/>
+                                        </a>
                                         <div className={'statement'}>
                                             <div className={'col-12 text-center'}>
                                                 <span>{g.name}</span>
@@ -270,10 +272,12 @@ class UserHome extends React.Component {
                         </div>
                         <div className={'card-body text-center'}>
                             <div className={'row'}>
-                                {!worstHabits.length  && <div className={'col-12'}><h6>No Habits!</h6></div>}
+                                {!worstHabits.length && <div className={'col-12'}><h6>No Habits!</h6></div>}
                                 {worstHabits.map((h, index) =>
                                     <div className={'col-4 w-habit'} key={'w-habit-' + index}>
-                                        <Icon path={h.icon}/>
+                                        <a href={h._id ? '/habit/' + h._id : '/habit/new'}>
+                                            <Icon path={h.icon}/>
+                                        </a>
                                         <div className={'statement'}>
                                             <div className={'col-12 text-right'}>
                                                 <span className={'stat'}><span
