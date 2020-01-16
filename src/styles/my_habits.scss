@@ -1,0 +1,11 @@
+.my-habits{
+  .card-container{
+    margin: 10px 0;
+  }
+  @media (max-width: 767px) {
+    .card-container{
+      margin: 8px 0;
+    }
+  }
+}
+

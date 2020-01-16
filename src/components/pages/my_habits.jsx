@@ -1,7 +1,7 @@
 import React from 'react';
 import habits from '../../services/habits';
 import HabitCard from '../habit/habit_card';
-import '../../styles/habit.css';
+import '../../styles/my_habits.css';
 
 class MyHabits extends React.Component {
     state = {
@@ -20,7 +20,7 @@ class MyHabits extends React.Component {
 
 
     render() {
-        return <div className="m-auto page">
+        return <div className="m-auto page my-habits">
             <div className="text-center">
                 <h2>My Spending Habits</h2>
                 <a className='link' href='/habit/new'>Create New</a>
@@ -28,7 +28,7 @@ class MyHabits extends React.Component {
             <br/>
             <div className='row'>
                 {this.state.habits.map((habit, index) => (
-                    <div className="col-lg-3 col-md-6 col-sm-12" style={{margin: '15px 0'}} key={'habit-card-' + index}>
+                    <div className="col-lg-3 col-md-6 col-sm-12 card-container" key={'habit-card-' + index}>
                         <HabitCard text={habit.name} budgeted={habit.budget} type={habit.budgetType} iconUrl={habit.icon || habits.getDefaultIcon()} link={'/habit/' + habit._id}
                                    height='164px'/>
                     </div>

@@ -1,0 +1,7 @@
+.my-habits .card-container {
+  margin: 10px 0; }
+@media (max-width: 767px) {
+  .my-habits .card-container {
+    margin: 8px 0; } }
+
+/*# sourceMappingURL=my_habits.css.map */
