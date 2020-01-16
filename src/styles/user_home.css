@@ -158,6 +158,9 @@ a:hover, a:visited, a:link, a:active {
       height: 20px;
       width: 20px; }
 
+.urges-summary .card-body .statement .col-12 {
+  padding-right: 10px; }
+
 @media (min-width: 568px) {
   .fix-top {
     width: 548px; } }
@@ -197,8 +200,6 @@ a:hover, a:visited, a:link, a:active {
 @media (max-width: 767px) {
   .urges-summary {
     margin-top: 10px; }
-    .urges-summary .text-right {
-      text-align: center !important; }
 
   .date-head.fix-top {
     margin-top: 0; }
