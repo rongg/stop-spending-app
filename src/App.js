@@ -4,6 +4,7 @@ import NavBar from "./components/navbar";
 import Footer from "./components/footer";
 import {Route, Redirect, Switch} from "react-router-dom";
 import UserHome from "./components/pages/user_home";
+import StopSpendingHome from "./components/home/stop_spending_home";
 import Login from "./components/pages/login";
 import Logout from "./components/pages/logout";
 import MyAccount from "./components/pages/my_account";
@@ -75,7 +76,7 @@ class App extends React.Component {
                             }}/>
 
                             <Route path="/register" exact component={Register}/>
-
+                            <Route path="/" exact component={StopSpendingHome}/>
                             <Route path="/login" render={props => {
                                 if (user) return <Redirect to="/habits"/>;
                                 return <Login {...props} />
