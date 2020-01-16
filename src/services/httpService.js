@@ -11,14 +11,15 @@ axios.interceptors.response.use(null, error => {
         }
         return Promise.reject(error);
     } else {
-        console.log('Log this error', error.response);
-        alert('An unexpected error occurred!');
+        console.error('Log this error', error.toJSON());
+        window.location = "/error";
     }
 
 });
 
 function setJwt(jwt){
     axios.defaults.headers.common['x-auth-token'] = jwt;
+    axios.defaults.timeout = 25000;
 }
 
 export default {

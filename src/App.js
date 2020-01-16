@@ -28,7 +28,7 @@ import ResetPasswordRequest from "./components/pages/reset_password_request";
 import ResetPassword from "./components/pages/reset_password";
 import CreateUrge from "./components/pages/create_urge";
 import CreateGoal from "./components/pages/create_goal";
-import Icon from "./components/common/Icon";
+import ErrorPage from "./components/pages/error_page";
 
 
 class App extends React.Component {
@@ -47,21 +47,14 @@ class App extends React.Component {
     render() {
         const user = this.state.user;
 
+
         if (this.state.hasError) {
-            // You can render any custom fallback UI
+            //  Fallback Error UI
             return <div className={'app'}>
                 <NavBar user={user}/>
                 <div className='app-content'>
                     <div className="container">
-                        <div className={'row'}>
-                            <div className={'col-12 text-center error-message'}>
-                                <br/>
-                                <br/>
-                                <h3>Whoops, something went wrong...</h3>
-                                <Icon path={'app_icons/broken_piggy.svg'}/>
-                                <h3>An unexpected error occurred.</h3>
-                            </div>
-                        </div>
+                        <ErrorPage />
                     </div>
                 </div>
             </div>;
@@ -77,6 +70,11 @@ class App extends React.Component {
                                 if (!user) return <Redirect to="/login"/>;
                                 return <UserHome {...props} />;
                             }}/>
+                            <Route path="/error" render={props => {
+                                if (!user) return <Redirect to="/login"/>;
+                                return <ErrorPage {...props} />;
+                            }}/>
+
                             <Route path="/register" exact component={Register}/>
 
                             <Route path="/login" render={props => {
