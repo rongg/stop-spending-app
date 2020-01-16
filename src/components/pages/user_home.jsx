@@ -127,7 +127,7 @@ class UserHome extends React.Component {
 
 
         return <div className="m-auto page">
-            <div className={`row ${scrollActive && 'red'}`}>
+            <div className={`row`}>
                 <div className='col-sm-12'>
                     <h2 className={'text-left'}>My Spending Summary</h2>
                 </div>
