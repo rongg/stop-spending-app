@@ -23,7 +23,7 @@ class DeleteGoal extends React.Component {
         habits.deleteGoal(goalId)
             .then(res => {
                 if (res.data.deletedCount === 1) {
-                    this.setState({redirectTo: sessionStorage.returnPage || '/'});
+                    this.setState({redirectTo: sessionStorage.returnPage || '/summary'});
                 } else {
                     alert('There was a problem with your request!');
                     window.location = backNav;

@@ -58,7 +58,7 @@ class LoginForm extends Form {
                 },
                 formHelp: 'Success!'
             });
-            window.location = '/';
+            window.location = '/summary';
         }).catch(err => {
             let helpMessage = 'There was a problem with your submission!';
             if (err.response && err.response.status === 400) {
