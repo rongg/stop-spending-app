@@ -32,7 +32,9 @@ input::placeholder{
   border-bottom: 1px solid #e5e5e5;
   min-height: 800px;
   font-weight: $font-weight;
+
 }
+
 
 .page-footer{
   padding-top: 0 !important;
@@ -52,7 +54,8 @@ input::placeholder{
 }
 
 div.app{
-  background: #f5f7fa;
+  //background: #f5f7fa;
+  background: #f7f7f7;
   font-family: $app_font;
 }
 
@@ -116,7 +119,7 @@ div.app{
 
 
 .page{
-    padding: 32px;
+    padding: 32px 8px;
 }
 
 @keyframes App-logo-spin {

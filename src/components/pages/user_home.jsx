@@ -126,7 +126,7 @@ class UserHome extends React.Component {
                                  style={{float: 'right'}}><Icon path={'app_icons/right.svg'}/></button>;
 
 
-        return <div className="m-auto page">
+        return <div className="m-auto page container">
             <div className={`row`}>
                 <div className='col-sm-12'>
                     <h2 className={'text-left'}>My Spending Summary</h2>

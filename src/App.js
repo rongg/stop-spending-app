@@ -64,129 +64,127 @@ class App extends React.Component {
             <div className={'app'}>
                 <NavBar user={user}/>
                 <div className='app-content'>
-                    <div className="container">
-                        <Switch>
-                            <Route path="/summary" exact render={props => {
-                                if (!user) return <Redirect to="/login"/>;
-                                return<UserHome {...props} />
-                            }}/>
-                            <Route path="/error" render={props => {
-                                if (!user) return <Redirect to="/login"/>;
-                                return <ErrorPage {...props} />;
-                            }}/>
+                    <Switch>
+                        <Route path="/summary" exact render={props => {
+                            if (!user) return <Redirect to="/login"/>;
+                            return <UserHome {...props} />
+                        }}/>
+                        <Route path="/error" render={props => {
+                            if (!user) return <Redirect to="/login"/>;
+                            return <ErrorPage {...props} />;
+                        }}/>
 
-                            <Route path="/register" exact component={Register}/>
-                            <Route path="/" exact component={StopSpendingHome}/>
-                            <Route path="/login" render={props => {
-                                if (user) return <Redirect to="/habits"/>;
-                                return <Login {...props} />
-                            }}/>
-                            <Route path="/logout" component={Logout}/>
+                        <Route path="/register" exact component={Register}/>
+                        <Route path="/" exact component={StopSpendingHome}/>
+                        <Route path="/login" render={props => {
+                            if (user) return <Redirect to="/habits"/>;
+                            return <Login {...props} />
+                        }}/>
+                        <Route path="/logout" component={Logout}/>
 
-                            <Route path="/account" exact render={props => {
-                                if (!user) return <Redirect to="/login"/>;
-                                return <MyAccount user={user} {...props} />;
-                            }}/>
-                            <Route path="/account/edit" exact render={props => {
-                                if (!user) return <Redirect to="/login"/>;
-                                return <EditAccount user={user} {...props} />;
-                            }}/>
+                        <Route path="/account" exact render={props => {
+                            if (!user) return <Redirect to="/login"/>;
+                            return <MyAccount user={user} {...props} />;
+                        }}/>
+                        <Route path="/account/edit" exact render={props => {
+                            if (!user) return <Redirect to="/login"/>;
+                            return <EditAccount user={user} {...props} />;
+                        }}/>
 
-                            <Route path="/habits" exact render={props => {
-                                if (!user) return <Redirect to="/login"/>;
-                                return <MyHabits {...props} />;
-                            }}/>
-                            <Route path="/habit/new" exact render={props => {
-                                if (!user) return <Redirect to="/login"/>;
-                                return <CreateHabit user={user} {...props} />;
-                            }}/>
-                            <Route path="/habit/:id/edit" exact render={props => {
-                                if (!user) return <Redirect to="/login"/>;
-                                return <EditHabit user={user} {...props} />;
-                            }}/>
-                            <Route path="/habit/:id/delete" exact render={props => {
-                                if (!user) return <Redirect to="/login"/>;
-                                return <DeleteHabit user={user} {...props} />;
-                            }}/>
-                            <Route path="/habit/:id" exact render={props => {
-                                if (!user) return <Redirect to="/login"/>;
-                                return <MyHabit {...props} />;
-                            }}/>
-                            <Route path="/habit/:id/expense/new" exact render={props => {
-                                if (!user) return <Redirect to="/login"/>;
-                                return <CreateExpense user={user} {...props} />;
-                            }}/>
-                            <Route path="/habit/:id/urge/new" exact render={props => {
-                                if (!user) return <Redirect to="/login"/>;
-                                return <CreateUrge user={user} {...props} />;
-                            }}/>
-                            <Route path="/habit/:id/goal/new" exact render={props => {
-                                if (!user) return <Redirect to="/login"/>;
-                                return <CreateGoal user={user} {...props} />;
-                            }}/>
-                            <Route path="/habit/:habitId/expense/:id" exact render={props => {
-                                if (!user) return <Redirect to="/login"/>;
-                                return <MyExpense {...props} />;
-                            }}/>
-                            <Route path="/habit/:habitId/expense/:id/edit" exact render={props => {
-                                if (!user) return <Redirect to="/login"/>;
-                                return <EditExpense user={user} {...props} />;
-                            }}/>
-                            <Route path="/habit/:habitId/expense/:id/delete" exact render={props => {
-                                if (!user) return <Redirect to="/login"/>;
-                                return <DeleteExpense {...props} />;
-                            }}/>
+                        <Route path="/habits" exact render={props => {
+                            if (!user) return <Redirect to="/login"/>;
+                            return <MyHabits {...props} />;
+                        }}/>
+                        <Route path="/habit/new" exact render={props => {
+                            if (!user) return <Redirect to="/login"/>;
+                            return <CreateHabit user={user} {...props} />;
+                        }}/>
+                        <Route path="/habit/:id/edit" exact render={props => {
+                            if (!user) return <Redirect to="/login"/>;
+                            return <EditHabit user={user} {...props} />;
+                        }}/>
+                        <Route path="/habit/:id/delete" exact render={props => {
+                            if (!user) return <Redirect to="/login"/>;
+                            return <DeleteHabit user={user} {...props} />;
+                        }}/>
+                        <Route path="/habit/:id" exact render={props => {
+                            if (!user) return <Redirect to="/login"/>;
+                            return <MyHabit {...props} />;
+                        }}/>
+                        <Route path="/habit/:id/expense/new" exact render={props => {
+                            if (!user) return <Redirect to="/login"/>;
+                            return <CreateExpense user={user} {...props} />;
+                        }}/>
+                        <Route path="/habit/:id/urge/new" exact render={props => {
+                            if (!user) return <Redirect to="/login"/>;
+                            return <CreateUrge user={user} {...props} />;
+                        }}/>
+                        <Route path="/habit/:id/goal/new" exact render={props => {
+                            if (!user) return <Redirect to="/login"/>;
+                            return <CreateGoal user={user} {...props} />;
+                        }}/>
+                        <Route path="/habit/:habitId/expense/:id" exact render={props => {
+                            if (!user) return <Redirect to="/login"/>;
+                            return <MyExpense {...props} />;
+                        }}/>
+                        <Route path="/habit/:habitId/expense/:id/edit" exact render={props => {
+                            if (!user) return <Redirect to="/login"/>;
+                            return <EditExpense user={user} {...props} />;
+                        }}/>
+                        <Route path="/habit/:habitId/expense/:id/delete" exact render={props => {
+                            if (!user) return <Redirect to="/login"/>;
+                            return <DeleteExpense {...props} />;
+                        }}/>
 
-                            <Route path="/expenses" exact render={props => {
-                                if (!user) return <Redirect to="/login"/>;
-                                return <MyExpenses {...props} />;
-                            }}/>
-                            <Route path="/expense/new" exact render={props => {
-                                if (!user) return <Redirect to="/login"/>;
-                                return <CreateExpense user={user} {...props} />;
-                            }}/>
-                            <Route path="/urge/new" exact render={props => {
-                                if (!user) return <Redirect to="/login"/>;
-                                return <CreateUrge user={user} {...props} />;
-                            }}/>
-                            <Route path="/expense/:id" exact render={props => {
-                                if (!user) return <Redirect to="/login"/>;
-                                return <MyExpense {...props} />;
-                            }}/>
-                            <Route path="/expense/:id/edit" exact render={props => {
-                                if (!user) return <Redirect to="/login"/>;
-                                return <EditExpense user={user} {...props} />;
-                            }}/>
-                            <Route path="/goal/:id/edit" exact render={props => {
-                                if (!user) return <Redirect to="/login"/>;
-                                return <EditGoal user={user} {...props} />;
-                            }}/>
-                            <Route path="/goal/:id/delete" exact render={props => {
-                                if (!user) return <Redirect to="/login"/>;
-                                return <DeleteGoal user={user} {...props} />;
-                            }}/>
-                            <Route path="/goal/:new" exact render={props => {
-                                if (!user) return <Redirect to="/login"/>;
-                                return <CreateGoal user={user} {...props} />;
-                            }}/>
+                        <Route path="/expenses" exact render={props => {
+                            if (!user) return <Redirect to="/login"/>;
+                            return <MyExpenses {...props} />;
+                        }}/>
+                        <Route path="/expense/new" exact render={props => {
+                            if (!user) return <Redirect to="/login"/>;
+                            return <CreateExpense user={user} {...props} />;
+                        }}/>
+                        <Route path="/urge/new" exact render={props => {
+                            if (!user) return <Redirect to="/login"/>;
+                            return <CreateUrge user={user} {...props} />;
+                        }}/>
+                        <Route path="/expense/:id" exact render={props => {
+                            if (!user) return <Redirect to="/login"/>;
+                            return <MyExpense {...props} />;
+                        }}/>
+                        <Route path="/expense/:id/edit" exact render={props => {
+                            if (!user) return <Redirect to="/login"/>;
+                            return <EditExpense user={user} {...props} />;
+                        }}/>
+                        <Route path="/goal/:id/edit" exact render={props => {
+                            if (!user) return <Redirect to="/login"/>;
+                            return <EditGoal user={user} {...props} />;
+                        }}/>
+                        <Route path="/goal/:id/delete" exact render={props => {
+                            if (!user) return <Redirect to="/login"/>;
+                            return <DeleteGoal user={user} {...props} />;
+                        }}/>
+                        <Route path="/goal/:new" exact render={props => {
+                            if (!user) return <Redirect to="/login"/>;
+                            return <CreateGoal user={user} {...props} />;
+                        }}/>
 
-                            <Route path="/account/verify/:token" exact render={props => {
-                                return <VerifyAccount {...props}/>
-                            }}/>
+                        <Route path="/account/verify/:token" exact render={props => {
+                            return <VerifyAccount {...props}/>
+                        }}/>
 
-                            <Route path="/account/resend/verification" exact render={props => {
-                                if (!user) return <Redirect to="/login"/>;
-                                return <ResendToken user={user} {...props} />;
-                            }}/>
+                        <Route path="/account/resend/verification" exact render={props => {
+                            if (!user) return <Redirect to="/login"/>;
+                            return <ResendToken user={user} {...props} />;
+                        }}/>
 
-                            <Route path="/account/reset/password" exact render={props => {
-                                return <ResetPasswordRequest {...props} />;
-                            }}/>
-                            <Route path="/account/:id/reset/password/:token" exact render={props => {
-                                return <ResetPassword {...props} />;
-                            }}/>
-                        </Switch>
-                    </div>
+                        <Route path="/account/reset/password" exact render={props => {
+                            return <ResetPasswordRequest {...props} />;
+                        }}/>
+                        <Route path="/account/:id/reset/password/:token" exact render={props => {
+                            return <ResetPassword {...props} />;
+                        }}/>
+                    </Switch>
                 </div>
                 <Footer user={user}/>
             </div>
