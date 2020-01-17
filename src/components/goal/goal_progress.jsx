@@ -103,7 +103,7 @@ const passFailTemplate = (passed, target, accumulated, type, start, end) => {
             <Icon path={'app_icons/checkmark.svg'}/><br/>
             <h5>Goal Passed!</h5>
             <span>{targetName}{target}</span><br/>
-            <span>{totalName}{accumulated}</span><br/>
+            <span>{totalName}{accumulated.toFixed(2)}</span><br/>
             <span>Start: <Moment format={'ddd MMM D h:mm a'}>{moment(start)}</Moment></span><br/>
             <span>End: <Moment format={'ddd MMM D h:mm a'}>{moment(end)}</Moment></span>
         </div>}
@@ -111,7 +111,7 @@ const passFailTemplate = (passed, target, accumulated, type, start, end) => {
             <Icon path={'app_icons/broken_piggy.svg'}/><br/>
             <h5>Goal Failed!</h5>
             <span>{targetName}{target}</span><br/>
-            <span>{totalName}{accumulated}</span><br/>
+            <span>{totalName}{accumulated.toFixed(2)}</span><br/>
             <span>Start: <Moment format={'ddd MMM D h:mm a'}>{moment(start)}</Moment></span><br/>
             <span>End: <Moment format={'ddd MMM D h:mm a'}>{moment(end)}</Moment></span>
         </div>}
@@ -374,7 +374,7 @@ const monthTemplate = (target, start, end, accumulated, goalType, progressDispla
     if (goalType === 'Abstain') progressMessage =
         <span><span className={'money'}>{accumulated} out of {target}</span> Days Collected</span>;
     else progressMessage =
-        <span><span className={'money'}>${budgetLeft}</span> until <Moment
+        <span><span className={'money'}>${budgetLeft.toFixed(2)}</span> until <Moment
             format={'ddd M/D'}>{moment(end)}</Moment></span>;
 
 
@@ -570,7 +570,7 @@ const weekTemplate = (target, start, end, accumulated, goalType, expenses) => {
     const budgetLeft = target - accumulated;
     const periodAvgLeft = periodsLeft > 0 ? Math.floor(budgetLeft / periodsLeft) : 1;
 
-    const progressMessage = <span><span className={'money'}>${budgetLeft}</span> until <Moment
+    const progressMessage = <span><span className={'money'}>${budgetLeft.toFixed(2)}</span> until <Moment
         format={'ddd h:mm a'}>{moment(end)}</Moment></span>;
 
     return <div
@@ -656,7 +656,7 @@ const dayTemplate = (target, start, end, accumulated, goalType) => {
     if (goalType === 'Abstain') progressMessage =
         <span><span className={'money'}>{accumulated} out of {target}</span> Days Collected</span>;
     else progressMessage =
-        <span><span className={'money'}>${budgetLeft}</span> until <Moment format={'ddd h:mm a'}>{moment(end)}</Moment></span>;
+        <span><span className={'money'}>${budgetLeft.toFixed(2)}</span> until <Moment format={'ddd h:mm a'}>{moment(end)}</Moment></span>;
 
     return <div className={'m-day week-container'} style={{backgroundColor: '#2f363d'}}>
         <div className={'row status'}>
