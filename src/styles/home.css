@@ -1,0 +1,33 @@
+.homepage {
+  padding: 0;
+  margin: 0;
+  max-width: 100%; }
+  .homepage img {
+    width: 100%; }
+  .homepage section.explain {
+    padding-bottom: 0; }
+  .homepage section {
+    padding-top: 72px;
+    padding-bottom: 72px; }
+    .homepage section h5 {
+      font-weight: 500; }
+  .homepage section.splash {
+    background-color: #282c34;
+    color: #fff;
+    padding-top: 32px;
+    padding-bottom: 32px; }
+  .homepage .screen .card-body {
+    padding: 8px; }
+  .homepage .card-header {
+    border-bottom: 1px solid #ffc1cb;
+    background: #fff;
+    font-size: 1.1rem; }
+    .homepage .card-header h5 {
+      margin: 0; }
+  .homepage .card-footer {
+    background: #fff; }
+  @media (max-width: 767px) {
+    .homepage {
+      background: none; } }
+
+/*# sourceMappingURL=home.css.map */
