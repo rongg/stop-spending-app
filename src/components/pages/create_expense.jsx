@@ -101,7 +101,7 @@ class CreateExpense extends Form {
                     count: 0
                 },
                 formHelp: 'Success!',
-                redirectTo: expense.habitId ? '/habit/' + expense.habitId : '/'
+                redirectTo: expense.habitId ? '/habit/' + expense.habitId : '/summary'
             });
         }).catch(err => {
             let helpMessage = 'There was a problem with your submission!';

@@ -48,7 +48,7 @@ class UserHome extends React.Component {
 
     componentDidMount() {
 
-        sessionStorage.returnPage = '/';
+        sessionStorage.returnPage = '/summary';
 
         this.getHabitsAndExpensesAndGoals();
 
