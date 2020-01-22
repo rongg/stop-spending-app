@@ -2,6 +2,9 @@
   padding: 0;
   margin: 0;
   max-width: 100%; }
+  .homepage .features h2 .piggy-bank {
+    width: 56px;
+    vertical-align: bottom; }
   .homepage img {
     width: 100%; }
   .homepage section.explain {
@@ -28,6 +31,11 @@
     background: #fff; }
   @media (max-width: 767px) {
     .homepage {
-      background: none; } }
+      background: none; }
+      .homepage .features h2 {
+        font-size: 1.65rem; }
+      .homepage section {
+        padding-top: 48px;
+        padding-bottom: 48px; } }
 
 /*# sourceMappingURL=home.css.map */

@@ -20,27 +20,26 @@ function StopSpendingHome() {
         <section className={'explain'}>
             <div className={'container'}>
                 <p>
-                    Stop Spending is a simple web application that allows anyone who wishes to keep a personal log of their
-                    daily expenses and view them over time. Log expenses, identify habits, set goals, and STOP SPENDING!
+                    Stop Spending is a web application that allows anyone who desires a simple way to keep a log of their
+                    daily expenses and view them over time. Log expenses, name spending habits, set goals, and STOP SPENDING!
                 </p>
             </div>
         </section>
         <section className={'features'}>
             <div className={'container'}>
-                <h2 className={'text-center'}>How to Stop Spending</h2>
-                <br/>
+                <h2 className={'text-center'}><PiggyBank flip icon={'stop_sign.svg'}/> How to Stop Spending</h2>
                 <br/>
                 <br/>
                 <div className={'feature'}>
                     <div className={'row'}>
-                        <div className={'col-4'}>
+                        <div className={'col-12 col-md-4'}>
                             <h5>#1) Log Your Expenses Manually</h5>
                             <p>Many expense tracking apps automate much of the expense logging process thru integrations with your
                                 personal accounts such as bank, credit card, etc., thereby fighting the battle for you.</p>
-                            <p>The Stop Spending App doesn't need to know about any of these.</p>
+                            <p>The Stop Spending App doesn't need to know about any of these!</p>
                             <p>Take ownership of your expenses by keeping an honest and accurate log of your wallet. It is half the battle!</p>
                         </div>
-                        <div className={'col-8 screen'}>
+                        <div className={'col-md-8 col-12 screen'}>
                             <div className={'card'}>
                                 <div className={'card-body'}>
                                     <div className={'row'}>
@@ -59,10 +58,12 @@ function StopSpendingHome() {
                 </div>
                 <br/>
                 <div className={'feature'}>
+                    <br/>
                     <div className={'row'}>
-                        <div className={'col-4'}>
+                        <div className={'col-md-4 col-12'}>
                             <h5>#2) Name Your Spending Habits</h5>
-                            <p>That $3 coffee in the morning is much more expensive than you think. So put a label on it!</p>
+                            <p>That $3 coffee in the morning is much more expensive than you think.</p>
+                            <p>So put a label on it!</p>
                             <p>Select an icon for your spending habit and name it. Habit names can be as general or specific as
                                 you like.</p>
                             <p> Some examples: </p>
@@ -79,7 +80,7 @@ function StopSpendingHome() {
                             </p>
                         </div>
 
-                        <div className={'col-8 screen'}>
+                        <div className={'col-md-8 col-12 screen'}>
                             <div className={'card'}>
                                 <div className={'card-body'}>
                                     <img alt={'not found!'} src={require('../../assets/screens/my_habit.png')}/>
@@ -90,8 +91,9 @@ function StopSpendingHome() {
                 </div>
                 <br/>
                 <div className={'feature'}>
+                    <br/>
                     <div className={'row'}>
-                        <div className={'col-4'}>
+                        <div className={'col-md-4 col-12'}>
                             <h5>#3) Set Budgets and Keep Logging</h5>
                             <p>
                                 Once you have identified your personal spending habits, it is time to log expenses accordingly.
@@ -101,7 +103,7 @@ function StopSpendingHome() {
                             </p>
                         </div>
 
-                        <div className={'col-8 screen'}>
+                        <div className={'col-md-8 col-12 screen'}>
                             <div className={'card'}>
                                 <div className={'card-body'}>
                                     <div className={'row'}>
@@ -121,8 +123,9 @@ function StopSpendingHome() {
                 </div>
                 <br/>
                 <div className={'feature'}>
+                    <br/>
                     <div className={'row'}>
-                        <div className={'col-4'}>
+                        <div className={'col-md-4 col-12'}>
                             <h5>#4) Set Goals -- Micro-Budget, Abstain, Beat</h5>
                             <p>
                                 Is someone's birthday coming up? Or any event that will inevitably cause you to spend more
@@ -135,7 +138,7 @@ function StopSpendingHome() {
                             </p>
                         </div>
 
-                        <div className={'col-8 screen'}>
+                        <div className={'col-md-8 col-12 screen'}>
                             <div className={'card'}>
                                 <div className={'card-body'}>
                                     <div className={'row'}>
