@@ -20,7 +20,8 @@ function StopSpendingHome({user}) {
             <div className={'container'}>
                 <p>
                     Stop Spending is a web application for anyone who desires a simple way to keep a log of their
-                    daily expenses and view them over time. Log expenses, name spending habits, set goals, and STOP SPENDING!
+                    daily expenses and view them over time. With it you can log expenses, create spending habits, set
+                    budgets, goals  and more.
                 </p>
             </div>
         </section>
@@ -35,7 +36,7 @@ function StopSpendingHome({user}) {
                             <h5>#1) Log Your Expenses Manually</h5>
                             <p>Many expense tracking apps automate much of the expense logging process thru integrations with your
                                 personal accounts such as bank, credit card, etc., thereby fighting the battle for you.</p>
-                            <p>The Stop Spending App doesn't need to know about any of these!</p>
+                            <p>The Stop Spending App doesn't need to know about any of these.</p>
                             <p>Take ownership of your expenses by keeping an honest and accurate log of your wallet. It is half the battle!</p>
                         </div>
                         <div className={'col-md-8 col-12 screen'}>
