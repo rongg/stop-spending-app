@@ -272,8 +272,8 @@ class UserHome extends React.Component {
                         </div>
                         <div className={'card-body text-center'}>
                             <div className={'row'}>
-                                {!worstHabits.length && <div className={'col-12'}><h6>No Habits!</h6></div>}
-                                {worstHabits.map((h, index) =>
+                                {worstHabits.length <= 1 && <div className={'col-12'}><h6>No Habits!</h6></div>}
+                                {worstHabits.length > 1 && worstHabits.map((h, index) =>
                                     <div className={'col-4 w-habit'} key={'w-habit-' + index}>
                                         <a href={h._id ? '/habit/' + h._id : '/habit/new'}>
                                             <Icon path={h.icon}/>
@@ -413,7 +413,8 @@ class UserHome extends React.Component {
             <br/>
 
             <div className={'row habits col-sm-12'}>
-                {habits.filter(h => h._id).map((h, index) => (
+                {habits.length <= 1 && <h6 className={'m-auto'}>No Habits!</h6>}
+                {habits.length > 1 && habits.filter(h => h._id).map((h, index) => (
                     <div className="col-4 col-lg-2 col-md-6 col-sm-12" key={'habit-card-' + index}>
                         <HabitCard text={h.name}
                                    spent={Math.round(h.spent)}
@@ -425,6 +426,7 @@ class UserHome extends React.Component {
             </div>
             <br/>
 
+            {fHabits.length > 0 &&
             <div className={'row stats'}>
                 <div className="col-sm-6">
                     <div className='card chart'>
@@ -437,7 +439,7 @@ class UserHome extends React.Component {
                         <MyChart type={'pie'} label={'Habits'} data={fHabits} valueKey={'spent'}/>
                     </div>
                 </div>
-            </div>
+            </div>}
 
             <br/>
 

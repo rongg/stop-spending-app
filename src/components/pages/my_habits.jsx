@@ -27,6 +27,7 @@ class MyHabits extends React.Component {
             </div>
             <br/>
             <div className='row'>
+                {!this.state.habits.length && <h6 className={'m-auto'}>No Habits!</h6>}
                 {this.state.habits.map((habit, index) => (
                     <div className="col-lg-3 col-md-6 col-sm-12 card-container" key={'habit-card-' + index}>
                         <HabitCard text={habit.name} budgeted={habit.budget} type={habit.budgetType} iconUrl={habit.icon || habits.getDefaultIcon()} link={'/habit/' + habit._id}
