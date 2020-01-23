@@ -66,7 +66,8 @@ export const schema = {
     _id: Joi.string().max(25),
     name: Joi.string().min(3).max(50).required().label("Name"),
     email: Joi.string().min(5).max(50).required().email().label("Email"),
-    password: Joi.string().min(5).max(25).required().label("Password")
+    password: Joi.string().min(5).max(25).required().label("Password"),
+    isVerified: Joi.boolean().label("IsVerified")
 };
 
 export default {register, update, schema, verifyAccount, resendVerificationToken, requestPasswordReset, resetPassword};

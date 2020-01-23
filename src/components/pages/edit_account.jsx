@@ -7,8 +7,6 @@ class EditAccount extends Form {
         data: EditAccount.prepUser(this.props.user),
         errors: {
             name: null
-            // email: null,
-            // password: null
         },
         formHelp: this.state.formHelp
     };
@@ -27,9 +25,7 @@ class EditAccount extends Form {
             <h1>Edit Account</h1>
             <form aria-describedby="formHelp">
                 <div className="form-fields">
-                    {this.renderInput('name', 'Name', "text", "name",true)}
-                    {/*{this.renderInput('email', 'Email', "text")}*/}
-                    {/*{this.renderInput('password', 'Password', "password")}*/}
+                    {this.renderInput('name', 'Name', "text", "name", true)}
                 </div>
                 {this.renderButton('Save')}
                 <div className={"form-group"}>
@@ -40,14 +36,19 @@ class EditAccount extends Form {
 
     }
 
-    postForm(){
-        console.log('PUT', this.state.data);
-
+    postForm() {
         users.update(this.state.data)
-            .then(res => {
-                console.log(res);
+            .then(() => {
+                this.setState({
+                    errors: {
+                        count: 0
+                    },
+                    formHelp: 'Success!'
+                });
+                window.location = '/logout';
             }).catch(err => {
-                console.error(err);
+            console.error(err);
+
         })
     }
 
