@@ -32,6 +32,18 @@ class EditAccount extends Form {
                     {this.renderHelp()}
                 </div>
             </form>
+
+            <button type={'button'} className={'btn btn-link'} onClick={e => {
+                if (window.confirm('Delete this account? This cannot be undone.')) {
+                    users.deleteUser(this.props.user)
+                        .then(() => {
+                            window.location = '/logout';
+                        }).catch(err => {
+                        console.error(err);
+                    });
+                }
+            }}>Delete Account
+            </button>
         </div>
 
     }

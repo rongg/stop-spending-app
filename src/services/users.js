@@ -26,6 +26,17 @@ export function update(user){
     });
 }
 
+export function deleteUser(user){
+    return http.request({
+        method: 'delete',
+        url: apiUrl + '/' + user._id,
+        headers: {
+            'Content-Type': 'application/json'
+        },
+        data: user
+    });
+}
+
 export function verifyAccount(token){
     return http.request({
         method: 'post',
@@ -70,4 +81,4 @@ export const schema = {
     isVerified: Joi.boolean().label("IsVerified")
 };
 
-export default {register, update, schema, verifyAccount, resendVerificationToken, requestPasswordReset, resetPassword};
+export default {register, update, schema, verifyAccount, resendVerificationToken, requestPasswordReset, resetPassword, deleteUser};
