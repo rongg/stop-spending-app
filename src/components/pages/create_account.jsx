@@ -27,7 +27,7 @@ class CreateAccountForm extends Form {
     render() {
 
         return <div className="form">
-            <h1>Create Account</h1>
+            <h1>Register</h1>
             <form aria-describedby="formHelp">
                 <div className="form-fields">
                     {this.renderInput('name', 'Name', "text", "name", true)}

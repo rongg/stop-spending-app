@@ -2,7 +2,7 @@ import React from 'react';
 import '../../styles/home.css';
 import PiggyBank from "../common/piggy_bank";
 
-function StopSpendingHome() {
+function StopSpendingHome({user}) {
     return <div className={'homepage page'}>
         <section className={'splash text-center'}>
             <div className={'container'}>
@@ -10,9 +10,8 @@ function StopSpendingHome() {
                     <div className={'col-12'}>
                         <PiggyBank width={275} height={175}/>
                         <h4 style={{marginTop: '10px', marginBottom: '16px'}}>A habit-based personal expense logger.</h4>
-                        <button className="btn btn-primary" onClick={() => {
-                        }}>Register
-                        </button>
+                        {!user && <a href={'/register'} className="btn btn-primary">Start Logging</a>}
+                        {user && <a href={'/expense/new'} className="btn btn-primary">Log an Expense</a>}
                     </div>
                 </div>
             </div>
@@ -20,7 +19,7 @@ function StopSpendingHome() {
         <section className={'explain'}>
             <div className={'container'}>
                 <p>
-                    Stop Spending is a web application that allows anyone who desires a simple way to keep a log of their
+                    Stop Spending is a web application for anyone who desires a simple way to keep a log of their
                     daily expenses and view them over time. Log expenses, name spending habits, set goals, and STOP SPENDING!
                 </p>
             </div>

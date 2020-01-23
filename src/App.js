@@ -75,7 +75,7 @@ class App extends React.Component {
                         }}/>
 
                         <Route path="/register" exact component={Register}/>
-                        <Route path="/" exact component={StopSpendingHome}/>
+                        <Route path="/" exact render={() => <StopSpendingHome user={user}/>}/>
                         <Route path="/login" render={props => {
                             if (user) return <Redirect to="/habits"/>;
                             return <Login {...props} />

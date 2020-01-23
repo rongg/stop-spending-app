@@ -5,8 +5,7 @@ const Footer = ({user}) => {
     return (
         <footer className="page-footer font-small blue pt-4">
             <div className="footer-copyright text-center py-3">© 2020 Copyright:
-                <a href="https://mdbootstrap.com/education/bootstrap/"> stop-spending.com</a>
-                <span> Built with React</span>
+                <a href="https://stop-spending-app.herokuapp.com/"> stop-spending.com</a>
             </div>
 
         </footer>
