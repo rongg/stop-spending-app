@@ -51,7 +51,7 @@ class CreateAccountForm extends Form {
                 },
                 formHelp: 'Success!'
             });
-            window.location = '/habits';
+            window.location = '/summary';
         }).catch(err => {
             let helpMessage = 'There was a problem with creating your account!';
             if (err.response && err.response.status === 400) {
