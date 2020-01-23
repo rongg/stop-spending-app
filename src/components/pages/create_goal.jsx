@@ -129,7 +129,6 @@ class CreateGoal extends Form {
     postForm() {
         const goal = this.state.data;
         if(goal.type === 'Abstain') goal.start = moment(goal.start).startOf('day');
-        console.log('POST', goal);
         habits.createGoal(goal).then(response => {
             this.setState({
                 errors: {
