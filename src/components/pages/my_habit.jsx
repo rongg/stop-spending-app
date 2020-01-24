@@ -379,7 +379,6 @@ class MyHabit extends React.Component {
                                     <div><Icon path={'app_icons/target.svg'}/> <span>Last Goal</span></div>}
                                 </div>
                                 <div className={'card-body'}>
-                                    {/*<div className={'row'}>*/}
                                         <div className={'col-12 text-center'}>
                                             {!currentGoal && !prevGoal &&
                                             <div><br/><h5 className={''}>No Goal Set!</h5></div>}
@@ -388,10 +387,9 @@ class MyHabit extends React.Component {
                                             {prevGoal && (prevGoal.type === 'Micro-Budget' || prevGoal.type === 'Beat' || prevGoal.type === 'Abstain') &&
                                             <div>
                                                 <br/>
-                                                <GoalProgress goal={prevGoal} expenses={goalExpenses}/>
+                                                <GoalProgress goal={prevGoal} no_edit expenses={goalExpenses}/>
                                             </div>}
                                         </div>
-                                    {/*</div>*/}
                                 </div>
                             </div>
                         </div>

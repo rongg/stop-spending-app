@@ -10,7 +10,7 @@ import FuelLevel from "../common/fuel_level";
 import Count from "../common/count";
 
 
-function GoalProgress({goal, expenses}) {
+function GoalProgress({goal, expenses, no_edit}) {
     const {_id, name, target, start, end, type} = goal;
     let period = 'Day';
 
@@ -84,8 +84,8 @@ function GoalProgress({goal, expenses}) {
     }
 
     return <div className={`goal-progress ` + period.toLowerCase() + '-prog'}>
-        <h5>{name} - {type} {predicate} <a href={`/goal/${_id}/edit`}><Icon className={'glyph-action'}
-                                                                            path={'app_icons/glyph/edit.svg'}/></a></h5>
+        <h5>{name} - {type} {predicate} {!no_edit && <a href={`/goal/${_id}/edit`}><Icon className={'glyph-action'}
+                                                                            path={'app_icons/glyph/edit.svg'}/></a>}</h5>
         {period !== 'Month' && !showPassFail && progressDisplay}
         {template}
     </div>;
