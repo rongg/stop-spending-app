@@ -15,7 +15,6 @@ import ExpenseCard from "../expense/expense_card";
 import Moment from "react-moment";
 import Icon from "../common/Icon";
 import PiggyBank from "../common/piggy_bank";
-import NavBar from "../../App";
 import Loader from "../common/loader";
 
 class UserHome extends React.Component {

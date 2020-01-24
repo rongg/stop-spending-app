@@ -1,10 +1,9 @@
 import React from 'react';
-import Icon from "./Icon";
 
-function Loader({piggy}){
+function Loader({piggy, className}){
 
     return (
-        <div className="loader text-center">
+        <div className={"loader " + className}>
             {!piggy  && <i className="fa fa-cog fa-spin" />}
             {piggy && piggyLoader()}
         </div>
@@ -33,7 +32,6 @@ function Loader({piggy}){
                   d="M214 80 Q300 60,370 85 L367 90 Q305 70,215 85 Z"/>
             <ellipse id="eye" fill={"#2f2f2f"} cx="110" cy="130" rx="10" ry="13"/>
             <i className="fa fa-cog fa-spin" />
-            {/*{Icon.getSVGImage({file: 'dollar_sign.svg', x: '210', y: '125', height: '150', width: '150'}, false)}*/}
             <image x={x} y={y} height={height} width={width} xlinkHref={require('../../assets/icons/app_icons/gear_green.svg')} >
                 <animateTransform attributeName="transform"
                                   attributeType="XML"

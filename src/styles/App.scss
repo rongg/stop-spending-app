@@ -35,9 +35,18 @@ input::placeholder{
 
 }
 
+.loader{
+  text-align: center;
+}
+
+.loader.post-loader{
+  text-align: initial;
+}
+
 .fa.fa-spin{
-  font-size: 64px;
+  font-size: 56px;
   margin-top: 80px;
+  color: rgb(255, 179, 192);
 }
 
 
@@ -59,7 +68,6 @@ input::placeholder{
 }
 
 div.app{
-  //background: #f5f7fa;
   background: #f7f7f7;
   font-family: $app_font;
 }

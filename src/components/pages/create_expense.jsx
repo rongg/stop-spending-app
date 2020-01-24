@@ -113,7 +113,6 @@ class CreateExpense extends Form {
 
     postForm() {
         const expense = this.state.data;
-
         expenses.create(expense).then(response => {
             this.setState({
                 errors: {
