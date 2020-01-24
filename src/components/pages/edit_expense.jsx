@@ -5,6 +5,7 @@ import habits from "../../services/habits";
 import axios from 'axios';
 import moment from 'moment';
 import {Redirect} from "react-router-dom";
+import Icon from "../common/Icon";
 
 class EditExpense extends Form {
     constructor(props) {
@@ -80,7 +81,7 @@ class EditExpense extends Form {
 
         return <div className='m-auto page'>
             <div className="form">
-                <h2>Edit Expense</h2>
+                <h2><Icon path={'app_icons/log.svg'} /> Edit Expense</h2>
                 <form aria-describedby="formHelp">
                     <div className="form-fields">
                         {this.renderDollarInput('amount', 'I spent', true)}

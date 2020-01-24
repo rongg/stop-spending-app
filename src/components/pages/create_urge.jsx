@@ -4,6 +4,7 @@ import habits from "../../services/habits";
 import axios from 'axios';
 import moment from "moment";
 import {Redirect} from "react-router-dom";
+import Icon from "../common/Icon";
 
 class CreateUrge extends Form {
     constructor(props) {
@@ -64,11 +65,11 @@ class CreateUrge extends Form {
 
         return <div className='m-auto page'>
             <div className="form">
-                <h2>Log an Urge</h2>
+                <h2><Icon path={'app_icons/devil.svg'}/> Log an Urge</h2>
                 <form aria-describedby="formHelp">
                     <div className="form-fields">
-                        {this.renderSelect(habitOptions, 'habitId', 'Spending Habit', 'Select a Habit!')}
-                        {this.renderDatePicker('date', 'Date')}
+                        {this.renderSelect(habitOptions, 'habitId', 'I Resisted the Urge to Spend on...', 'Select a Habit!')}
+                        {this.renderDatePicker('date', 'On')}
                     </div>
                     {this.renderButton('Log It!')}
                     <div className={"form-group"}>

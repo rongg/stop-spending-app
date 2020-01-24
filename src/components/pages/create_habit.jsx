@@ -1,6 +1,7 @@
 import React from 'react';
 import Form from '../common/form';
 import habits from "../../services/habits";
+import Icon from "../common/Icon";
 
 class CreateHabit extends Form {
     constructor(props) {
@@ -29,7 +30,7 @@ class CreateHabit extends Form {
 
     render() {
         return <div className="form">
-            <h1>Create a Spending Habit</h1>
+            <h2><Icon path={'app_icons/dollar_sign.svg'} /> Create a Spending Habit</h2>
             <form aria-describedby="formHelp">
                 <div className="form-fields">
                     {this.renderInput('name', 'Name', "text", "name",true)}
