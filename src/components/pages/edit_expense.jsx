@@ -6,6 +6,7 @@ import axios from 'axios';
 import moment from 'moment';
 import {Redirect} from "react-router-dom";
 import Icon from "../common/Icon";
+import Loader from "../common/loader";
 
 class EditExpense extends Form {
     constructor(props) {
@@ -34,12 +35,14 @@ class EditExpense extends Form {
                 needWant: null,
                 date: null
             },
-            formHelp: this.state.formHelp
+            formHelp: this.state.formHelp,
+            loading: false
         };
     }
 
     componentDidMount() {
-        if(this.props.match.params.habitId) {
+        this.setState({loading: true});
+        if (this.props.match.params.habitId) {
             axios.all([expenses.getForId(this.props.match.params.id), habits.getForId(this.props.match.params.habitId), habits.get()])
                 .then(axios.spread((expenseRes, habitRes, allHabitsRes) => {
                     const expense = expenseRes.data;
@@ -50,8 +53,10 @@ class EditExpense extends Form {
                         data: expense,
                         habits: allHabitsRes.data
                     })
-                }));
-        }else{
+                })).finally(() => {
+                this.setState({loading: false});
+            });
+        } else {
             axios.all([expenses.getForId(this.props.match.params.id), habits.get()]).then(res => {
                 const expense = res[0].data;
                 expense.date = moment(expense.date).local().toDate();
@@ -63,6 +68,8 @@ class EditExpense extends Form {
                 })
             }).catch(err => {
                 console.error(err);
+            }).finally(() => {
+                this.setState({loading: false});
             });
         }
     }
@@ -70,8 +77,19 @@ class EditExpense extends Form {
     schema = expenses.schema;
 
     render() {
-        if(this.state.redirectTo){
-            return <Redirect to={this.getRedirectLoc(this.state.redirectTo)} />
+        if (this.state.redirectTo) {
+            return <Redirect to={this.getRedirectLoc(this.state.redirectTo)}/>
+        }
+
+        if (this.state.loading) {
+            return <div className='m-auto page'>
+                <div className="form">
+                    <h2><Icon path={'app_icons/log.svg'}/> Edit Expense</h2>
+                    <form aria-describedby="formHelp">
+                        <Loader/>
+                    </form>
+                </div>
+            </div>;
         }
 
         const {_id} = this.state.habit;
@@ -81,7 +99,7 @@ class EditExpense extends Form {
 
         return <div className='m-auto page'>
             <div className="form">
-                <h2><Icon path={'app_icons/log.svg'} /> Edit Expense</h2>
+                <h2><Icon path={'app_icons/log.svg'}/> Edit Expense</h2>
                 <form aria-describedby="formHelp">
                     <div className="form-fields">
                         {this.renderDollarInput('amount', 'I spent', true)}
@@ -112,7 +130,7 @@ class EditExpense extends Form {
                     count: 0
                 },
                 formHelp: 'Success!',
-                redirectTo: expense.habitId ?  '/habit/' + expense.habitId : '/'
+                redirectTo: expense.habitId ? '/habit/' + expense.habitId : '/'
             });
 
         }).catch(err => {

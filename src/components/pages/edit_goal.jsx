@@ -7,6 +7,7 @@ import moment from "moment";
 import {Redirect} from "react-router-dom";
 import Icon from "../common/Icon";
 import ExpenseDateRange from "../expense/expense_date_range";
+import Loader from "../common/loader";
 
 class EditGoal extends Form {
     minDate = moment().add(1, 'day').startOf('day').toDate();
@@ -41,12 +42,14 @@ class EditGoal extends Form {
             errors: {
                 date: null
             },
-            formHelp: this.state.formHelp
+            formHelp: this.state.formHelp,
+            loading: false
         };
     }
 
     componentDidMount() {
         let goalId = this.props.match.params.id;
+        this.setState({loading: true});
         if (goalId) {
             axios.all([habits.getGoalById(goalId), habits.get()])
                 .then(res => {
@@ -66,12 +69,16 @@ class EditGoal extends Form {
                     });
                     if(goal.type === 'Beat') this.getExpenses();
 
-                });
+                }).finally(() => {
+                    this.setState({loading: false});
+            });
         } else {
             habits.get().then(res => {
                 this.setState({
                     habits: res.data
                 })
+            }).finally(() => {
+                this.setState({loading: false});
             });
         }
     }
@@ -80,6 +87,17 @@ class EditGoal extends Form {
     render() {
         if (this.state.redirectTo) {
             return <Redirect to={this.getRedirectLoc(this.state.redirectTo)}/>
+        }
+
+        if(this.state.loading){
+            return <div className='m-auto page'>
+                <div className="form">
+                    <h2><Icon path={'app_icons/target.svg'}/> Edit Goal</h2>
+                    <form aria-describedby="formHelp">
+                        <Loader/>
+                    </form>
+                </div>
+            </div>;
         }
 
         const {type} = this.state.data;

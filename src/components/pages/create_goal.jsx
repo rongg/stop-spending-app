@@ -7,6 +7,7 @@ import moment from "moment";
 import {Redirect} from "react-router-dom";
 import Icon from "../common/Icon";
 import ExpenseDateRange from "../expense/expense_date_range";
+import Loader from "../common/loader";
 
 class CreateGoal extends Form {
     minDate = moment().add(1, 'day').startOf('day').toDate();
@@ -41,12 +42,14 @@ class CreateGoal extends Form {
             errors: {
                 date: null
             },
-            formHelp: this.state.formHelp
+            formHelp: this.state.formHelp,
+            loading: false
         };
     }
 
     componentDidMount() {
         let habitId = this.props.match.params.id;
+        this.setState({loading: true});
         if (habitId) {
             axios.all([habits.getForId(habitId), habits.get()])
                 .then(res => {
@@ -58,12 +61,16 @@ class CreateGoal extends Form {
                         habits: res[1].data,
                         data
                     })
-                });
+                }).finally(() => {
+                    this.setState({loading: false});
+            });
         } else {
             habits.get().then(res => {
                 this.setState({
                     habits: res.data
                 })
+            }).finally(() => {
+                this.setState({loading: false});
             });
         }
     }
@@ -73,6 +80,17 @@ class CreateGoal extends Form {
         if (this.state.redirectTo) {
             return <Redirect to={this.getRedirectLoc(this.state.redirectTo)}/>
         }
+        if(this.state.loading){
+            return <div className='m-auto page'>
+                <div className="form">
+                    <h2><Icon path={'app_icons/target.svg'}/> Set a Goal</h2>
+                    <form aria-describedby="formHelp">
+                        <Loader/>
+                    </form>
+                </div>
+            </div>;
+        }
+
         const {habits} = this.state;
 
         const {type} = this.state.data;
@@ -110,7 +128,7 @@ class CreateGoal extends Form {
                         {this.renderInput("name", "Goal Name", "text", "name your goal", true)}
                         {this.renderSelect(habitOptions, 'habitId', 'Habit', 'Select a Habit!', this.onHabitChange.bind(this))}
                         {this.renderRadioGroup('type', ['Micro-Budget', 'Beat', 'Abstain'], 'Goal Type', this.onGoalTypeChange.bind(this))}
-                        {type === 'Micro-Budget' && this.renderDollarInput('target', 'Can Spend', null,  false)}
+                        {type === 'Micro-Budget' && this.renderDollarInput('target', 'Can Spend', null, false)}
                         {type === 'Abstain' && this.renderInput("target", "Collect Total Days of Not Spending", 'number', "days", false, 'half')}
                         {type && type !== 'Micro-Budget' && type !== 'Beat' && this.renderRadioGroup('period', periodChoices, 'Until the End of the', this.onPeriodSet.bind(this))}
                         {type && type === 'Beat' && (this.renderRadioGroup('period', periodChoices, `Spend Less Than Last`, this.onPeriodSet.bind(this)))}
@@ -128,7 +146,7 @@ class CreateGoal extends Form {
 
     postForm() {
         const goal = this.state.data;
-        if(goal.type === 'Abstain') goal.start = moment(goal.start).startOf('day');
+        if (goal.type === 'Abstain') goal.start = moment(goal.start).startOf('day');
         habits.createGoal(goal).then(response => {
             this.setState({
                 errors: {
@@ -152,7 +170,7 @@ class CreateGoal extends Form {
                 })
             } else {
                 helpMessage = 'An unexpected problem occurred when submitting the request!';
-                if(err.response && err.response.data) helpMessage = err.response.data;
+                if (err.response && err.response.data) helpMessage = err.response.data;
                 this.setState({
                     errors: {
                         count: 1
@@ -171,7 +189,7 @@ class CreateGoal extends Form {
             case 'Beat':
                 data.end = moment().endOf(period.toLowerCase()).toDate();
                 data.target = ExpenseDateRange.sumExpenseAmounts(wmdExpenses[period.toLowerCase()]);
-                if(data.target < 1) data.target = 1;
+                if (data.target < 1) data.target = 1;
                 this.setState({
                     data
                 });
@@ -181,7 +199,7 @@ class CreateGoal extends Form {
                 this.setState({
                     data
                 });
-                if(type === 'Abstain'){
+                if (type === 'Abstain') {
                     const maxDays = (period === 'Month') ? this.daysLeftInMonth : this.daysLeftInWeek;
                     this.schema = habits.goalSchema.abstain(maxDays);
                 }
@@ -195,11 +213,11 @@ class CreateGoal extends Form {
         if (this.state.data.type === 'Beat') this.getExpenses();
     }
 
-    onGoalTypeChange(){
+    onGoalTypeChange() {
         let {data} = this.state;
         data.target = '';
 
-        switch(data.type){
+        switch (data.type) {
             case 'Beat':
                 this.schema = habits.goalSchema.main;
                 this.getExpenses();
@@ -213,7 +231,8 @@ class CreateGoal extends Form {
                 data.period = 'custom';
                 data.end = this.minDate;
                 break;
-            default: return;
+            default:
+                return;
         }
 
         this.setState({data});

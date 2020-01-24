@@ -30,6 +30,7 @@ import ResetPassword from "./components/pages/reset_password";
 import CreateUrge from "./components/pages/create_urge";
 import CreateGoal from "./components/pages/create_goal";
 import ErrorPage from "./components/pages/error_page";
+import Loader from "./components/common/loader";
 
 
 class App extends React.Component {

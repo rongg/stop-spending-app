@@ -14,6 +14,7 @@ import PiggySummary from "../common/piggy_summary";
 import SimpleBar from "../common/simple_bar";
 import MyChart from "../common/my_chart";
 import GoalProgress from "../goal/goal_progress";
+import Loader from "../common/loader";
 
 class MyHabit extends React.Component {
     defaultNav = 'week';
@@ -32,7 +33,8 @@ class MyHabit extends React.Component {
         urges: [],
         goals: [],
         currentGoal: null,
-        prevGoal: null
+        prevGoal: null,
+        loading: false
     };
 
     constructor(props) {
@@ -94,12 +96,15 @@ class MyHabit extends React.Component {
     loadData() {
         const {start, end} = this.state;
         const habitId = this.props.match.params.id;
+        this.setState({loading: true});
 
         axios.all([habits.getForId(habitId), expenses.getForHabit(habitId, start, end),
             habits.getUrgesForHabit(habitId, start, end)])
             .then(res => {
                 this.setState({habit: res[0].data, expenses: res[1].data, urges: res[2].data});
-            });
+            }).finally(() => {
+                this.setState({loading: false});
+        });
     }
 
     setCurrentNav(loc, start, end) {
@@ -129,7 +134,7 @@ class MyHabit extends React.Component {
         let {name, budget, icon, budgetType} = this.state.habit;
         const _id = this.props.match.params.id;
 
-        const {currentNav, start, end, expenses, smallScreen, urges, goalExpenses} = this.state;
+        const {currentNav, start, end, expenses, smallScreen, urges, goalExpenses, loading} = this.state;
         let {currentGoal, prevGoal} = this.state;
         if (currentGoal && moment().isAfter(moment(currentGoal.end))) {
             currentGoal = null;
@@ -176,51 +181,69 @@ class MyHabit extends React.Component {
         const wantExpAmt = ExpenseDateRange.sumExpenseAmounts(expenses.filter(e => e.needWant && e.needWant.toLowerCase() === 'want'));
 
         let showGoals = currentGoal || prevGoal;
+
+        const dateHead = <div className={`date-head`}>
+            <div className={`date-nav row`}>
+                <div className="col-12 expenses-nav text-left">
+                    <div className='btn-group' role='group'>
+                        <button
+                            onClick={() => this.setCurrentNav('month', moment().startOf('month'), moment().endOf('month'))}
+                            className={`btn btn-secondary ${currentNav === 'month' ? 'active' : 'inactive'}`}>Month
+                        </button>
+                        <button
+                            onClick={() => this.setCurrentNav('week', moment().startOf('week'), moment().endOf('week'))}
+                            className={`btn btn-secondary ${currentNav === 'week' ? 'active' : 'inactive'}`}>Week
+                        </button>
+                        <button
+                            onClick={() => this.setCurrentNav('day', moment().startOf('day'), moment().endOf('day'))}
+                            className={`btn btn-secondary ${currentNav === 'day' ? 'active' : 'inactive'}`}>Day
+                        </button>
+                    </div>
+                </div>
+
+                <div className='col-12 date-control'>
+                    <div className={'row'}>
+                        <div className={'col-3'}>
+                            {leftNav}
+                        </div>
+                        <div className='col-6 text-center'>
+                            <div style={{padding: '5px'}}>
+                                {currentNav === 'week' ?
+                                    <span className="nav-title"><Moment
+                                        format={dateFormat}>{start}</Moment> - <Moment
+                                        format={dateFormat2 || dateFormat}>{end}</Moment></span> :
+                                    <span className="nav-title"><Moment format={dateFormat}>{start}</Moment></span>}
+                            </div>
+                        </div>
+                        <div className={'col-3'}>
+                            {rightNav}
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>;
+
+
+        if (loading) {
+            return <div className="m-auto page my-habit container">
+                <div className={`row`}>
+                    <div className='col-sm-12'>
+                        <h2 className={'habit-title'}><Icon path={icon} habit={true}/> My Habit</h2>
+                        <br/>
+                        {dateHead}
+                        <Loader/>
+                    </div>
+                </div>
+            </div>
+        }
+
+
         return <div className="m-auto page my-habit container">
             <h2 className={'habit-title'}><Icon path={icon} habit={true}/>
                 <span>{name.charAt(0).toUpperCase() + name.slice(1)}</span> <a href={_id + '/edit'}><Icon
                     path={'app_icons/glyph/edit.svg'}/></a></h2>
             <br/>
-            <div className={`date-head`}>
-                <div className={`date-nav row`}>
-                    <div className="col-12 expenses-nav text-left">
-                        <div className='btn-group' role='group'>
-                            <button
-                                onClick={() => this.setCurrentNav('month', moment().startOf('month'), moment().endOf('month'))}
-                                className={`btn btn-secondary ${currentNav === 'month' ? 'active' : 'inactive'}`}>Month
-                            </button>
-                            <button
-                                onClick={() => this.setCurrentNav('week', moment().startOf('week'), moment().endOf('week'))}
-                                className={`btn btn-secondary ${currentNav === 'week' ? 'active' : 'inactive'}`}>Week
-                            </button>
-                            <button
-                                onClick={() => this.setCurrentNav('day', moment().startOf('day'), moment().endOf('day'))}
-                                className={`btn btn-secondary ${currentNav === 'day' ? 'active' : 'inactive'}`}>Day
-                            </button>
-                        </div>
-                    </div>
-
-                    <div className='col-12 date-control'>
-                        <div className={'row'}>
-                            <div className={'col-3'}>
-                                {leftNav}
-                            </div>
-                            <div className='col-6 text-center'>
-                                <div style={{padding: '5px'}}>
-                                    {currentNav === 'week' ?
-                                        <span className="nav-title"><Moment
-                                            format={dateFormat}>{start}</Moment> - <Moment
-                                            format={dateFormat2 || dateFormat}>{end}</Moment></span> :
-                                        <span className="nav-title"><Moment format={dateFormat}>{start}</Moment></span>}
-                                </div>
-                            </div>
-                            <div className={'col-3'}>
-                                {rightNav}
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
+            {dateHead}
 
 
             <div className="row habit-head section-head" style={{margin: '0'}}>
@@ -379,17 +402,17 @@ class MyHabit extends React.Component {
                                     <div><Icon path={'app_icons/target.svg'}/> <span>Last Goal</span></div>}
                                 </div>
                                 <div className={'card-body'}>
-                                        <div className={'col-12 text-center'}>
-                                            {!currentGoal && !prevGoal &&
-                                            <div><br/><h5 className={''}>No Goal Set!</h5></div>}
-                                            {currentGoal && (currentGoal.type === 'Micro-Budget' || currentGoal.type === 'Beat' || currentGoal.type === 'Abstain') &&
-                                            <GoalProgress goal={currentGoal} expenses={goalExpenses}/>}
-                                            {prevGoal && (prevGoal.type === 'Micro-Budget' || prevGoal.type === 'Beat' || prevGoal.type === 'Abstain') &&
-                                            <div>
-                                                <br/>
-                                                <GoalProgress goal={prevGoal} no_edit expenses={goalExpenses}/>
-                                            </div>}
-                                        </div>
+                                    <div className={'col-12 text-center'}>
+                                        {!currentGoal && !prevGoal &&
+                                        <div><br/><h5 className={''}>No Goal Set!</h5></div>}
+                                        {currentGoal && (currentGoal.type === 'Micro-Budget' || currentGoal.type === 'Beat' || currentGoal.type === 'Abstain') &&
+                                        <GoalProgress goal={currentGoal} expenses={goalExpenses}/>}
+                                        {prevGoal && (prevGoal.type === 'Micro-Budget' || prevGoal.type === 'Beat' || prevGoal.type === 'Abstain') &&
+                                        <div>
+                                            <br/>
+                                            <GoalProgress goal={prevGoal} no_edit expenses={goalExpenses}/>
+                                        </div>}
+                                    </div>
                                 </div>
                             </div>
                         </div>

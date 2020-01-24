@@ -15,6 +15,8 @@ import ExpenseCard from "../expense/expense_card";
 import Moment from "react-moment";
 import Icon from "../common/Icon";
 import PiggyBank from "../common/piggy_bank";
+import NavBar from "../../App";
+import Loader from "../common/loader";
 
 class UserHome extends React.Component {
     defaultNav = 'week';
@@ -28,7 +30,8 @@ class UserHome extends React.Component {
         goals: [],
         filters: {
             splurges: true
-        }
+        },
+        loading: false
     };
 
     constructor(props) {
@@ -67,7 +70,18 @@ class UserHome extends React.Component {
 
     render() {
         this.sortExpensesBy('desc');
-        const {expenses, start, end, smallScreen, currentNav, habits, scrollActive, filters, goals} = this.state;
+        const {expenses, start, end, smallScreen, currentNav, habits, scrollActive, filters, goals, loading} = this.state;
+
+        if (loading) {
+            return <div className="m-auto page container">
+                    <div className={`row`}>
+                        <div className='col-sm-12'>
+                            <h2 className={'text-left'}>My Spending Summary</h2>
+                            <Loader/>
+                        </div>
+                    </div>
+            </div>
+        }
 
         for (let i = 0; i < habits.length; i++) {
             habits[i].wantExpAmt = habits[i].expenses.filter(this.filterExp('want')).reduce((acc, e) => acc + e.amount, 0);
@@ -499,6 +513,8 @@ class UserHome extends React.Component {
     getHabitsAndExpensesAndGoals() {
         const {start, end} = this.state;
 
+        this.setState({loading: true});
+
         axios.all([expenses.get(start, end), habitService.getAllUrges(start, end), habitService.get(), habitService.getAllGoals({active: true})])
             .then(res => {
                 let expenses = res[0].data;
@@ -552,10 +568,13 @@ class UserHome extends React.Component {
                     habits,
                     goals
                 });
+
             })
             .catch(err => {
                 console.error(err);
-            });
+            }).finally(() => {
+                this.setState({loading: false});
+        });
     }
 
     handleScroll(e) {

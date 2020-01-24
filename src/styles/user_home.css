@@ -163,16 +163,13 @@ a:hover, a:visited, a:link, a:active {
 
 @media (min-width: 568px) {
   .fix-top {
-    width: 548px; } }
+    width: 580px; } }
 @media (min-width: 640px) {
-  .fix-top {
-    width: 517px; }
-
   .row.stats :nth-child(2) {
     margin-top: 0; } }
 @media (min-width: 768px) {
   .fix-top {
-    width: 641px; }
+    width: 704px; }
 
   .col-md-6.goal-summary {
     padding-right: 5px; }
@@ -184,7 +181,7 @@ a:hover, a:visited, a:link, a:active {
     margin-top: 0; }
 
   .fix-top {
-    width: 866px; }
+    width: 944px; }
 
   .col-md-6.goal-summary {
     padding-right: 15px; }
@@ -196,7 +193,7 @@ a:hover, a:visited, a:link, a:active {
     padding: 0; } }
 @media (min-width: 1200px) {
   .fix-top {
-    width: 1046px; } }
+    width: 1124px; } }
 @media (max-width: 767px) {
   .urges-summary {
     margin-top: 10px; }

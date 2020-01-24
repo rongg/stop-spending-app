@@ -1,7 +1,8 @@
 import React from 'react';
 import Form from '../common/form';
 import habits from "../../services/habits";
-import Icon from "./create_habit";
+import Icon from "../common/Icon";
+import Loader from "../common/loader";
 
 class EditHabit extends Form {
     constructor(props) {
@@ -22,11 +23,13 @@ class EditHabit extends Form {
                 budgetType: null,
                 icon: null
             },
-            formHelp: this.state.formHelp
+            formHelp: this.state.formHelp,
+            loading: false
         };
     }
 
     componentDidMount() {
+        this.setState({loading: true});
         habits.getForId(this.props.match.params.id).then(res => {
             delete res.data.__v;
             this.setState({
@@ -34,12 +37,22 @@ class EditHabit extends Form {
             });
         }).catch(err => {
             console.error(err);
-        });
+        }).finally(() => this.setState({loading: false}));
     }
 
     schema = habits.schema;
 
     render() {
+        if(this.state.loading){
+            return <div className='m-auto page'>
+                <div className="form">
+                    <h2><Icon path={'app_icons/dollar_sign.svg'} /> Edit Spending Habit</h2>
+                    <form aria-describedby="formHelp">
+                        <Loader/>
+                    </form>
+                </div>
+            </div>;
+        }
         return <div className="form">
             <h2><Icon path={'app_icons/dollar_sign.svg'} /> Edit Spending Habit</h2>
             <form aria-describedby="formHelp">

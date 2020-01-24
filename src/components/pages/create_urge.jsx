@@ -5,6 +5,7 @@ import axios from 'axios';
 import moment from "moment";
 import {Redirect} from "react-router-dom";
 import Icon from "../common/Icon";
+import Loader from "../common/loader";
 
 class CreateUrge extends Form {
     constructor(props) {
@@ -25,12 +26,14 @@ class CreateUrge extends Form {
             errors: {
                 date: null
             },
-            formHelp: this.state.formHelp
+            formHelp: this.state.formHelp,
+            loading: false
         };
     }
 
     componentDidMount() {
         let habitId = this.props.match.params.id;
+        this.setState({loading: true});
         if (habitId) {
             axios.all([habits.getForId(habitId), habits.get()])
                 .then(res => {
@@ -42,13 +45,13 @@ class CreateUrge extends Form {
                         habits: res[1].data,
                         data
                     })
-                });
+                }).finally(() => this.setState({loading: false}));
         } else {
             habits.get().then(res => {
                 this.setState({
                     habits: res.data
                 })
-            });
+            }).finally(() => this.setState({loading: false}));
         }
     }
 
@@ -58,6 +61,16 @@ class CreateUrge extends Form {
     render() {
         if (this.state.redirectTo) {
             return <Redirect to={this.getRedirectLoc(this.state.redirectTo)}/>
+        }
+        if (this.state.loading) {
+            return <div className='m-auto page'>
+                <div className="form">
+                    <h2><Icon path={'app_icons/devil.svg'}/> Log an Urge</h2>
+                    <form aria-describedby="formHelp">
+                        <Loader/>
+                    </form>
+                </div>
+            </div>
         }
 
         let habitOptions = [{_id: '', name: '- select a habit -'}];

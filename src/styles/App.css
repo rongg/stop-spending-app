@@ -24,6 +24,10 @@ input::placeholder {
   min-height: 800px;
   font-weight: 300; }
 
+.fa.fa-spin {
+  font-size: 64px;
+  margin-top: 80px; }
+
 .page-footer {
   padding-top: 0 !important;
   background: #fff; }

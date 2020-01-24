@@ -6,6 +6,7 @@ import axios from 'axios';
 import moment from "moment";
 import {Redirect} from "react-router-dom";
 import Icon from "../common/Icon";
+import Loader from "../common/loader";
 
 class CreateExpense extends Form {
     constructor(props) {
@@ -34,13 +35,15 @@ class CreateExpense extends Form {
                 needWant: null,
                 date: null
             },
-            formHelp: this.state.formHelp
+            formHelp: this.state.formHelp,
+            loading: false
         };
     }
 
     componentDidMount() {
         let habitId = this.props.match.params.id;
-        if(habitId) {
+        this.setState({loading: true});
+        if (habitId) {
             axios.all([habits.getForId(habitId), habits.get()])
                 .then(res => {
                     const data = this.state.data;
@@ -51,12 +54,16 @@ class CreateExpense extends Form {
                         habits: res[1].data,
                         data
                     })
-                });
-        }else{
+                }).finally(() => {
+                this.setState({loading: false});
+            });
+        } else {
             habits.get().then(res => {
                 this.setState({
                     habits: res.data
                 })
+            }).finally(() => {
+                this.setState({loading: false});
             });
         }
     }
@@ -65,8 +72,19 @@ class CreateExpense extends Form {
     schema = expenses.schema;
 
     render() {
-        if(this.state.redirectTo){
-            return <Redirect to={this.getRedirectLoc(this.state.redirectTo)} />
+        if (this.state.redirectTo) {
+            return <Redirect to={this.getRedirectLoc(this.state.redirectTo)}/>
+        }
+
+        if (this.state.loading) {
+            return <div className='m-auto page'>
+                <div className="form">
+                    <h2><Icon path={'app_icons/log.svg'}/> Log an Expense</h2>
+                    <form aria-describedby="formHelp">
+                        <Loader/>
+                    </form>
+                </div>
+            </div>;
         }
 
         let habitOptions = [{_id: '', name: '- select a habit -'}];
@@ -74,7 +92,7 @@ class CreateExpense extends Form {
 
         return <div className='m-auto page'>
             <div className="form">
-                <h2><Icon path={'app_icons/log.svg'} /> Log an Expense</h2>
+                <h2><Icon path={'app_icons/log.svg'}/> Log an Expense</h2>
                 <form aria-describedby="formHelp">
                     <div className="form-fields">
                         {this.renderDollarInput('amount', 'I spent', true)}
