@@ -34,7 +34,7 @@ function StopSpendingHome({user}) {
                     <div className={'row'}>
                         <div className={'col-12 col-md-4'}>
                             <h5>#1) Log Your Expenses Manually</h5>
-                            <p>Many expense tracking apps automate much of the expense logging process thru integrations with your
+                            <p>Many expense tracking apps automate much of the logging process through integrations with your
                                 personal accounts such as bank, credit card, etc., thereby fighting the battle for you.</p>
                             <p>The Stop Spending App doesn't need to know about any of these.</p>
                             <p>Take ownership of your expenses by keeping an honest and accurate log of your wallet. It is half the battle!</p>
