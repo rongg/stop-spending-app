@@ -146,7 +146,7 @@ class Form extends React.Component {
     renderHelp() {
         return <div>
             <small id={"formHelp"}
-                   className={this.state.errors.count ? 'red error-message' : 'hidden'}>{this.state.formHelp}</small>
+                   className={this.state.errors.count ? 'red error-message' : 'gone'}>{this.state.formHelp}</small>
             <small id={"formHelp"}
                    className={!this.state.errors.count && this.state.formHelp === 'Success!' ? 'green success' : 'gone'}>{this.state.formHelp}</small>
         </div>
