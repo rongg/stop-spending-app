@@ -9,6 +9,12 @@
     width: 100%; }
   .homepage section.explain {
     padding-bottom: 0; }
+  .homepage section.features :first-child.container {
+    border-top: none; }
+  .homepage section.features .container {
+    background-color: #fff;
+    padding: 32px;
+    border-top: 1px solid pink; }
   .homepage section {
     padding-top: 72px;
     padding-bottom: 72px; }

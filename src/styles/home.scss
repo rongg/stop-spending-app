@@ -13,6 +13,18 @@
   section.explain{
     padding-bottom: 0;
   }
+
+  section.features{
+    :first-child.container{
+      border-top: none;
+    }
+    .container{
+      background-color: #fff;
+      padding: 32px;
+      border-top: 1px solid pink;
+    }
+  }
+
   section{
     padding-top: 72px;
     padding-bottom: 72px;
